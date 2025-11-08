@@ -19,8 +19,8 @@
   "hero": {
     "greeting": "Olá, eu sou",
     "name": "Cleyton Mendes",
-    "title": "Desenvolvedor Full Stack",
-    "description": "Desenvolvedor sênior com mais de 4 anos de experiência especializado em soluções de e-commerce. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
+    "title": "Engenheiro de Software",
+    "description": "Engenheiro de Software com mais de 4 anos de experiência especializado em soluções de e-commerce. Especialista em React, TypeScript, Node.js e tecnologias web modernas. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
     "cta": {
       "downloadCV": "Baixar CV",
       "contact": "Entre em Contato"
@@ -35,25 +35,36 @@
     "subtitle": "Minha jornada no desenvolvimento de software",
     "timeline": [
       {
-        "position": "Desenvolvedor Full Stack Sênior",
-        "company": "Empresa de E-commerce",
-        "period": "2021 - Presente",
-        "description": "Liderando o desenvolvimento de soluções de e-commerce escaláveis, mentorando desenvolvedores juniores e implementando melhores práticas.",
+        "position": "Front-end Engineer",
+        "company": "GrupoQ",
+        "period": "Jul 2025 - Presente",
+        "description": "Atuo na manutenção e evolução de código legado em Ruby on Rails, garantindo a estabilidade da plataforma e implementando novas funcionalidades.",
         "achievements": [
-          "Aumentei a performance da plataforma em 40%",
-          "Liderei equipe de 5 desenvolvedores",
-          "Implementei pipelines de CI/CD"
+          "Mantive e evoluí codebase legado em Ruby on Rails",
+          "Desenvolvi soluções para aprimorar filtros e segmentação de usuários no CRM",
+          "Participei ativamente de projetos de expansão como Qconcursos México e Pro Universitários"
         ]
       },
       {
-        "position": "Desenvolvedor Full Stack",
-        "company": "Startup de Tecnologia",
-        "period": "2019 - 2021",
-        "description": "Desenvolvi e mantive múltiplas aplicações web usando frameworks JavaScript modernos.",
+        "position": "Front-end Developer",
+        "company": "We.digi",
+        "period": "Set 2023 - Jun 2025",
+        "description": "Desenvolvi componentes React personalizados para plataformas de e-commerce e integrei sistema Deco com VTEX e Shopify.",
         "achievements": [
-          "Construí mais de 10 aplicações em produção",
-          "Reduzi o tempo de carregamento em 50%",
-          "Integrei APIs de terceiros"
+          "Construí componentes React personalizados para atender necessidades específicas dos clientes",
+          "Utilizei Node.js como middleware para conectar ao backend da VTEX",
+          "Integrei sistema Deco com plataformas VTEX e Shopify"
+        ]
+      },
+      {
+        "position": "Front-end Developer",
+        "company": "ED3 Digital",
+        "period": "Out 2021 - Out 2023",
+        "description": "Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes.",
+        "achievements": [
+          "Construí e mantive sites de e-commerce com JavaScript e React",
+          "Personalizei plataforma VTEX para necessidades específicas dos clientes",
+          "Apliquei SASS e TailwindCSS para estilos eficientes e responsivos"
         ]
       }
     ]
@@ -65,19 +76,19 @@
     "viewCode": "Ver Código",
     "items": [
       {
-        "name": "Plataforma de E-commerce",
-        "description": "Uma plataforma de e-commerce completa com integração de pagamento, gerenciamento de estoque e painel administrativo.",
-        "technologies": ["Next.js", "TypeScript", "Stripe", "PostgreSQL"]
+        "name": "Tiffany & Co.",
+        "description": "Implementação completa de e-commerce na plataforma VTEX. Desenvolvi funcionalidades da página de conta e refinei a estrutura e design da homepage.",
+        "technologies": ["React", "VTEX", "JavaScript", "SASS"]
       },
       {
-        "name": "Dashboard de Analytics",
-        "description": "Dashboard de analytics em tempo real com visualização de dados e recursos de relatórios.",
-        "technologies": ["React", "D3.js", "Node.js", "MongoDB"]
+        "name": "Vitaminese",
+        "description": "Desenvolvimento de e-commerce com aplicação de quiz personalizado. Construí um quiz dinâmico em React para recomendar produtos baseado nas respostas dos usuários com fluxos lógicos condicionais.",
+        "technologies": ["React", "VTEX", "JavaScript", "Node.js"]
       },
       {
-        "name": "App de Gerenciamento de Tarefas",
-        "description": "Aplicação colaborativa de gerenciamento de tarefas com atualizações em tempo real e recursos de equipe.",
-        "technologies": ["Vue.js", "Firebase", "Tailwind CSS"]
+        "name": "Ultrafeu",
+        "description": "Desenvolvido do zero usando Deco.cx e VTEX com foco em SEO e otimização de performance, resultando em aumento significativo nas vendas.",
+        "technologies": ["Deco.cx", "VTEX", "React", "SEO"]
       }
     ]
   },

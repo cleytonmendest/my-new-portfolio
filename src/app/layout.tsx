@@ -19,17 +19,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://cleyton-mendes.com'),
   title: {
-    default: 'Cleyton Mendes - Full Stack Developer | E-commerce Specialist',
+    default: 'Cleyton Mendes - Software Engineer | E-commerce Specialist',
     template: '%s | Cleyton Mendes',
   },
   description:
-    'Full Stack Developer with 4+ years of experience specializing in e-commerce solutions. Expert in Next.js, React, TypeScript, Node.js, and modern web technologies. Available for remote opportunities.',
+    'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, VTEX, Shopify, and modern web technologies. Available for remote opportunities.',
   keywords: [
-    'Full Stack Developer',
+    'Software Engineer',
+    'Front-end Engineer',
     'React Developer',
-    'Next.js Developer',
-    'TypeScript',
+    'TypeScript Developer',
     'E-commerce Developer',
+    'VTEX Developer',
+    'Shopify Developer',
     'JavaScript',
     'Node.js',
     'Web Development',
@@ -50,24 +52,24 @@ export const metadata: Metadata = {
     locale: 'en_US',
     alternateLocale: ['pt_BR'],
     url: 'https://cleyton-mendes.com',
-    title: 'Cleyton Mendes - Full Stack Developer | E-commerce Specialist',
+    title: 'Cleyton Mendes - Software Engineer | E-commerce Specialist',
     description:
-      'Full Stack Developer with 4+ years of experience specializing in e-commerce solutions. Expert in Next.js, React, TypeScript, and modern web technologies.',
+      'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, VTEX, Shopify, and modern web technologies.',
     siteName: 'Cleyton Mendes Portfolio',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Cleyton Mendes - Full Stack Developer',
+        alt: 'Cleyton Mendes - Software Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cleyton Mendes - Full Stack Developer',
+    title: 'Cleyton Mendes - Software Engineer',
     description:
-      'Full Stack Developer with 4+ years of experience specializing in e-commerce solutions.',
+      'Software Engineer with 4+ years of experience specializing in e-commerce solutions.',
     images: ['/og-image.jpg'],
   },
   robots: {
