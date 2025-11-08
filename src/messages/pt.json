@@ -12,5 +12,19 @@
     "projects": "Projetos",
     "blog": "Blog",
     "contact": "Contato"
+  },
+  "hero": {
+    "greeting": "Olá, eu sou",
+    "name": "Cleyton Mendes",
+    "title": "Desenvolvedor Full Stack",
+    "description": "Desenvolvedor sênior com mais de 4 anos de experiência especializado em soluções de e-commerce. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
+    "cta": {
+      "downloadCV": "Baixar CV",
+      "contact": "Entre em Contato"
+    },
+    "yearsOfExperience": "4+ Anos",
+    "experienceLabel": "de Experiência",
+    "projectsCompleted": "50+",
+    "projectsLabel": "Projetos Concluídos"
   }
 }
