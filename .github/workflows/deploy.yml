@@ -1,0 +1,33 @@
+name: Deploy to Easypanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Trigger Easypanel deployment
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://77.37.126.52:3000/api/deploy/46a3a2b750218ee40c530fee611ab4223ebac43e0590f68f)
+          echo "Deployment trigger response: $response"
+
+          if [ $response -eq 200 ] || [ $response -eq 201 ] || [ $response -eq 204 ]; then
+            echo "✅ Deployment triggered successfully"
+            exit 0
+          else
+            echo "❌ Deployment trigger failed with status code: $response"
+            exit 1
+          fi
+
+      - name: Deployment notification
+        if: success()
+        run: |
+          echo "🚀 Deployment triggered successfully!"
+          echo "Site will be updated in a few moments at https://cleyton-mendes.com"
