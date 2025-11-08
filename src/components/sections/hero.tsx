@@ -8,6 +8,13 @@ import { Download, Mail, ArrowRight } from 'lucide-react';
 export function Hero() {
   const t = useTranslations('hero');
 
+  const handleContactClick = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="max-w-6xl w-full">
@@ -32,11 +39,13 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="gap-2">
-                <Download className="h-5 w-5" />
-                {t('cta.downloadCV')}
+              <Button size="lg" className="gap-2" asChild>
+                <a href="/cleyton-mendes.pdf" download="Cleyton_Mendes.pdf">
+                  <Download className="h-5 w-5" />
+                  {t('cta.downloadCV')}
+                </a>
               </Button>
-              <Button size="lg" variant="outline" className="gap-2">
+              <Button size="lg" variant="outline" className="gap-2" onClick={handleContactClick}>
                 <Mail className="h-5 w-5" />
                 {t('cta.contact')}
               </Button>

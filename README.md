@@ -24,8 +24,8 @@ Personal portfolio website for a Full Stack Developer with 4+ years of experienc
 - ✅ Modern UI components with shadcn/ui
 - ✅ Docker-ready for VPS deployment
 - ✅ SEO optimized
+- ✅ Contact form with Web3Forms integration
 - 🚧 Blog system (planned)
-- 🚧 Contact form (planned)
 - 🚧 Analytics integration (planned)
 
 ## Project Structure
@@ -84,12 +84,21 @@ cd my-portfolio
 npm install
 ```
 
-3. Run the development server:
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
+
+Then edit `.env.local` and add your Web3Forms access key:
+- Get a free access key at [https://web3forms.com](https://web3forms.com)
+- Add your key to `WEB3FORMS_ACCESS_KEY` in `.env.local`
+
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 The app will automatically redirect to the default locale route (`/en`).
 
@@ -230,11 +239,31 @@ docker-compose build --no-cache
 Create a `.env.local` file for local development:
 
 ```env
+# Web3Forms Access Key (required for contact form)
+# Get your free access key at https://web3forms.com
+WEB3FORMS_ACCESS_KEY=your_access_key_here
+
+# Optional: Site URL for production
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-# Add other environment variables as needed
 ```
 
-For production, set these in your hosting environment.
+### Setting up Web3Forms (Contact Form)
+
+1. Go to [https://web3forms.com](https://web3forms.com)
+2. Enter your email address (where you want to receive contact form submissions)
+3. Verify your email
+4. Copy the Access Key provided
+5. Add it to your `.env.local` file as `WEB3FORMS_ACCESS_KEY`
+
+**Why Web3Forms?**
+- ✅ Completely free (up to 250 submissions/month)
+- ✅ No backend required
+- ✅ No credit card needed
+- ✅ Instant email notifications
+- ✅ Spam protection included
+- ✅ Perfect for personal portfolios
+
+For production, set these in your hosting environment or Docker container.
 
 ## Contributing
 

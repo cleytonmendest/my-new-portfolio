@@ -31,13 +31,20 @@ export function Contact() {
     setSubmitStatus(null);
 
     try {
-      // TODO: Integrate with email service (Resend, SendGrid, etc.)
-      // For now, simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-      // Placeholder - will be replaced with actual email service
-      // eslint-disable-next-line no-console
-      console.log('Form data:', data);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message');
+      }
+
       setSubmitStatus('success');
       reset();
     } catch (error) {
