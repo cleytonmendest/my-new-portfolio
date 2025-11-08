@@ -1,0 +1,16 @@
+{
+  "common": {
+    "language": "Idioma",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Escuro"
+  },
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "experience": "Experiência",
+    "projects": "Projetos",
+    "blog": "Blog",
+    "contact": "Contato"
+  }
+}
