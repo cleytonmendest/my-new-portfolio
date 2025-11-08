@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run type-check:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRefactor i18n to use cookie-based locale switching instead of URL routes\n\nChanged from URL-based locale routing (/en, /pt) to a cookie-based system\nthat allows language switching without changing the URL. Users can now\nswitch languages via a dropdown similar to the theme toggle.\n\nChanges:\n- Removed [locale] route directory\n- Updated i18n/request.ts to detect locale from NEXT_LOCALE cookie\n- Created server actions for locale management (src/actions/locale.ts)\n- Added LanguageSwitcher component with dropdown UI\n- Added ThemeToggle component for dark/light mode\n- Simplified middleware to pass-through requests\n- Updated app layout to use cookie-based locale detection\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

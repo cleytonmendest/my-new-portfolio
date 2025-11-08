@@ -1,8 +1,11 @@
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default createMiddleware(routing);
+export function middleware(_request: NextRequest) {
+  // Middleware não precisa fazer nada especial
+  // O locale será detectado via cookie no request.ts
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ['/', '/(pt|en)/:path*'],
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
