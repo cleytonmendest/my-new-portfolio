@@ -26,5 +26,65 @@
     "experienceLabel": "of Experience",
     "projectsCompleted": "50+",
     "projectsLabel": "Projects Completed"
+  },
+  "experience": {
+    "title": "Work Experience",
+    "subtitle": "My professional journey in software development",
+    "timeline": [
+      {
+        "position": "Senior Full Stack Developer",
+        "company": "E-commerce Company",
+        "period": "2021 - Present",
+        "description": "Leading development of scalable e-commerce solutions, mentoring junior developers, and implementing best practices.",
+        "achievements": [
+          "Increased platform performance by 40%",
+          "Led team of 5 developers",
+          "Implemented CI/CD pipelines"
+        ]
+      },
+      {
+        "position": "Full Stack Developer",
+        "company": "Tech Startup",
+        "period": "2019 - 2021",
+        "description": "Developed and maintained multiple web applications using modern JavaScript frameworks.",
+        "achievements": [
+          "Built 10+ production applications",
+          "Reduced load time by 50%",
+          "Integrated third-party APIs"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Some of my best work",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "items": [
+      {
+        "name": "E-commerce Platform",
+        "description": "A full-featured e-commerce platform with payment integration, inventory management, and admin dashboard.",
+        "technologies": ["Next.js", "TypeScript", "Stripe", "PostgreSQL"]
+      },
+      {
+        "name": "Analytics Dashboard",
+        "description": "Real-time analytics dashboard with data visualization and reporting capabilities.",
+        "technologies": ["React", "D3.js", "Node.js", "MongoDB"]
+      },
+      {
+        "name": "Task Management App",
+        "description": "Collaborative task management application with real-time updates and team features.",
+        "technologies": ["Vue.js", "Firebase", "Tailwind CSS"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "tools": "Tools & Others"
+    }
   }
 }

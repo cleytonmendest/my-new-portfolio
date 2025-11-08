@@ -26,5 +26,65 @@
     "experienceLabel": "de Experiência",
     "projectsCompleted": "50+",
     "projectsLabel": "Projetos Concluídos"
+  },
+  "experience": {
+    "title": "Experiência Profissional",
+    "subtitle": "Minha jornada no desenvolvimento de software",
+    "timeline": [
+      {
+        "position": "Desenvolvedor Full Stack Sênior",
+        "company": "Empresa de E-commerce",
+        "period": "2021 - Presente",
+        "description": "Liderando o desenvolvimento de soluções de e-commerce escaláveis, mentorando desenvolvedores juniores e implementando melhores práticas.",
+        "achievements": [
+          "Aumentei a performance da plataforma em 40%",
+          "Liderei equipe de 5 desenvolvedores",
+          "Implementei pipelines de CI/CD"
+        ]
+      },
+      {
+        "position": "Desenvolvedor Full Stack",
+        "company": "Startup de Tecnologia",
+        "period": "2019 - 2021",
+        "description": "Desenvolvi e mantive múltiplas aplicações web usando frameworks JavaScript modernos.",
+        "achievements": [
+          "Construí mais de 10 aplicações em produção",
+          "Reduzi o tempo de carregamento em 50%",
+          "Integrei APIs de terceiros"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projetos em Destaque",
+    "subtitle": "Alguns dos meus melhores trabalhos",
+    "viewProject": "Ver Projeto",
+    "viewCode": "Ver Código",
+    "items": [
+      {
+        "name": "Plataforma de E-commerce",
+        "description": "Uma plataforma de e-commerce completa com integração de pagamento, gerenciamento de estoque e painel administrativo.",
+        "technologies": ["Next.js", "TypeScript", "Stripe", "PostgreSQL"]
+      },
+      {
+        "name": "Dashboard de Analytics",
+        "description": "Dashboard de analytics em tempo real com visualização de dados e recursos de relatórios.",
+        "technologies": ["React", "D3.js", "Node.js", "MongoDB"]
+      },
+      {
+        "name": "App de Gerenciamento de Tarefas",
+        "description": "Aplicação colaborativa de gerenciamento de tarefas com atualizações em tempo real e recursos de equipe.",
+        "technologies": ["Vue.js", "Firebase", "Tailwind CSS"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Habilidades & Tecnologias",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Banco de Dados",
+      "tools": "Ferramentas & Outros"
+    }
   }
 }

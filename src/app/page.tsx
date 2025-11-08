@@ -1,6 +1,10 @@
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Hero } from '@/components/sections/hero';
+import { Experience } from '@/components/sections/experience';
+import { Projects } from '@/components/sections/projects';
+import { Skills } from '@/components/sections/skills';
+import { Separator } from '@/components/ui/separator';
 
 export default function HomePage() {
   return (
@@ -12,6 +16,10 @@ export default function HomePage() {
 
       <main>
         <Hero />
+        <Separator className="max-w-6xl mx-auto" />
+        <Experience />
+        <Projects />
+        <Skills />
       </main>
     </div>
   );
