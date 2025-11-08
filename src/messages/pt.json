@@ -89,5 +89,37 @@
       "database": "Banco de Dados",
       "tools": "Ferramentas & Outros"
     }
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "subtitle": "Tem um projeto em mente ou quer colaborar? Sinta-se à vontade para entrar em contato!",
+    "form": {
+      "name": "Nome",
+      "namePlaceholder": "Seu nome",
+      "email": "Email",
+      "emailPlaceholder": "seu.email@exemplo.com",
+      "message": "Mensagem",
+      "messagePlaceholder": "Conte-me sobre seu projeto ou ideia...",
+      "submit": "Enviar Mensagem",
+      "sending": "Enviando..."
+    },
+    "validation": {
+      "nameRequired": "Nome é obrigatório",
+      "nameMin": "Nome deve ter pelo menos 2 caracteres",
+      "emailRequired": "Email é obrigatório",
+      "emailInvalid": "Por favor, insira um email válido",
+      "messageRequired": "Mensagem é obrigatória",
+      "messageMin": "Mensagem deve ter pelo menos 10 caracteres"
+    },
+    "success": "Mensagem enviada com sucesso! Entrarei em contato em breve.",
+    "error": "Falha ao enviar mensagem. Por favor, tente novamente ou entre em contato diretamente.",
+    "info": {
+      "title": "Informações de Contato",
+      "email": "Email",
+      "location": "Localização",
+      "locationValue": "Disponível para Trabalho Remoto",
+      "availability": "Disponibilidade",
+      "availabilityValue": "Aberto a Oportunidades"
+    }
   }
 }
