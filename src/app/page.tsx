@@ -1,4 +1,5 @@
 import { Navigation } from '@/components/navigation';
+import { Footer } from '@/components/footer';
 import { Hero } from '@/components/sections/hero';
 import { Experience } from '@/components/sections/experience';
 import { Projects } from '@/components/sections/projects';
@@ -19,6 +20,8 @@ export default function HomePage() {
         <Skills />
         <Contact />
       </main>
+
+      <Footer />
     </div>
   );
 }

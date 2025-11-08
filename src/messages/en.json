@@ -121,5 +121,14 @@
       "availability": "Availability",
       "availabilityValue": "Open to Opportunities"
     }
+  },
+  "footer": {
+    "description": "Full Stack Developer specializing in building exceptional digital experiences.",
+    "quickLinks": "Quick Links",
+    "social": "Connect",
+    "copyright": "All rights reserved.",
+    "madeWith": "Made with",
+    "and": "and",
+    "backToTop": "Back to top"
   }
 }

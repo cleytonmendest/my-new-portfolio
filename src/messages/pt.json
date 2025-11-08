@@ -121,5 +121,14 @@
       "availability": "Disponibilidade",
       "availabilityValue": "Aberto a Oportunidades"
     }
+  },
+  "footer": {
+    "description": "Desenvolvedor Full Stack especializado em construir experiências digitais excepcionais.",
+    "quickLinks": "Links Rápidos",
+    "social": "Conecte-se",
+    "copyright": "Todos os direitos reservados.",
+    "madeWith": "Feito com",
+    "and": "e",
+    "backToTop": "Voltar ao topo"
   }
 }
