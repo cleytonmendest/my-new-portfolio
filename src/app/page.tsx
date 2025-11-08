@@ -1,5 +1,4 @@
-import { ThemeToggle } from '@/components/theme-toggle';
-import { LanguageSwitcher } from '@/components/language-switcher';
+import { Navigation } from '@/components/navigation';
 import { Hero } from '@/components/sections/hero';
 import { Experience } from '@/components/sections/experience';
 import { Projects } from '@/components/sections/projects';
@@ -9,10 +8,7 @@ import { Separator } from '@/components/ui/separator';
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="fixed top-0 right-0 p-4 flex items-center gap-4 z-50">
-        <LanguageSwitcher />
-        <ThemeToggle />
-      </header>
+      <Navigation />
 
       <main>
         <Hero />

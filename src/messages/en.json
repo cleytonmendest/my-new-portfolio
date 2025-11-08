@@ -10,8 +10,11 @@
     "about": "About",
     "experience": "Experience",
     "projects": "Projects",
+    "skills": "Skills",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close"
   },
   "hero": {
     "greeting": "Hi, I'm",
