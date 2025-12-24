@@ -19,7 +19,28 @@ export function Hero() {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="max-w-6xl w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 items-center">
+          {/* Mobile photo - appears first on mobile */}
+          <div className="flex lg:hidden items-center justify-center order-first">
+            <div className="relative">
+              <div className="w-64 h-64 rounded-full bg-gradient-to-br from-accent/20 to-primary/10 flex items-center justify-center">
+                <div className="w-56 h-56 rounded-full border-4 border-accent/20 flex items-center justify-center overflow-hidden bg-accent">
+                  <Image
+                    src="/cleyton-mende.png"
+                    alt="Cleyton Mendes - Software Engineer"
+                    width={224}
+                    height={224}
+                    className="absolute top-[-27px]"
+                    priority
+                  />
+                </div>
+              </div>
+              {/* Decorative elements */}
+              <div className="absolute -top-3 -right-3 w-14 h-14 rounded-full bg-accent/20 animate-pulse" />
+              <div className="absolute -bottom-3 -left-3 w-10 h-10 rounded-full bg-primary/20 animate-pulse delay-75" />
+            </div>
+          </div>
+
           {/* Left side - Text content */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -88,7 +109,7 @@ export function Hero() {
                     alt="Cleyton Mendes - Software Engineer"
                     width={320}
                     height={320}
-                    className="absolute top-[-39px]"
+                    className="absolute top-[-31px] lg:top-[-39px]"
                     priority
                   />
                 </div>

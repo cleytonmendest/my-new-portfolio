@@ -1,10 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Image as ImageIcon } from 'lucide-react';
 
 export function Projects() {
   const t = useTranslations('projects');
@@ -14,16 +15,22 @@ export function Projects() {
       name: t('items.0.name'),
       description: t('items.0.description'),
       technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
+      image: '/projects/logo-tiffany.svg',
+      bgColor: '#81d8d0'
     },
     {
       name: t('items.1.name'),
       description: t('items.1.description'),
       technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
+      image: '/projects/logo-vitaminese.svg',
+      bgColor: '#f3e7ff'
     },
     {
       name: t('items.2.name'),
       description: t('items.2.description'),
       technologies: ['Preact', 'Typescript', 'Tailwind CSS', 'Vtex IO'],
+      image: '/projects/logo-ultrafeu.png',
+      bgColor: '#FFF'
     },
   ];
 
@@ -41,7 +48,27 @@ export function Projects() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow">
+            <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow overflow-hidden">
+              {/* Project Image */}
+              <div
+                className="relative w-full h-48 flex items-center justify-center"
+                style={{ backgroundColor: project.bgColor }}
+              >
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    width={300}
+                    height={192}
+                    className="object-contain p-8"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent/10 to-primary/5">
+                    <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
+                  </div>
+                )}
+              </div>
+
               <CardHeader>
                 <CardTitle className="text-xl">{project.name}</CardTitle>
                 <CardDescription className="line-clamp-3">
@@ -61,10 +88,10 @@ export function Projects() {
                     <ExternalLink className="h-4 w-4" />
                     {t('viewProject')}
                   </Button>
-                  <Button variant="outline" size="sm" className="gap-2">
+                  {/* <Button variant="outline" size="sm" className="gap-2">
                     <Github className="h-4 w-4" />
                     {t('viewCode')}
-                  </Button>
+                  </Button> */}
                 </div>
               </CardContent>
             </Card>
