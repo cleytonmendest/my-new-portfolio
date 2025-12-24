@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 
 export function Hero() {
   const t = useTranslations('hero');
+  const locale = useLocale();
 
   const handleContactClick = () => {
     const contactSection = document.getElementById('contact');
@@ -77,7 +78,10 @@ export function Hero() {
             <FadeIn delay={0.6}>
               <div className="flex flex-wrap gap-4">
                 <Button size="lg" className="gap-2" asChild>
-                  <a href="/cleyton-mendes.pdf" download="Cleyton_Mendes.pdf">
+                  <a
+                    href={`/cleyton-mendes-${locale}.pdf`}
+                    download={`Cleyton_Mendes_${locale === 'en' ? 'EN' : 'PT'}.pdf`}
+                  >
                     <Download className="h-5 w-5" />
                     {t('cta.downloadCV')}
                   </a>

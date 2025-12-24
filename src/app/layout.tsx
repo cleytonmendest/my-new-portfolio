@@ -5,6 +5,7 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { ThemeProvider } from '@/components/theme-provider';
 import { StructuredData } from '@/components/structured-data';
 import { Toaster } from 'sonner';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 
 const geistSans = Geist({
@@ -122,6 +123,9 @@ export default async function RootLayout({
             <Toaster position="bottom-right" />
           </NextIntlClientProvider>
         </ThemeProvider>
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );

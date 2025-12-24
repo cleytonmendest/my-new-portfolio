@@ -8,6 +8,7 @@ import { Contact } from '@/components/sections/contact';
 import { Separator } from '@/components/ui/separator';
 import { BackToTop } from '@/components/back-to-top';
 import { ReadingProgress } from '@/components/reading-progress';
+import { WhatsAppButton } from '@/components/whatsapp-button';
 
 export default function HomePage() {
   return (
@@ -26,6 +27,7 @@ export default function HomePage() {
 
       <Footer />
       <BackToTop />
+      <WhatsAppButton />
     </div>
   );
 }
