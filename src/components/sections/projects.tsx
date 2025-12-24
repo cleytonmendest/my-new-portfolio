@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,36 +8,12 @@ import { Button } from '@/components/ui/button';
 import { ExternalLink, Image as ImageIcon } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
 import { motion } from 'framer-motion';
+import { projects } from '@/data/projects';
+import { getLocalizedText } from '@/data/utils';
 
 export function Projects() {
   const t = useTranslations('projects');
-
-  const projects = [
-    {
-      name: t('items.0.name'),
-      description: t('items.0.description'),
-      technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
-      image: '/projects/logo-tiffany.svg',
-      bgColor: '#81d8d0',
-      url: 'https://www.tiffany.com.br/',
-    },
-    {
-      name: t('items.1.name'),
-      description: t('items.1.description'),
-      technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
-      image: '/projects/logo-vitaminese.svg',
-      bgColor: '#f3e7ff',
-      url: 'https://www.vitaminese.com.br/',
-    },
-    {
-      name: t('items.2.name'),
-      description: t('items.2.description'),
-      technologies: ['Preact', 'Typescript', 'Tailwind CSS', 'Vtex IO'],
-      image: '/projects/logo-ultrafeu.png',
-      bgColor: '#FFF',
-      url: 'https://www.ultrafeu.com.br/',
-    },
-  ];
+  const locale = useLocale();
 
   return (
     <section className="py-20 px-4 bg-muted/30" id="projects">
@@ -91,7 +67,7 @@ export function Projects() {
                       {project.name}
                     </CardTitle>
                     <CardDescription className="line-clamp-3">
-                      {project.description}
+                      {getLocalizedText(project.description, locale)}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col justify-between gap-4">

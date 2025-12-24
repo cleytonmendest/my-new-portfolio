@@ -101,6 +101,11 @@
       "tools": "Ferramentas & Outros"
     }
   },
+  "certifications": {
+    "title": "Certificações & Educação",
+    "subtitle": "Aprendizado contínuo e desenvolvimento profissional",
+    "viewCredential": "Ver Credencial"
+  },
   "contact": {
     "title": "Entre em Contato",
     "subtitle": "Tem um projeto em mente ou quer colaborar? Sinta-se à vontade para entrar em contato!",

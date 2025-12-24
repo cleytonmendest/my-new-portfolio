@@ -101,6 +101,11 @@
       "tools": "Tools & Others"
     }
   },
+  "certifications": {
+    "title": "Certifications & Education",
+    "subtitle": "Continuous learning and professional development",
+    "viewCredential": "View Credential"
+  },
   "contact": {
     "title": "Get In Touch",
     "subtitle": "Have a project in mind or want to collaborate? Feel free to reach out!",

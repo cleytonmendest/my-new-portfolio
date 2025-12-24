@@ -1,37 +1,15 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Briefcase, CheckCircle2 } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
+import { experiences } from '@/data/experience';
+import { getLocalizedText, getLocalizedArray } from '@/data/utils';
 
 export function Experience() {
   const t = useTranslations('experience');
-
-  const timeline = [
-    {
-      position: t('timeline.0.position'),
-      company: t('timeline.0.company'),
-      period: t('timeline.0.period'),
-      description: t('timeline.0.description'),
-      achievements: [
-        t('timeline.0.achievements.0'),
-        t('timeline.0.achievements.1'),
-        t('timeline.0.achievements.2'),
-      ],
-    },
-    {
-      position: t('timeline.1.position'),
-      company: t('timeline.1.company'),
-      period: t('timeline.1.period'),
-      description: t('timeline.1.description'),
-      achievements: [
-        t('timeline.1.achievements.0'),
-        t('timeline.1.achievements.1'),
-        t('timeline.1.achievements.2'),
-      ],
-    },
-  ];
+  const locale = useLocale();
 
   return (
     <section className="py-20 px-4" id="experience">
@@ -48,7 +26,7 @@ export function Experience() {
         </FadeIn>
 
         <div className="space-y-8">
-          {timeline.map((item, index) => (
+          {experiences.map((item, index) => (
             <FadeIn key={index} delay={index * 0.2}>
               <Card className="relative overflow-hidden">
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent" />
@@ -60,19 +38,19 @@ export function Experience() {
                   <div className="flex-1">
                     <CardTitle className="text-2xl">{item.position}</CardTitle>
                     <CardDescription className="text-lg mt-1">
-                      {item.company} • {item.period}
+                      {item.company} • {getLocalizedText(item.period, locale)}
                     </CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground leading-relaxed">
-                  {item.description}
+                  {getLocalizedText(item.description, locale)}
                 </p>
                 <div className="space-y-2">
                   <p className="font-semibold text-sm">Key Achievements:</p>
                   <ul className="space-y-2">
-                    {item.achievements.map((achievement, idx) => (
+                    {getLocalizedArray(item.achievements, locale).map((achievement, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
                         <span className="text-sm text-muted-foreground">
