@@ -10,13 +10,15 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
-import { Mail, MapPin, CheckCircle2, AlertCircle, Send } from 'lucide-react';
+import { Mail, MapPin, CheckCircle2, AlertCircle, Send, Copy, Check } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
+import { toast } from 'sonner';
 
 export function Contact() {
   const t = useTranslations('contact');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   const {
     register,
@@ -26,6 +28,19 @@ export function Contact() {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
   });
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('cleyton.mendest@gmail.com');
+      setEmailCopied(true);
+      toast.success('Email copied to clipboard!', {
+        duration: 2000,
+      });
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch {
+      toast.error('Failed to copy email');
+    }
+  };
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -80,12 +95,26 @@ export function Contact() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-accent mt-0.5" />
-                  <div>
+                  <Mail className="h-5 w-5 text-accent mt-0.5 shrink-0" />
+                  <div className="flex-1">
                     <p className="font-medium text-sm">{t('info.email')}</p>
-                    <p className="text-sm text-muted-foreground">
-                      cleyton.mendest@gmail.com
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-sm text-muted-foreground">
+                        cleyton.mendest@gmail.com
+                      </p>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 hover:bg-accent/10"
+                        onClick={copyEmail}
+                      >
+                        {emailCopied ? (
+                          <Check className="h-3 w-3 text-green-500" />
+                        ) : (
+                          <Copy className="h-3 w-3" />
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 </div>
 

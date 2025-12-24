@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Image as ImageIcon } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
+import { motion } from 'framer-motion';
 
 export function Projects() {
   const t = useTranslations('projects');
@@ -55,51 +56,63 @@ export function Projects() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <FadeIn key={index} delay={index * 0.1}>
-              <Card className="flex flex-col hover:shadow-lg transition-shadow overflow-hidden">
-              {/* Project Image */}
-              <div
-                className="relative w-full h-48 flex items-center justify-center"
-                style={{ backgroundColor: project.bgColor }}
+              <motion.div
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    width={300}
-                    height={192}
-                    className="object-contain p-8"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent/10 to-primary/5">
-                    <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
+                <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:border-accent/50 group">
+                  {/* Project Image */}
+                  <div
+                    className="relative w-full h-48 flex items-center justify-center overflow-hidden"
+                    style={{ backgroundColor: project.bgColor }}
+                  >
+                    {project.image ? (
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Image
+                          src={project.image}
+                          alt={project.name}
+                          width={300}
+                          height={192}
+                          className="object-contain p-8"
+                        />
+                      </motion.div>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent/10 to-primary/5">
+                        <ImageIcon className="h-16 w-16 text-muted-foreground/30" />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              <CardHeader>
-                <CardTitle className="text-xl">{project.name}</CardTitle>
-                <CardDescription className="line-clamp-3">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col justify-between gap-4">
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, idx) => (
-                    <Badge key={idx} variant="secondary">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1 gap-2" asChild>
-                    <a href={project.url} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4" />
-                      {t('viewProject')}
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl group-hover:text-accent transition-colors">
+                      {project.name}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-3">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col justify-between gap-4">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, idx) => (
+                        <Badge key={idx} variant="secondary" className="group-hover:bg-accent/10">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1 gap-2 group-hover:border-accent group-hover:text-accent" asChild>
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                          {t('viewProject')}
+                        </a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </FadeIn>
           ))}
         </div>

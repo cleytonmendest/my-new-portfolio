@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Download, Mail, ArrowRight } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
 import { AnimatedCounter } from '@/components/animated-counter';
+import { motion } from 'framer-motion';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -15,6 +16,13 @@ export function Hero() {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollClick = () => {
+    const experienceSection = document.getElementById('experience');
+    if (experienceSection) {
+      experienceSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -138,12 +146,40 @@ export function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="flex justify-center mt-16 lg:mt-24">
-          <div className="flex flex-col items-center gap-2 text-muted-foreground animate-bounce">
-            <span className="text-sm">Scroll down</span>
-            <ArrowRight className="h-5 w-5 rotate-90" />
-          </div>
-        </div>
+        <motion.div
+          className="flex justify-center mt-16 lg:mt-24"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <motion.button
+            onClick={handleScrollClick}
+            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-accent transition-colors cursor-pointer group"
+            animate={{
+              y: [0, 10, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            <span className="text-sm font-medium">Scroll down</span>
+            <motion.div
+              animate={{
+                y: [0, 5, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 0.2,
+              }}
+            >
+              <ArrowRight className="h-5 w-5 rotate-90 group-hover:text-accent" />
+            </motion.div>
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );
