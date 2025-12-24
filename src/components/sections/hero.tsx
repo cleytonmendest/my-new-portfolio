@@ -37,7 +37,7 @@ export function Hero() {
               <div className="w-64 h-64 rounded-full bg-gradient-to-br from-accent/20 to-primary/10 flex items-center justify-center">
                 <div className="w-56 h-56 rounded-full border-4 border-accent/20 flex items-center justify-center overflow-hidden bg-accent">
                   <Image
-                    src="/cleyton-mende.png"
+                    src="/cleyton-mendes.png"
                     alt="Cleyton Mendes - Software Engineer"
                     width={224}
                     height={224}
