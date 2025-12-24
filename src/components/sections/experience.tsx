@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Briefcase, CheckCircle2 } from 'lucide-react';
+import { FadeIn } from '@/components/fade-in';
 
 export function Experience() {
   const t = useTranslations('experience');
@@ -35,18 +36,21 @@ export function Experience() {
   return (
     <section className="py-20 px-4" id="experience">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            {t('title')}
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            {t('subtitle')}
-          </p>
-        </div>
+        <FadeIn>
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              {t('title')}
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              {t('subtitle')}
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="space-y-8">
           {timeline.map((item, index) => (
-            <Card key={index} className="relative overflow-hidden">
+            <FadeIn key={index} delay={index * 0.2}>
+              <Card className="relative overflow-hidden">
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent" />
               <CardHeader>
                 <div className="flex items-start gap-4">
@@ -80,6 +84,7 @@ export function Experience() {
                 </div>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>

@@ -11,7 +11,8 @@
       "Bash(npx shadcn@latest add button)",
       "Bash(npx shadcn@latest add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nSetup shadcn/ui with base components and custom theme\n\nInstalled and configured shadcn/ui component library with essential \ncomponents for building the portfolio interface. Updated theme colors\nand created a demo page showing all installed components.\n\nComponents installed:\n- Button (primary, outline, and other variants)\n- Card (with header, content, description)\n- Badge (default, secondary, outline variants)\n- Input and Textarea (for forms)\n- Label (form labels)\n- Separator (visual dividers)\n\nChanges:\n- Updated accent-foreground color for better contrast\n- Created demo page showcasing all components\n- Verified components work with both dark/light themes\n- Tested with both EN/PT locales\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Image as ImageIcon } from 'lucide-react';
+import { FadeIn } from '@/components/fade-in';
 
 export function Projects() {
   const t = useTranslations('projects');
@@ -16,39 +17,45 @@ export function Projects() {
       description: t('items.0.description'),
       technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
       image: '/projects/logo-tiffany.svg',
-      bgColor: '#81d8d0'
+      bgColor: '#81d8d0',
+      url: 'https://www.tiffany.com.br/',
     },
     {
       name: t('items.1.name'),
       description: t('items.1.description'),
       technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
       image: '/projects/logo-vitaminese.svg',
-      bgColor: '#f3e7ff'
+      bgColor: '#f3e7ff',
+      url: 'https://www.vitaminese.com.br/',
     },
     {
       name: t('items.2.name'),
       description: t('items.2.description'),
       technologies: ['Preact', 'Typescript', 'Tailwind CSS', 'Vtex IO'],
       image: '/projects/logo-ultrafeu.png',
-      bgColor: '#FFF'
+      bgColor: '#FFF',
+      url: 'https://www.ultrafeu.com.br/',
     },
   ];
 
   return (
     <section className="py-20 px-4 bg-muted/30" id="projects">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            {t('title')}
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            {t('subtitle')}
-          </p>
-        </div>
+        <FadeIn>
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              {t('title')}
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              {t('subtitle')}
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow overflow-hidden">
+            <FadeIn key={index} delay={index * 0.1}>
+              <Card className="flex flex-col hover:shadow-lg transition-shadow overflow-hidden">
               {/* Project Image */}
               <div
                 className="relative w-full h-48 flex items-center justify-center"
@@ -84,17 +91,16 @@ export function Projects() {
                   ))}
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1 gap-2">
-                    <ExternalLink className="h-4 w-4" />
-                    {t('viewProject')}
+                  <Button variant="outline" size="sm" className="flex-1 gap-2" asChild>
+                    <a href={project.url} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4" />
+                      {t('viewProject')}
+                    </a>
                   </Button>
-                  {/* <Button variant="outline" size="sm" className="gap-2">
-                    <Github className="h-4 w-4" />
-                    {t('viewCode')}
-                  </Button> */}
                 </div>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>

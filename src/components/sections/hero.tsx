@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, Mail, ArrowRight } from 'lucide-react';
+import { FadeIn } from '@/components/fade-in';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -43,38 +44,45 @@ export function Hero() {
 
           {/* Left side - Text content */}
           <div className="space-y-8">
-            <div className="space-y-4">
-              <p className="text-lg text-muted-foreground">
-                {t('greeting')}
-              </p>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-                {t('name')}
-              </h1>
-              <h2 className="text-3xl md:text-4xl font-semibold text-accent">
-                {t('title')}
-              </h2>
-            </div>
+            <FadeIn delay={0.2}>
+              <div className="space-y-4">
+                <p className="text-lg text-muted-foreground">
+                  {t('greeting')}
+                </p>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                  {t('name')}
+                </h1>
+                <h2 className="text-3xl md:text-4xl font-semibold text-accent">
+                  {t('title')}
+                </h2>
+              </div>
+            </FadeIn>
 
-            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              {t('description')}
-            </p>
+            <FadeIn delay={0.4}>
+              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+                {t('description')}
+              </p>
+            </FadeIn>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="gap-2" asChild>
-                <a href="/cleyton-mendes.pdf" download="Cleyton_Mendes.pdf">
-                  <Download className="h-5 w-5" />
-                  {t('cta.downloadCV')}
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="gap-2" onClick={handleContactClick}>
-                <Mail className="h-5 w-5" />
-                {t('cta.contact')}
-              </Button>
-            </div>
+            <FadeIn delay={0.6}>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" className="gap-2" asChild>
+                  <a href="/cleyton-mendes.pdf" download="Cleyton_Mendes.pdf">
+                    <Download className="h-5 w-5" />
+                    {t('cta.downloadCV')}
+                  </a>
+                </Button>
+                <Button size="lg" variant="outline" className="gap-2" onClick={handleContactClick}>
+                  <Mail className="h-5 w-5" />
+                  {t('cta.contact')}
+                </Button>
+              </div>
+            </FadeIn>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-4 pt-8">
+            <FadeIn delay={0.8}>
+              <div className="grid grid-cols-2 gap-4 pt-8">
               <Card>
                 <CardContent className="pt-6">
                   <div className="text-3xl font-bold text-accent">
@@ -97,6 +105,7 @@ export function Hero() {
                 </CardContent>
               </Card>
             </div>
+            </FadeIn>
           </div>
 
           {/* Right side - Placeholder for photo/illustration */}

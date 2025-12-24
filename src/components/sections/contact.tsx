@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
 import { Mail, MapPin, CheckCircle2, AlertCircle, Send } from 'lucide-react';
+import { FadeIn } from '@/components/fade-in';
 
 export function Contact() {
   const t = useTranslations('contact');
@@ -58,19 +59,22 @@ export function Contact() {
   return (
     <section className="py-20 px-4 bg-muted/30" id="contact">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            {t('title')}
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t('subtitle')}
-          </p>
-        </div>
+        <FadeIn>
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              {t('title')}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              {t('subtitle')}
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Contact Info */}
-          <div className="space-y-6">
-            <Card>
+          <FadeIn delay={0.2}>
+            <div className="space-y-6">
+              <Card>
               <CardHeader>
                 <CardTitle className="text-xl">{t('info.title')}</CardTitle>
               </CardHeader>
@@ -106,10 +110,12 @@ export function Contact() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+            </div>
+          </FadeIn>
 
           {/* Contact Form */}
-          <Card className="lg:col-span-2">
+          <FadeIn delay={0.4} className="lg:col-span-2">
+            <Card>
             <CardHeader>
               <CardTitle className="text-2xl">{t('form.submit')}</CardTitle>
               <CardDescription>
@@ -205,6 +211,7 @@ export function Contact() {
               </form>
             </CardContent>
           </Card>
+          </FadeIn>
         </div>
       </div>
     </section>
