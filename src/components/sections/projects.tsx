@@ -13,17 +13,17 @@ export function Projects() {
     {
       name: t('items.0.name'),
       description: t('items.0.description'),
-      technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL'],
+      technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
     },
     {
       name: t('items.1.name'),
       description: t('items.1.description'),
-      technologies: ['React', 'D3.js', 'Node.js', 'MongoDB'],
+      technologies: ['React', 'TypeScript', 'Sass', 'Vtex IO'],
     },
     {
       name: t('items.2.name'),
       description: t('items.2.description'),
-      technologies: ['Vue.js', 'Firebase', 'Tailwind CSS'],
+      technologies: ['Preact', 'Typescript', 'Tailwind CSS', 'Vtex IO'],
     },
   ];
 

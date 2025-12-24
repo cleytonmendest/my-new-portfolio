@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, Mail, ArrowRight } from 'lucide-react';
@@ -81,13 +82,15 @@ export function Hero() {
           <div className="hidden lg:flex items-center justify-center">
             <div className="relative">
               <div className="w-96 h-96 rounded-full bg-gradient-to-br from-accent/20 to-primary/10 flex items-center justify-center">
-                <div className="w-80 h-80 rounded-full bg-card border-4 border-accent/20 flex items-center justify-center">
-                  <div className="text-center space-y-2">
-                    <div className="text-6xl">👨‍💻</div>
-                    <p className="text-sm text-muted-foreground">
-                      Photo placeholder
-                    </p>
-                  </div>
+                <div className="w-80 h-80 rounded-full border-4 border-accent/20 flex items-center justify-center overflow-hidden bg-accent">
+                  <Image
+                    src="/cleyton-mende.png"
+                    alt="Cleyton Mendes - Software Engineer"
+                    width={320}
+                    height={320}
+                    className="absolute top-[-39px]"
+                    priority
+                  />
                 </div>
               </div>
               {/* Decorative elements */}
