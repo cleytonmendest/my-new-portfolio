@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, Mail, ArrowRight } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
+import { AnimatedCounter } from '@/components/animated-counter';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -85,9 +86,12 @@ export function Hero() {
               <div className="grid grid-cols-2 gap-4 pt-8">
               <Card>
                 <CardContent className="pt-6">
-                  <div className="text-3xl font-bold text-accent">
-                    {t('yearsOfExperience')}
-                  </div>
+                  <AnimatedCounter
+                    end={4}
+                    suffix="+"
+                    duration={2.5}
+                    className="text-3xl font-bold text-accent"
+                  />
                   <p className="text-sm text-muted-foreground mt-1">
                     {t('experienceLabel')}
                   </p>
@@ -96,9 +100,12 @@ export function Hero() {
 
               <Card>
                 <CardContent className="pt-6">
-                  <div className="text-3xl font-bold text-accent">
-                    {t('projectsCompleted')}
-                  </div>
+                  <AnimatedCounter
+                    end={50}
+                    suffix="+"
+                    duration={2.5}
+                    className="text-3xl font-bold text-accent"
+                  />
                   <p className="text-sm text-muted-foreground mt-1">
                     {t('projectsLabel')}
                   </p>
