@@ -34,6 +34,7 @@
   "experience": {
     "title": "Experiência Profissional",
     "subtitle": "Minha jornada no desenvolvimento de software",
+    "viewAll": "Ver Todas as Experiências",
     "timeline": [
       {
         "position": "Front-end Engineer",
@@ -107,7 +108,8 @@
     "subtitle": "Aprendizado contínuo e desenvolvimento profissional",
     "education": "Educação",
     "certifications": "Certificações",
-    "viewCredential": "Ver Credencial"
+    "viewCredential": "Ver Credencial",
+    "viewAllCertifications": "Ver Todas as Certificações"
   },
   "contact": {
     "title": "Entre em Contato",

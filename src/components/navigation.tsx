@@ -2,60 +2,65 @@
 
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Menu, X, Code2 } from 'lucide-react';
+import Link from 'next/link';
 
 export function Navigation() {
   const t = useTranslations('nav');
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
-    { id: 'home', label: t('home'), href: '#home' },
-    { id: 'experience', label: t('experience'), href: '#experience' },
-    { id: 'projects', label: t('projects'), href: '#projects' },
-    { id: 'skills', label: t('skills'), href: '#skills' },
-    { id: 'certifications', label: t('certifications'), href: '#certifications' },
-    { id: 'contact', label: t('contact'), href: '#contact' },
+    { id: 'home', label: t('home'), href: '/', page: '/', homeSection: 'home' },
+    { id: 'experience', label: t('experience'), href: '/experience', page: '/experience', homeSection: 'experience' },
+    { id: 'projects', label: t('projects'), href: '/projects', page: '/projects', homeSection: 'projects' },
+    { id: 'skills', label: t('skills'), href: '/#skills', page: null, homeSection: 'skills' },
+    { id: 'certifications', label: t('certifications'), href: '/education', page: '/education', homeSection: 'certifications' },
+    { id: 'contact', label: t('contact'), href: '/#contact', page: null, homeSection: 'contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Update active section based on scroll position
-      const sections = navItems.map((item) => item.id);
-      const scrollPosition = window.scrollY + 100;
+      // Only track sections on home page
+      if (pathname === '/') {
+        const sections = ['contact', 'certifications', 'skills', 'projects', 'experience', 'home'];
+        const scrollPosition = window.scrollY + 150;
 
-      for (const sectionId of sections.reverse()) {
-        const element = document.getElementById(sectionId);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sectionId);
-          break;
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element && element.offsetTop <= scrollPosition) {
+            setActiveSection(sectionId);
+            break;
+          }
         }
       }
     };
 
+    handleScroll(); // Call once on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+  const isActive = (item: typeof navItems[0]) => {
+    // If we're on a dedicated page, highlight that page's nav item
+    if (item.page && pathname.startsWith(item.page) && item.page !== '/') {
+      return true;
     }
-    setIsMenuOpen(false);
+
+    // If we're on the home page, highlight based on scroll position
+    if (pathname === '/') {
+      return activeSection === item.homeSection;
+    }
+
+    return false;
   };
 
   return (
@@ -69,28 +74,28 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <button
-            onClick={() => scrollToSection('#home')}
+          <Link
+            href="/"
             className="flex items-center gap-2 font-bold text-xl hover:text-accent transition-colors"
           >
             <Code2 className="h-6 w-6 text-accent" />
             <span>CM</span>
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.id}
-                onClick={() => scrollToSection(item.href)}
+                href={item.href}
                 className={`text-sm font-medium transition-colors hover:text-accent ${
-                  activeSection === item.id
+                  isActive(item)
                     ? 'text-accent'
                     : 'text-muted-foreground'
                 }`}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -122,17 +127,18 @@ export function Navigation() {
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-lg">
           <div className="px-4 py-6 space-y-4">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.id}
-                onClick={() => scrollToSection(item.href)}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
                 className={`block w-full text-left px-4 py-2 rounded-md transition-colors ${
-                  activeSection === item.id
+                  isActive(item)
                     ? 'bg-accent text-accent-foreground'
                     : 'hover:bg-muted'
                 }`}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
             <div className="flex items-center justify-between pt-4 border-t border-border">
               <LanguageSwitcher />

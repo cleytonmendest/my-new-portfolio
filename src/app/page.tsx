@@ -1,10 +1,10 @@
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { Hero } from '@/components/sections/hero';
-import { Experience } from '@/components/sections/experience';
+import { ExperiencePreview } from '@/components/sections/experience-preview';
 import { Projects } from '@/components/sections/projects';
 import { Skills } from '@/components/sections/skills';
-import { Certifications } from '@/components/sections/certifications';
+import { CertificationsPreview } from '@/components/sections/certifications-preview';
 import { Contact } from '@/components/sections/contact';
 import { Separator } from '@/components/ui/separator';
 import { BackToTop } from '@/components/back-to-top';
@@ -20,10 +20,10 @@ export default function HomePage() {
       <main>
         <Hero />
         <Separator className="max-w-6xl mx-auto" />
-        <Experience />
+        <ExperiencePreview />
         <Projects />
         <Skills />
-        <Certifications />
+        <CertificationsPreview />
         <Contact />
       </main>
 
