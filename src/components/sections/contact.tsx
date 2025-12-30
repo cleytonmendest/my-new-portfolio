@@ -31,7 +31,7 @@ export function Contact() {
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('cleyton.mendest@gmail.com');
+      await navigator.clipboard.writeText('contato@cleyton-mendes.com');
       setEmailCopied(true);
       toast.success('Email copied to clipboard!', {
         duration: 2000,
@@ -47,25 +47,37 @@ export function Contact() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      // Call Web3Forms API directly from client side
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          subject: `New contact form submission from ${data.name}`,
+          from_name: 'Portfolio Contact Form',
+          replyto: data.email,
+        }),
       });
 
       const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message');
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Failed to send message');
       }
 
       setSubmitStatus('success');
+      toast.success(t('success'), { duration: 5000 });
       reset();
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
+      toast.error(t('error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -100,7 +112,7 @@ export function Contact() {
                     <p className="font-medium text-sm">{t('info.email')}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
-                        cleyton.mendest@gmail.com
+                        contato@cleyton-mendes.com
                       </p>
                       <Button
                         variant="ghost"
