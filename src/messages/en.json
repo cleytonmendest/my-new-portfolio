@@ -11,6 +11,7 @@
     "experience": "Experience",
     "projects": "Projects",
     "skills": "Skills",
+    "certifications": "Education",
     "blog": "Blog",
     "contact": "Contact",
     "menu": "Menu",
@@ -36,7 +37,7 @@
     "timeline": [
       {
         "position": "Front-end Engineer",
-        "company": "GrupoQ",
+        "company": "QuestEdu",
         "period": "Jul 2025 - Present",
         "description": "Working on maintenance and evolution of legacy code in Ruby on Rails, ensuring platform stability and implementing new features.",
         "achievements": [
@@ -60,11 +61,11 @@
         "position": "Front-end Developer",
         "company": "ED3 Digital",
         "period": "Oct 2021 - Oct 2023",
-        "description": "Developed and maintained e-commerce sites using JavaScript and React, customizing VTEX platform for clients.",
+        "description": "Developed and maintained e-commerce sites using JavaScript and React, customizing VTEX platform for high-profile clients including Tiffany & Co., Hugo Boss, Creamy, and Candide.",
         "achievements": [
-          "Built and maintained e-commerce sites with JavaScript and React",
-          "Customized VTEX platform for specific client needs",
-          "Applied SASS and TailwindCSS for efficient and responsive styling"
+          "Delivered e-commerce solutions for premium brands like Tiffany & Co., Hugo Boss, Creamy, and Candide",
+          "Built and maintained e-commerce sites with JavaScript and React on VTEX platform",
+          "Applied SASS and TailwindCSS for efficient and responsive styling across multiple brands"
         ]
       }
     ]
@@ -104,6 +105,8 @@
   "certifications": {
     "title": "Certifications & Education",
     "subtitle": "Continuous learning and professional development",
+    "education": "Education",
+    "certifications": "Certifications",
     "viewCredential": "View Credential"
   },
   "contact": {

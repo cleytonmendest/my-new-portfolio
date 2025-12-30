@@ -11,6 +11,7 @@
     "experience": "Experiência",
     "projects": "Projetos",
     "skills": "Habilidades",
+    "certifications": "Educação",
     "blog": "Blog",
     "contact": "Contato",
     "menu": "Menu",
@@ -36,7 +37,7 @@
     "timeline": [
       {
         "position": "Front-end Engineer",
-        "company": "GrupoQ",
+        "company": "QuestEdu",
         "period": "Jul 2025 - Presente",
         "description": "Atuo na manutenção e evolução de código legado em Ruby on Rails, garantindo a estabilidade da plataforma e implementando novas funcionalidades.",
         "achievements": [
@@ -60,11 +61,11 @@
         "position": "Front-end Developer",
         "company": "ED3 Digital",
         "period": "Out 2021 - Out 2023",
-        "description": "Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes.",
+        "description": "Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes de alto perfil incluindo Tiffany & Co., Hugo Boss, Creamy e Candide.",
         "achievements": [
-          "Construí e mantive sites de e-commerce com JavaScript e React",
-          "Personalizei plataforma VTEX para necessidades específicas dos clientes",
-          "Apliquei SASS e TailwindCSS para estilos eficientes e responsivos"
+          "Entreguei soluções de e-commerce para marcas premium como Tiffany & Co., Hugo Boss, Creamy e Candide",
+          "Construí e mantive sites de e-commerce com JavaScript e React na plataforma VTEX",
+          "Apliquei SASS e TailwindCSS para estilos eficientes e responsivos em múltiplas marcas"
         ]
       }
     ]
@@ -104,6 +105,8 @@
   "certifications": {
     "title": "Certificações & Educação",
     "subtitle": "Aprendizado contínuo e desenvolvimento profissional",
+    "education": "Educação",
+    "certifications": "Certificações",
     "viewCredential": "Ver Credencial"
   },
   "contact": {

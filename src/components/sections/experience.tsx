@@ -2,10 +2,11 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Building2 } from 'lucide-react';
 import { FadeIn } from '@/components/fade-in';
 import { experiences } from '@/data/experience';
 import { getLocalizedText, getLocalizedArray } from '@/data/utils';
+import Image from 'next/image';
 
 export function Experience() {
   const t = useTranslations('experience');
@@ -32,13 +33,35 @@ export function Experience() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent" />
               <CardHeader>
                 <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-accent/10">
-                    <Briefcase className="h-6 w-6 text-accent" />
+                  <div className="p-2 rounded-lg bg-accent/10 flex items-center justify-center w-14 h-14 shrink-0">
+                    {item.companyLogo ? (
+                      <div className="relative w-10 h-10">
+                        <Image
+                          src={item.companyLogo}
+                          alt={`${item.company} logo`}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <Building2 className="h-6 w-6 text-accent" />
+                    )}
                   </div>
                   <div className="flex-1">
                     <CardTitle className="text-2xl">{item.position}</CardTitle>
                     <CardDescription className="text-lg mt-1">
-                      {item.company} • {getLocalizedText(item.period, locale)}
+                      {item.companyUrl ? (
+                        <a
+                          href={item.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-accent transition-colors"
+                        >
+                          {item.company}
+                        </a>
+                      ) : (
+                        item.company
+                      )} • {getLocalizedText(item.period, locale)}
                     </CardDescription>
                   </div>
                 </div>

@@ -24,6 +24,7 @@ export interface Experience {
   position: string;
   company: string;
   companyUrl?: string;
+  companyLogo?: string;
   period: LocalizedString;
   description: LocalizedString;
   achievements: LocalizedString[];
@@ -57,6 +58,15 @@ export interface Certification {
   credentialId?: string;
   credentialUrl?: string;
   image?: string;
+}
+
+export interface Education {
+  degree: LocalizedString;
+  institution: string;
+  institutionUrl?: string;
+  period: LocalizedString;
+  status: 'completed' | 'in-progress';
+  description?: LocalizedString;
 }
 
 export interface SocialLink {
