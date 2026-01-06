@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Copy, Check, Sparkles } from 'lucide-react';
+import { Copy, Check, Sparkles, Loader2, TrendingUp } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface PromptOptions {
@@ -19,6 +19,21 @@ interface PromptOptions {
   addStepByStep: boolean;
 }
 
+interface QualityData {
+  score: number;
+  maxScore: number;
+  rating: string;
+  breakdown: {
+    length: number;
+    hasRole: number;
+    hasStructure: number;
+    hasExamples: number;
+    hasConstraints: number;
+    hasFormat: number;
+  };
+  suggestions: string[];
+}
+
 export default function PromptGeneratorPage() {
   const [originalPrompt, setOriginalPrompt] = useState('');
   const [role, setRole] = useState('especialista');
@@ -28,6 +43,9 @@ export default function PromptGeneratorPage() {
   const [constraints, setConstraints] = useState('');
   const [enhancedPrompt, setEnhancedPrompt] = useState('');
   const [copied, setCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [qualityData, setQualityData] = useState<QualityData | null>(null);
+  const [targetModel, setTargetModel] = useState<'claude' | 'gpt' | 'gemini'>('claude');
 
   const [options, setOptions] = useState<PromptOptions>({
     addRole: true,
@@ -38,49 +56,53 @@ export default function PromptGeneratorPage() {
     addStepByStep: false,
   });
 
-  const generatePrompt = () => {
+  const generatePrompt = async () => {
     if (!originalPrompt.trim()) {
       toast.error('Digite um prompt para melhorar');
       return;
     }
 
-    let prompt = '';
+    setIsLoading(true);
+    setEnhancedPrompt('');
+    setQualityData(null);
 
-    // Adicionar role/persona
-    if (options.addRole && role.trim()) {
-      prompt += `Você é um ${role}.\n\n`;
+    try {
+      const response = await fetch('https://n8n.cleyton-mendes.com/webhook/generate-prompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          originalPrompt,
+          options,
+          role,
+          context,
+          format,
+          examples,
+          constraints,
+          model: targetModel
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao gerar prompt');
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        setEnhancedPrompt(data.optimized);
+        setQualityData(data.quality);
+        toast.success(`✨ Prompt aprimorado! Qualidade: ${data.quality.rating}`);
+      } else {
+        toast.error(data.error?.message || 'Erro ao gerar prompt');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      toast.error('Erro ao conectar com o servidor');
+    } finally {
+      setIsLoading(false);
     }
-
-    // Adicionar contexto
-    if (options.addContext && context.trim()) {
-      prompt += `Contexto: ${context}\n\n`;
-    }
-
-    // Prompt original
-    prompt += `${originalPrompt}\n`;
-
-    // Adicionar formato de saída
-    if (options.addFormat && format.trim()) {
-      prompt += `\nFormato de saída desejado:\n${format}\n`;
-    }
-
-    // Adicionar exemplos
-    if (options.addExamples && examples.trim()) {
-      prompt += `\nExemplos:\n${examples}\n`;
-    }
-
-    // Adicionar restrições
-    if (options.addConstraints && constraints.trim()) {
-      prompt += `\nRestrições:\n${constraints}\n`;
-    }
-
-    // Adicionar step-by-step
-    if (options.addStepByStep) {
-      prompt += `\nPor favor, pense passo a passo e explique seu raciocínio antes de dar a resposta final.`;
-    }
-
-    setEnhancedPrompt(prompt);
-    toast.success('Prompt aprimorado gerado!');
   };
 
   const handleCopy = async () => {
@@ -104,8 +126,21 @@ export default function PromptGeneratorPage() {
     }));
   };
 
+  const getQualityColor = (rating: string) => {
+    switch (rating) {
+      case 'Excelente':
+        return 'bg-green-500 text-white';
+      case 'Bom':
+        return 'bg-blue-500 text-white';
+      case 'Médio':
+        return 'bg-yellow-500 text-white';
+      default:
+        return 'bg-gray-500 text-white';
+    }
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-20">
       <div>
         <h1 className="text-3xl font-bold">Gerador de Prompt IA</h1>
         <p className="text-muted-foreground mt-2">
@@ -129,7 +164,45 @@ export default function PromptGeneratorPage() {
                 onChange={(e) => setOriginalPrompt(e.target.value)}
                 rows={6}
                 className="resize-none"
+                disabled={isLoading}
               />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Modelo de IA Alvo</CardTitle>
+              <CardDescription>
+                Escolha para qual modelo otimizar o prompt
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2">
+                <Button
+                  variant={targetModel === 'claude' ? 'default' : 'outline'}
+                  onClick={() => setTargetModel('claude')}
+                  disabled={isLoading}
+                  className="flex-1"
+                >
+                  Claude
+                </Button>
+                <Button
+                  variant={targetModel === 'gpt' ? 'default' : 'outline'}
+                  onClick={() => setTargetModel('gpt')}
+                  disabled={isLoading}
+                  className="flex-1"
+                >
+                  GPT-4
+                </Button>
+                <Button
+                  variant={targetModel === 'gemini' ? 'default' : 'outline'}
+                  onClick={() => setTargetModel('gemini')}
+                  disabled={isLoading}
+                  className="flex-1"
+                >
+                  Gemini
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
@@ -147,6 +220,7 @@ export default function PromptGeneratorPage() {
                     id="role"
                     checked={options.addRole}
                     onCheckedChange={() => toggleOption('addRole')}
+                    disabled={isLoading}
                   />
                   <div className="flex-1 space-y-2">
                     <Label htmlFor="role" className="cursor-pointer font-medium">
@@ -157,6 +231,7 @@ export default function PromptGeneratorPage() {
                         placeholder="Ex: especialista em machine learning"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
+                        disabled={isLoading}
                       />
                     )}
                   </div>
@@ -167,6 +242,7 @@ export default function PromptGeneratorPage() {
                     id="context"
                     checked={options.addContext}
                     onCheckedChange={() => toggleOption('addContext')}
+                    disabled={isLoading}
                   />
                   <div className="flex-1 space-y-2">
                     <Label htmlFor="context" className="cursor-pointer font-medium">
@@ -178,6 +254,7 @@ export default function PromptGeneratorPage() {
                         value={context}
                         onChange={(e) => setContext(e.target.value)}
                         rows={3}
+                        disabled={isLoading}
                       />
                     )}
                   </div>
@@ -188,6 +265,7 @@ export default function PromptGeneratorPage() {
                     id="format"
                     checked={options.addFormat}
                     onCheckedChange={() => toggleOption('addFormat')}
+                    disabled={isLoading}
                   />
                   <div className="flex-1 space-y-2">
                     <Label htmlFor="format" className="cursor-pointer font-medium">
@@ -199,6 +277,7 @@ export default function PromptGeneratorPage() {
                         value={format}
                         onChange={(e) => setFormat(e.target.value)}
                         rows={3}
+                        disabled={isLoading}
                       />
                     )}
                   </div>
@@ -209,6 +288,7 @@ export default function PromptGeneratorPage() {
                     id="examples"
                     checked={options.addExamples}
                     onCheckedChange={() => toggleOption('addExamples')}
+                    disabled={isLoading}
                   />
                   <div className="flex-1 space-y-2">
                     <Label htmlFor="examples" className="cursor-pointer font-medium">
@@ -220,6 +300,7 @@ export default function PromptGeneratorPage() {
                         value={examples}
                         onChange={(e) => setExamples(e.target.value)}
                         rows={3}
+                        disabled={isLoading}
                       />
                     )}
                   </div>
@@ -230,6 +311,7 @@ export default function PromptGeneratorPage() {
                     id="constraints"
                     checked={options.addConstraints}
                     onCheckedChange={() => toggleOption('addConstraints')}
+                    disabled={isLoading}
                   />
                   <div className="flex-1 space-y-2">
                     <Label htmlFor="constraints" className="cursor-pointer font-medium">
@@ -241,6 +323,7 @@ export default function PromptGeneratorPage() {
                         value={constraints}
                         onChange={(e) => setConstraints(e.target.value)}
                         rows={3}
+                        disabled={isLoading}
                       />
                     )}
                   </div>
@@ -251,6 +334,7 @@ export default function PromptGeneratorPage() {
                     id="stepByStep"
                     checked={options.addStepByStep}
                     onCheckedChange={() => toggleOption('addStepByStep')}
+                    disabled={isLoading}
                   />
                   <Label htmlFor="stepByStep" className="cursor-pointer font-medium">
                     Pedir Raciocínio Passo a Passo
@@ -258,35 +342,41 @@ export default function PromptGeneratorPage() {
                 </div>
               </div>
 
-              <Button onClick={generatePrompt} className="w-full" size="lg">
-                <Sparkles className="mr-2 h-4 w-4" />
-                Gerar Prompt Aprimorado
+              <Button 
+                onClick={generatePrompt} 
+                className="w-full" 
+                size="lg"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Gerando...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Gerar Prompt Aprimorado
+                  </>
+                )}
               </Button>
             </CardContent>
           </Card>
         </div>
 
-        <Card className="lg:sticky lg:top-4 h-fit">
-          <CardHeader>
-            <CardTitle>Prompt Aprimorado</CardTitle>
-            <CardDescription>
-              Seu prompt otimizado para melhores resultados
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="relative">
-              <Textarea
-                value={enhancedPrompt}
-                readOnly
-                placeholder="O prompt aprimorado aparecerá aqui..."
-                rows={20}
-                className="resize-none font-mono text-sm"
-              />
-            </div>
-
-            {enhancedPrompt && (
-              <div className="flex gap-2">
-                <Button onClick={handleCopy} className="flex-1">
+        <div className="space-y-4">
+          <Card className="lg:sticky lg:top-4">
+            <CardHeader>
+              <div className='flex'>
+                <div className='flex-1'>
+                <CardTitle>Prompt Aprimorado</CardTitle>
+              <CardDescription>
+                Seu prompt otimizado para {targetModel === 'claude' ? 'Claude' : targetModel === 'gpt' ? 'GPT-4' : 'Gemini'}
+              </CardDescription>
+              </div>
+              <div className='flex-1'>
+                {enhancedPrompt && (
+                <Button onClick={handleCopy} className="w-full">
                   {copied ? (
                     <>
                       <Check className="mr-2 h-4 w-4" />
@@ -299,22 +389,123 @@ export default function PromptGeneratorPage() {
                     </>
                   )}
                 </Button>
+              )}
               </div>
-            )}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="relative">
+                <Textarea
+                  value={enhancedPrompt}
+                  readOnly
+                  placeholder={isLoading ? "Gerando prompt otimizado..." : "O prompt aprimorado aparecerá aqui..."}
+                  rows={20}
+                  className="resize-none font-mono text-sm"
+                />
+              </div>
 
-            {enhancedPrompt && (
-              <div className="rounded-lg bg-muted p-4 space-y-2">
-                <p className="text-sm font-medium">Dicas:</p>
-                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                  <li>Teste o prompt e ajuste conforme necessário</li>
-                  <li>Seja específico sobre o que você quer</li>
-                  <li>Forneça exemplos quando possível</li>
-                  <li>Itere e refine baseado nos resultados</li>
-                </ul>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+              {enhancedPrompt && (
+                <Button onClick={handleCopy} className="w-full">
+                  {copied ? (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Copiado!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="mr-2 h-4 w-4" />
+                      Copiar Prompt
+                    </>
+                  )}
+                </Button>
+              )}
+
+              {enhancedPrompt && (
+                <div className="rounded-lg bg-muted p-4 space-y-2">
+                  <p className="text-sm font-medium">💡 Dicas:</p>
+                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>Teste o prompt e ajuste conforme necessário</li>
+                    <li>Seja específico sobre o que você quer</li>
+                    <li>Forneça exemplos quando possível</li>
+                    <li>Itere e refine baseado nos resultados</li>
+                  </ul>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {qualityData && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5" />
+                  Análise de Qualidade
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium">Avaliação:</span>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${getQualityColor(qualityData.rating)}`}>
+                      {qualityData.rating}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium">Score:</span>
+                    <span className="text-2xl font-bold">
+                      {qualityData.score}/{qualityData.maxScore}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium">Detalhamento:</p>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between">
+                        <span>Tamanho adequado:</span>
+                        <span className="font-mono">{qualityData.breakdown.length}/10</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Tem role/persona:</span>
+                        <span className="font-mono">{qualityData.breakdown.hasRole}/10</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Bem estruturado:</span>
+                        <span className="font-mono">{qualityData.breakdown.hasStructure}/10</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Tem exemplos:</span>
+                        <span className="font-mono">{qualityData.breakdown.hasExamples}/10</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Tem restrições:</span>
+                        <span className="font-mono">{qualityData.breakdown.hasConstraints}/10</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Formato definido:</span>
+                        <span className="font-mono">{qualityData.breakdown.hasFormat}/10</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {qualityData.suggestions.length > 0 && (
+                    <div>
+                      <p className="font-medium mb-2">📋 Sugestões:</p>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        {qualityData.suggestions.map((s, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-muted-foreground">•</span>
+                            <span>{s}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
