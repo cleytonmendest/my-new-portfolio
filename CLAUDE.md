@@ -22,7 +22,7 @@ Work follows milestones M0 to M5. Update this table when a milestone closes.
 
 | Milestone | Scope | Status |
 |---|---|---|
-| M0 | Governance and security (this file, CI, build env, hygiene) | in progress |
+| M0 | Governance and security (this file, CI, build env, hygiene) | done |
 | M1 | Design system and lint enforcement | pending |
 | M2 | i18n by route (`/en`, `/pt`) and technical SEO | pending |
 | M3 | Data and content cleanup | pending |
