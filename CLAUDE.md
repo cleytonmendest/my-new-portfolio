@@ -1,207 +1,115 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (claude.ai/code) when working in this repository.
 
-## Project Overview
+## Project overview
 
-Personal portfolio website for a senior developer with 4+ years of experience in e-commerce development. The portfolio is bilingual (English/Portuguese) targeting international job opportunities and freelance projects.
+Personal portfolio of Cleyton Mendes, Software Engineer specialised in e-commerce (VTEX, Shopify, Deco; React, TypeScript, Next.js). Bilingual (English/Portuguese), aimed at international job opportunities and freelance work. The site is itself proof of the work: it must be fast, polished and move with intent.
 
-## Tech Stack
+## Tech stack
 
-- **Framework**: Next.js 16 (App Router)
-- **React**: 19.2.0
-- **TypeScript**: 5.x (strict mode)
-- **Styling**: Tailwind CSS 4
-- **UI Components**: shadcn/ui
-- **Icons**: lucide-react (from shadcn)
-- **Internationalization**: next-intl
-- **Theme**: next-themes (dark/light mode)
-- **Deployment**: Docker on personal VPS
+- **Framework**: Next.js 16 (App Router), React 19.2, TypeScript 5 (strict)
+- **Styling**: Tailwind CSS 4, shadcn/ui (Radix) as the component base
+- **i18n / theme**: next-intl, next-themes (light/dark)
+- **Forms / email**: react-hook-form + zod, Web3Forms (client-side)
+- **Analytics**: Google Analytics 4 via `@next/third-parties`
+- **Planned (see Motion)**: `three` + `@react-three/fiber` (3D), `gsap` (scroll)
+- **Deployment**: Docker (`output: 'standalone'`) on a personal VPS through Easypanel
 
-## Core Principles
+## Status
 
-### Code Quality
-- **No overengineering**: Keep code simple and straightforward
-- **No `any` types**: Strict TypeScript typing required
-- **Zero lint errors**: Code must pass ESLint checks
-- **Type safety**: Always use proper TypeScript types
+Work follows milestones M0 to M5. Update this table when a milestone closes.
 
-### Development Workflow
-- **Atomic commits**: One feature per commit
-- **Complete features only**: Never commit half-implemented features
-- **If broken, revert**: If implementation has unresolved errors, undo changes
-- **Small features**: Break large features into small, testable pieces
+| Milestone | Scope | Status |
+|---|---|---|
+| M0 | Governance and security (this file, CI, build env, hygiene) | in progress |
+| M1 | Design system and lint enforcement | pending |
+| M2 | i18n by route (`/en`, `/pt`) and technical SEO | pending |
+| M3 | Data and content cleanup | pending |
+| M4 | Section redesign and motion | pending |
+| M5 | Quality: icons/OG, Playwright + axe, docs | pending |
 
-### Code Standards
-- **Easy to read**: Clear variable/function names
-- **Easy to maintain**: Well-structured, documented code
-- **Easy to implement**: Simple patterns, avoid complexity
-- **Consistent structure**: Follow documented folder structure
-
-## Design Guidelines
-
-### Visual Style
-- **Simple and functional**: No unnecessary animations or complexity
-- **Neutral colors**: Avoid absolute black (#000) or white (#FFF)
-- **Accent color**: #E6972E or similar warm orange for highlights
-- **Reference**: https://cleyton-mendes-dev.netlify.app/
-
-### Component Requirements
-- Use shadcn/ui for all UI components
-- Visual confirmation required when completing sections/features
-- Take inspiration from modern portfolio designs online
-- Maintain consistency across all pages
-
-## Project Structure
-
-```
-my-portfolio/
-├── src/
-│   ├── app/                  # Next.js App Router pages
-│   │   ├── [locale]/         # Internationalized routes
-│   │   ├── globals.css       # Global styles
-│   │   └── layout.tsx        # Root layout
-│   ├── components/           # React components
-│   │   ├── ui/               # shadcn/ui components
-│   │   └── ...               # Custom components
-│   ├── lib/                  # Utility functions
-│   ├── types/                # TypeScript type definitions
-│   └── messages/             # i18n translation files
-│       ├── en.json
-│       └── pt.json
-├── public/                   # Static assets
-├── docker/                   # Docker configuration
-├── Dockerfile
-└── docker-compose.yml
-```
+Rules below marked **(from M1)** describe the target; code written before that milestone may still violate them.
 
 ## Commands
 
-### Development
+Use **npm only**. `package-lock.json` is the source of truth; do not mix pnpm or yarn.
+
 ```bash
-npm run dev          # Start development server on http://localhost:3000
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript compiler check
+npm ci               # install exactly from the lockfile
+npm run dev          # http://localhost:3000
+npm run build        # production build
+npm run lint         # ESLint (plus Stylelint from M1)
+npm run type-check   # tsc --noEmit
 ```
 
-### Docker
-```bash
-docker-compose up -d                    # Start container in detached mode
-docker-compose down                     # Stop container
-docker-compose logs -f                  # View logs
-docker-compose build --no-cache         # Rebuild without cache
-```
+Never run `npm audit fix --force`: its suggestions are major downgrades (for example `eslint-config-next@14`). Use plain `npm audit fix` and verify with lint, type-check and build.
 
-## Features
+## Code principles
 
-### Implemented
-- [x] Base Next.js setup with TypeScript
-- [x] Tailwind CSS 4 configuration
+- No overengineering: simple, readable code that matches the surrounding style.
+- No `any`; strict TypeScript. Zero lint errors.
+- Atomic commits: one feature per commit, never a half-implemented feature. If a change cannot be finished, revert it.
+- Reuse and improve existing components before creating new ones.
 
-### In Progress
-- [ ] shadcn/ui setup and configuration
-- [ ] next-intl internationalization (EN/PT)
-- [ ] Dark/light theme with next-themes
-- [ ] Docker configuration for VPS deployment
+## Design system rules (from M1)
 
-### Planned
-- [ ] Hero section with introduction
-- [ ] Experience/projects showcase
-- [ ] Blog system with headless CMS
-- [ ] Contact form with email integration
-- [ ] Analytics integration
-- [ ] SEO optimization for both languages
+Source of truth: `src/styles/tokens.css`. Anything outside it is a violation and fails `npm run lint`.
+
+- **Palette**: two neutrals inverted between themes, Névoa `#EEF1EC` and Breu `#111713`, plus Folha (secondary text), Musgo (lines), Âmbar `#E6972E` (the accent, used as a signal: links, primary action, focus, active state, never as decoration) and Âmbar-tinta `#8A4F00` (accent as text on the light theme, because Âmbar on Névoa is only 2.1:1). Never pure black or pure white.
+- **Tokens only**: semantic shadcn names (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-accent`, ...). No raw palette classes (`bg-green-500`), no arbitrary values (`w-[137px]`, `text-[#fff]`), no hex or `style` colors, no new CSS custom properties outside `tokens.css`.
+- **Components**: use `src/components/ui/*`. Improve an existing component instead of building a look-alike. Raw `<button>`, `<input>`, `<select>`, `<textarea>` only inside `ui/`. Add shadcn components with `npx shadcn@latest add <name>`.
+- **Typography**: Archivo for headings and interface (its width axis is part of the identity), Source Serif 4 for long text. No monospace for labels, no ALL CAPS labels, sentence case, lines under 80 characters.
+- **Layout**: left aligned, section name in a side rail, no grids of identical cards. Border radius follows the element's role (control, media, pill), not one value for everything.
+- **Accessibility**: contrast AA in both themes, visible keyboard focus, semantic HTML, `prefers-reduced-motion` respected.
+- **Design process**: use the `frontend-design` skill (plan, review against the brief, build, critique with screenshots) before designing or reshaping any section.
+
+## Motion rules (from M4)
+
+Motion is spent in three places only: the hero (Three.js scene and the name's width animation), the projects section (GSAP scroll on the screenshot frame) and the contact confirmation (3D scene after a successful send). No fade-in per section, no hover animation on every card, no decorative loops.
+
+- Animation libraries (`framer-motion`, `gsap`) only in `src/components/motion/`; `three` and `@react-three/*` only in `src/components/three/`.
+- 3D is lazy-loaded without SSR, has a static fallback, a simplified mobile version, and reads colours from the CSS tokens (no hex in scene code).
+- `prefers-reduced-motion` turns motion off and serves the static version.
+- Performance budget: Lighthouse mobile performance of at least 90 on the production build.
 
 ## Internationalization
 
-- **Languages**: English (en), Portuguese (pt)
-- **Default**: English
-- **URL structure**: `/en/...` and `/pt/...`
-- **Library**: next-intl
-- **Translation files**: `src/messages/en.json` and `src/messages/pt.json`
+- Languages: English (default) and Portuguese. All user-facing strings live in `src/messages/en.json` and `src/messages/pt.json` with identical keys. Data files carry `{ en, pt }` objects.
+- Today the language is chosen by cookie on a single URL. **M2 moves to `/en` and `/pt` routes** (`localePrefix: 'always'`, `src/proxy.ts`), so each language is indexable.
+- `/tools/*` and `/whatsapp-bot/*` are personal utility pages in Portuguese only, outside i18n.
 
-## Component Development
+## Content rules
 
-### shadcn/ui
-- Install components only when needed: `npx shadcn@latest add [component]`
-- Customize theme in `tailwind.config.ts`
-- Use lucide-react for icons
+- No invented numbers, results or claims. Every metric must be verifiable by the owner. The professional title is "Software Engineer".
+- One source for contact data: `src/data/personal.ts`.
+- Client material (names, logos, screenshots) only with the owner's confirmation. Screenshots are static assets in `public/projects/`, never hot-linked from third-party hosts.
 
-### Creating New Components
-1. Create in `src/components/[category]/`
-2. Use TypeScript interfaces for props
-3. Export from index file for clean imports
-4. Document complex components with JSDoc
+## Workflow
 
-## Testing Before Commit
-
-1. Run `npm run lint` - must pass with no errors
-2. Run `npm run type-check` - must pass with no errors
-3. Run `npm run build` - must build successfully
-4. Test functionality in browser
-5. Verify responsive design (mobile/tablet/desktop)
-6. Test both dark and light themes
-7. Test both English and Portuguese versions
+- Develop on the branch assigned to the session. **Never push to `main` unless the owner asks**: a push to `main` deploys to production.
+- Commit prefixes: `feat`, `fix`, `chore`, `docs`, `ci`, `build`. Keep messages descriptive.
+- Before every commit: `npm run lint`, `npm run type-check`, `npm run build`; for visual work, also review screenshots in light and dark, EN and PT, desktop and mobile.
+- `find-skills`: read a third-party skill completely and check its source and licence before installing it. Never use `-y`.
+- Security: never commit secrets, tokens or webhook URLs. Use GitHub Secrets and environment variables.
 
 ## Deployment
 
-### Docker Build
-The project uses Docker for deployment on a personal VPS:
-- Production-optimized Next.js build
-- Multi-stage Docker build for smaller image size
-- Environment variables configured via `.env`
-- Nginx reverse proxy ready
+- Multi-stage Docker build, standalone output, run with `node server.js`.
+- `NEXT_PUBLIC_*` values are inlined at build time, so the Dockerfile receives them as build arguments. Without them the contact form and analytics are silently disabled.
+- `.github/workflows/deploy.yml`: on pull requests and pushes to `main` it runs lint, type-check and build; on pushes to `main` it then calls the Easypanel webhook stored in the `EASYPANEL_DEPLOY_WEBHOOK_URL` secret.
 
-### Environment Variables
-Create `.env.local` for development:
+## Environment variables
+
+Create `.env.local` for development (see `.env.example`):
+
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-# Add CMS keys, email service keys, analytics keys, etc.
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-web3forms-key
 ```
-
-## Common Patterns
-
-### Internationalized Component
-```typescript
-import { useTranslations } from 'next-intl';
-
-export function MyComponent() {
-  const t = useTranslations('MyComponent');
-
-  return <h1>{t('title')}</h1>;
-}
-```
-
-### Theme-aware Component
-```typescript
-import { useTheme } from 'next-themes';
-
-export function MyComponent() {
-  const { theme, setTheme } = useTheme();
-
-  return (
-    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-      Toggle theme
-    </button>
-  );
-}
-```
-
-## Important Notes
-
-- **Never use absolute black or white**: Use #0a0a0a for dark, #fafafa for light
-- **Accent color consistency**: Always use #E6972E or very close variants
-- **Mobile-first**: Design for mobile, enhance for desktop
-- **Accessibility**: Proper semantic HTML, ARIA labels, keyboard navigation
-- **Performance**: Optimize images, lazy load when appropriate
-- **SEO**: Proper meta tags, sitemap, robots.txt for both languages
 
 ## Resources
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [shadcn/ui Components](https://ui.shadcn.com)
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [next-intl](https://next-intl.dev)
-- [Lucide Icons](https://lucide.dev)
+- [Next.js](https://nextjs.org/docs), [Tailwind CSS](https://tailwindcss.com/docs), [shadcn/ui](https://ui.shadcn.com), [next-intl](https://next-intl.dev)
+- [React Three Fiber](https://r3f.docs.pmnd.rs), [GSAP](https://gsap.com/docs)
