@@ -27,7 +27,7 @@ export function LegalLayout({
     <div className="flex min-h-screen flex-col mx-4">
       <Navigation />
 
-      <main className="flex-1 mt-14 flex justify-center">
+      <main id="main" className="flex-1 mt-14 flex justify-center">
         <div className="container max-w-7xl py-8 md:py-12">
           {/* Breadcrumb */}
           <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">

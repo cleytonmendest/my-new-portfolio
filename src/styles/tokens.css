@@ -74,6 +74,19 @@
   /* Easing used by motion code and CSS transitions. */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.3, 0, 0, 1.15);
+
+  /* The hero name settles from condensed to its normal width once, on load (Archivo's wdth
+     axis). `backwards` fill so the resting width stays free for the pointer interaction. */
+  --animate-name-settle: name-settle 1100ms var(--ease-emphasized) backwards;
+
+  @keyframes name-settle {
+    from {
+      font-stretch: 62%;
+    }
+    to {
+      font-stretch: 100%;
+    }
+  }
 }
 
 /* .light lets a section force the light theme inside a dark page (see /design-system). */

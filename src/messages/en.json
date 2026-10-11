@@ -3,7 +3,8 @@
     "language": "Language",
     "theme": "Theme",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "skipToContent": "Skip to content"
   },
   "nav": {
     "home": "Home",
@@ -17,30 +18,35 @@
     "close": "Close"
   },
   "hero": {
-    "greeting": "Hi, I'm",
     "name": "Cleyton Mendes",
     "title": "Software Engineer",
-    "description": "Software Engineer specializing in e-commerce solutions since 2021. Expert in React, TypeScript, Node.js, and modern web technologies. Passionate about building scalable applications and delivering exceptional user experiences.",
     "cta": {
       "downloadCV": "Download CV",
       "contact": "Get in Touch"
     },
-    "scroll": "Scroll down"
+    "tagline": "I build e-commerce storefronts on VTEX, Shopify and Deco, with React and TypeScript.",
+    "sceneLabel": "Storefronts I built, floating in 3D"
+  },
+  "about": {
+    "title": "About",
+    "photoAlt": "Portrait of Cleyton Mendes",
+    "p1": "I am a Software Engineer in Rio de Janeiro and I have worked on e-commerce since 2021. I started on VTEX at ED3 Digital, building storefronts for brands such as Tiffany & Co., Hugo Boss, Creamy and Candide, then moved to Deco and Shopify integrations at We.digi. Today I work on the QuestEdu platform.",
+    "p2": "I am studying Software Engineering at Estácio and I keep learning: my most recent courses cover NestJS, Next.js and Shopify theme development."
   },
   "experience": {
-    "title": "Work Experience",
-    "subtitle": "My professional journey in software development",
-    "viewAll": "View All Experiences"
+    "title": "Experience"
   },
   "projects": {
-    "title": "Featured Projects",
-    "subtitle": "Some of my best work",
-    "viewProject": "View Project",
-    "viewCode": "View Code",
-    "maintenance": "Site under maintenance"
+    "title": "Projects",
+    "maintenance": "Site under maintenance",
+    "platform": "Platform",
+    "role": "My role",
+    "stack": "Stack",
+    "visit": "Visit the site",
+    "screenshotAlt": "Home page of {name}"
   },
   "skills": {
-    "title": "Skills & Technologies",
+    "title": "Skills",
     "categories": {
       "frontend": "Frontend",
       "platforms": "Platforms",
@@ -50,16 +56,18 @@
     }
   },
   "certifications": {
-    "title": "Certifications & Education",
-    "subtitle": "Continuous learning and professional development",
-    "education": "Education",
-    "certifications": "Certifications",
-    "viewCredential": "View Credential",
-    "viewAllCertifications": "View All Certifications"
+    "title": "Education",
+    "education": "Degree",
+    "certifications": "Courses",
+    "viewCredential": "View credential",
+    "status": {
+      "in-progress": "In progress",
+      "completed": "Completed"
+    }
   },
   "contact": {
-    "title": "Get In Touch",
-    "subtitle": "Have a project in mind or want to collaborate? Feel free to reach out!",
+    "title": "Contact",
+    "subtitle": "Have a project or an opening? Write to me.",
     "form": {
       "name": "Name",
       "namePlaceholder": "Your name",
@@ -82,7 +90,6 @@
     "success": "Message sent successfully! I'll get back to you soon.",
     "error": "Failed to send message. Please try again or contact me directly.",
     "info": {
-      "title": "Contact Information",
       "email": "Email",
       "location": "Location",
       "locationValue": "Available for Remote Work",
@@ -90,15 +97,15 @@
       "availabilityValue": "Open to Opportunities"
     },
     "copied": "Email copied to clipboard",
-    "copyError": "Could not copy the email"
+    "copy": "Copy email",
+    "copyError": "Could not copy the email",
+    "whatsapp": "Talk on WhatsApp",
+    "whatsappMessage": "Hi! I found your portfolio and would like to talk.",
+    "sent": "Message sent"
   },
   "footer": {
-    "description": "Software Engineer specializing in exceptional e-commerce experiences.",
-    "quickLinks": "Quick Links",
-    "social": "Connect",
+    "social": "Elsewhere",
     "copyright": "All rights reserved.",
-    "madeWith": "Made with",
-    "and": "and",
     "backToTop": "Back to top"
   },
   "metadata": {

@@ -10,7 +10,7 @@ export default async function NotFoundPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navigation />
-      <main className="flex flex-1 flex-col items-start justify-center gap-4 px-4 py-32 mx-auto w-full max-w-3xl">
+      <main id="main" className="flex flex-1 flex-col items-start justify-center gap-4 px-4 py-32 mx-auto w-full max-w-3xl">
         <h1 className="text-4xl font-bold">{t('title')}</h1>
         <p className="font-serif text-lg text-muted-foreground">{t('description')}</p>
         <Button asChild>

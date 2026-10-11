@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations('common');
   const [mounted, setMounted] = useState(false);
 
@@ -15,20 +15,21 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  // Reserves the space so the header does not jump when the theme resolves on the client.
   if (!mounted) {
-    return null;
+    return <div className="size-9" aria-hidden="true" />;
   }
 
-  const isDark = theme === 'dark';
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
+      size="icon"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label={t('theme')}
+      aria-label={`${t('theme')}: ${isDark ? t('light') : t('dark')}`}
     >
       {isDark ? <Sun /> : <Moon />}
-      {isDark ? t('light') : t('dark')}
     </Button>
   );
 }

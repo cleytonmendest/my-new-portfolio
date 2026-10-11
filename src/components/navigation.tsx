@@ -1,142 +1,129 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { Menu, X, Code2 } from 'lucide-react';
 import { Link, usePathname } from '@/i18n/routing';
+
+// Section ids on the home page, in reading order.
+const sectionIds = ['projects', 'experience', 'skills', 'certifications', 'about', 'contact'] as const;
+type SectionId = (typeof sectionIds)[number];
 
 export function Navigation() {
   const t = useTranslations('nav');
+  const tCommon = useTranslations('common');
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState<SectionId | null>(null);
 
-  // Every section lives on the home page; the links are anchors.
-  const navItems = [
-    { id: 'home', label: t('home'), href: '/#home' },
-    { id: 'experience', label: t('experience'), href: '/#experience' },
-    { id: 'projects', label: t('projects'), href: '/#projects' },
-    { id: 'skills', label: t('skills'), href: '/#skills' },
-    { id: 'certifications', label: t('certifications'), href: '/#certifications' },
-    { id: 'contact', label: t('contact'), href: '/#contact' },
-  ];
+  const navItems = sectionIds.map((id) => ({ id, label: t(id), href: `/#${id}` }));
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-      // Only track sections on home page
-      if (pathname === '/') {
-        const sections = ['contact', 'certifications', 'skills', 'projects', 'experience', 'home'];
-        const scrollPosition = window.scrollY + 150;
+  // Highlights the section that crosses the middle of the viewport (home page only).
+  useEffect(() => {
+    if (pathname !== '/') return;
 
-        for (const sectionId of sections) {
-          const element = document.getElementById(sectionId);
-          if (element && element.offsetTop <= scrollPosition) {
-            setActiveSection(sectionId);
-            break;
-          }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          // The hero is not a menu item: nothing is highlighted while it is in view.
+          setActiveSection(entry.target.id === 'home' ? null : (entry.target.id as SectionId));
         }
-      }
-    };
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
 
-    handleScroll(); // Call once on mount
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    for (const id of ['home', ...sectionIds]) {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    }
+
+    return () => observer.disconnect();
   }, [pathname]);
 
-  // On the home page the active item follows the scroll position.
-  const isActive = (item: (typeof navItems)[number]) =>
-    pathname === '/' && activeSection === item.id;
+  const linkClass = (id: SectionId) =>
+    `text-sm font-medium transition-colors hover:text-foreground ${
+      pathname === '/' && activeSection === id ? 'text-foreground' : 'text-muted-foreground'
+    }`;
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-background/80 backdrop-blur-lg border-b border-border'
-          : 'bg-transparent'
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors ${
+        isScrolled || isMenuOpen ? 'border-b border-border bg-background/90 backdrop-blur' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-bold text-xl hover:text-accent-ink transition-colors"
-          >
-            <Code2 className="h-6 w-6 text-accent-ink" />
-            <span>CM</span>
-          </Link>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-60 focus:rounded-control focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+      >
+        {tCommon('skipToContent')}
+      </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-accent-ink ${
-                  isActive(item)
-                    ? 'text-accent-ink'
-                    : 'text-muted-foreground'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <Link
+          href="/"
+          aria-label={t('home')}
+          className="text-lg font-extrabold tracking-tight font-stretch-expanded"
+        >
+          CM
+        </Link>
 
-          {/* Right side - Theme & Language */}
-          <div className="hidden md:flex items-center gap-4">
-            <LanguageSwitcher />
-            <ThemeToggle />
-          </div>
+        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
+          {navItems.map((item) => (
+            <Link key={item.id} href={item.href} className={linkClass(item.id)}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? t('close') : t('menu')}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </Button>
+        <div className="hidden items-center gap-2 md:flex">
+          <LanguageSwitcher />
+          <ThemeToggle />
         </div>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label={isMenuOpen ? t('close') : t('menu')}
+          aria-expanded={isMenuOpen}
+        >
+          {isMenuOpen ? <X /> : <Menu />}
+        </Button>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-lg">
-          <div className="px-4 py-6 space-y-4">
+        <div className="border-t border-border md:hidden">
+          <nav aria-label="Main" className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
             {navItems.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block w-full text-left px-4 py-2 rounded-control transition-colors ${
-                  isActive(item)
-                    ? 'bg-accent text-accent-foreground'
-                    : 'hover:bg-muted'
-                }`}
+                className={`rounded-control px-3 py-2 ${linkClass(item.id)}`}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="flex items-center justify-between pt-4 border-t border-border">
+            <div className="mt-2 flex items-center justify-between border-t border-border pt-4">
               <LanguageSwitcher />
               <ThemeToggle />
             </div>
-          </div>
+          </nav>
         </div>
       )}
-    </nav>
+    </header>
   );
 }

@@ -7,18 +7,18 @@ import { ThemeProvider } from '@/components/theme-provider';
 import '@/app/globals.css';
 
 // Archivo carries headings and interface; its width axis (wdth) is part of the
-// identity. Source Serif 4 is for long text. Both cover Portuguese diacritics.
+// identity. Source Serif 4 is for long text. The latin subset covers Portuguese, so latin-ext
+// is not downloaded.
 const archivo = Archivo({
   variable: '--font-archivo',
-  subsets: ['latin', 'latin-ext'],
+  subsets: ['latin'],
   axes: ['wdth'],
   display: 'swap',
 });
 
 const sourceSerif = Source_Serif_4({
   variable: '--font-source-serif',
-  subsets: ['latin', 'latin-ext'],
-  axes: ['opsz'],
+  subsets: ['latin'],
   display: 'swap',
 });
 

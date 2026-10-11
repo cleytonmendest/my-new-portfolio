@@ -3,7 +3,8 @@
     "language": "Idioma",
     "theme": "Tema",
     "light": "Claro",
-    "dark": "Escuro"
+    "dark": "Escuro",
+    "skipToContent": "Ir para o conteúdo"
   },
   "nav": {
     "home": "Início",
@@ -17,30 +18,35 @@
     "close": "Fechar"
   },
   "hero": {
-    "greeting": "Olá, eu sou",
     "name": "Cleyton Mendes",
     "title": "Engenheiro de Software",
-    "description": "Engenheiro de Software especializado em soluções de e-commerce desde 2021. Especialista em React, TypeScript, Node.js e tecnologias web modernas. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
     "cta": {
       "downloadCV": "Baixar CV",
       "contact": "Entre em Contato"
     },
-    "scroll": "Role para baixo"
+    "tagline": "Construo lojas virtuais em VTEX, Shopify e Deco, com React e TypeScript.",
+    "sceneLabel": "Lojas que construí, flutuando em 3D"
+  },
+  "about": {
+    "title": "Sobre",
+    "photoAlt": "Retrato de Cleyton Mendes",
+    "p1": "Sou Engenheiro de Software no Rio de Janeiro e trabalho com e-commerce desde 2021. Comecei em VTEX na ED3 Digital, construindo lojas para marcas como Tiffany & Co., Hugo Boss, Creamy e Candide, e depois passei para integrações de Deco e Shopify na We.digi. Hoje atuo na plataforma da QuestEdu.",
+    "p2": "Estudo Engenharia de Software na Estácio e sigo aprendendo: meus cursos mais recentes são de NestJS, Next.js e desenvolvimento de temas Shopify."
   },
   "experience": {
-    "title": "Experiência Profissional",
-    "subtitle": "Minha jornada no desenvolvimento de software",
-    "viewAll": "Ver Todas as Experiências"
+    "title": "Experiência"
   },
   "projects": {
-    "title": "Projetos em Destaque",
-    "subtitle": "Alguns dos meus melhores trabalhos",
-    "viewProject": "Ver Projeto",
-    "viewCode": "Ver Código",
-    "maintenance": "Site em manutenção"
+    "title": "Projetos",
+    "maintenance": "Site em manutenção",
+    "platform": "Plataforma",
+    "role": "Meu papel",
+    "stack": "Stack",
+    "visit": "Visitar o site",
+    "screenshotAlt": "Página inicial de {name}"
   },
   "skills": {
-    "title": "Habilidades & Tecnologias",
+    "title": "Habilidades",
     "categories": {
       "frontend": "Frontend",
       "platforms": "Plataformas",
@@ -50,16 +56,18 @@
     }
   },
   "certifications": {
-    "title": "Certificações & Educação",
-    "subtitle": "Aprendizado contínuo e desenvolvimento profissional",
-    "education": "Educação",
-    "certifications": "Certificações",
-    "viewCredential": "Ver Credencial",
-    "viewAllCertifications": "Ver Todas as Certificações"
+    "title": "Formação",
+    "education": "Graduação",
+    "certifications": "Cursos",
+    "viewCredential": "Ver credencial",
+    "status": {
+      "in-progress": "Em andamento",
+      "completed": "Concluído"
+    }
   },
   "contact": {
-    "title": "Entre em Contato",
-    "subtitle": "Tem um projeto em mente ou quer colaborar? Sinta-se à vontade para entrar em contato!",
+    "title": "Contato",
+    "subtitle": "Tem um projeto ou uma vaga? Escreva para mim.",
     "form": {
       "name": "Nome",
       "namePlaceholder": "Seu nome",
@@ -82,23 +90,22 @@
     "success": "Mensagem enviada com sucesso! Entrarei em contato em breve.",
     "error": "Falha ao enviar mensagem. Por favor, tente novamente ou entre em contato diretamente.",
     "info": {
-      "title": "Informações de Contato",
-      "email": "Email",
+      "email": "E-mail",
       "location": "Localização",
       "locationValue": "Disponível para Trabalho Remoto",
       "availability": "Disponibilidade",
       "availabilityValue": "Aberto a Oportunidades"
     },
     "copied": "E-mail copiado para a área de transferência",
-    "copyError": "Não foi possível copiar o e-mail"
+    "copy": "Copiar e-mail",
+    "copyError": "Não foi possível copiar o e-mail",
+    "whatsapp": "Falar no WhatsApp",
+    "whatsappMessage": "Olá! Encontrei seu portfólio e gostaria de conversar.",
+    "sent": "Mensagem enviada"
   },
   "footer": {
-    "description": "Engenheiro de Software especializado em experiências de e-commerce excepcionais.",
-    "quickLinks": "Links Rápidos",
-    "social": "Conecte-se",
+    "social": "Em outros lugares",
     "copyright": "Todos os direitos reservados.",
-    "madeWith": "Feito com",
-    "and": "e",
     "backToTop": "Voltar ao topo"
   },
   "metadata": {
