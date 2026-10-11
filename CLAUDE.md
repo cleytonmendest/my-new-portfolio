@@ -23,13 +23,13 @@ Work follows milestones M0 to M5. Update this table when a milestone closes.
 | Milestone | Scope | Status |
 |---|---|---|
 | M0 | Governance and security (this file, CI, build env, hygiene) | done |
-| M1 | Design system and lint enforcement | pending |
+| M1 | Design system and lint enforcement | done |
 | M2 | i18n by route (`/en`, `/pt`) and technical SEO | pending |
 | M3 | Data and content cleanup | pending |
 | M4 | Section redesign and motion | pending |
 | M5 | Quality: icons/OG, Playwright + axe, docs | pending |
 
-Rules below marked **(from M1)** describe the target; code written before that milestone may still violate them.
+The design system and motion rules below are enforced by `npm run lint` (the motion rules apply from M4, when the libraries arrive).
 
 ## Commands
 
@@ -39,7 +39,7 @@ Use **npm only**. `package-lock.json` is the source of truth; do not mix pnpm or
 npm ci               # install exactly from the lockfile
 npm run dev          # http://localhost:3000
 npm run build        # production build
-npm run lint         # ESLint (plus Stylelint from M1)
+npm run lint         # ESLint (design system rules) and Stylelint
 npm run type-check   # tsc --noEmit
 ```
 
@@ -52,19 +52,21 @@ Never run `npm audit fix --force`: its suggestions are major downgrades (for exa
 - Atomic commits: one feature per commit, never a half-implemented feature. If a change cannot be finished, revert it.
 - Reuse and improve existing components before creating new ones.
 
-## Design system rules (from M1)
+## Design system rules
 
 Source of truth: `src/styles/tokens.css`. Anything outside it is a violation and fails `npm run lint`.
 
 - **Palette**: two neutrals inverted between themes, Névoa `#EEF1EC` and Breu `#111713`, plus Folha (secondary text), Musgo (lines), Âmbar `#E6972E` (the accent, used as a signal: links, primary action, focus, active state, never as decoration) and Âmbar-tinta `#8A4F00` (accent as text on the light theme, because Âmbar on Névoa is only 2.1:1). Never pure black or pure white.
-- **Tokens only**: semantic shadcn names (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-accent`, ...). No raw palette classes (`bg-green-500`), no arbitrary values (`w-[137px]`, `text-[#fff]`), no hex or `style` colors, no new CSS custom properties outside `tokens.css`.
+- **Tokens only**: semantic shadcn names (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-accent`, ...). Tailwind's default palette, radii and shadows are removed, so `bg-green-500` or `rounded-xl` do not exist. No arbitrary values outside `components/ui` (`w-[137px]`), no hex or `style` colors, no new CSS custom properties outside `tokens.css`. `text-accent` is forbidden: use `text-accent-ink`.
+- **Colours as values** (canvas, QR code, 3D scene): read the token with `getToken('--name')` from `src/lib/design-tokens.ts`. `bg-paper`/`text-ink` and `--print-ink`/`--print-paper` do not flip with the theme (client logos, screenshots, QR codes). A section can force a theme with the `.light` or `.dark` class.
 - **Components**: use `src/components/ui/*`. Improve an existing component instead of building a look-alike. Raw `<button>`, `<input>`, `<select>`, `<textarea>` only inside `ui/`. Add shadcn components with `npx shadcn@latest add <name>`.
 - **Typography**: Archivo for headings and interface (its width axis is part of the identity), Source Serif 4 for long text. No monospace for labels, no ALL CAPS labels, sentence case, lines under 80 characters.
 - **Layout**: left aligned, section name in a side rail, no grids of identical cards. Border radius follows the element's role (control, media, pill), not one value for everything.
 - **Accessibility**: contrast AA in both themes, visible keyboard focus, semantic HTML, `prefers-reduced-motion` respected.
+- **Living documentation**: `/design-system` shows every token and component in both themes. Update it when a component or token changes.
 - **Design process**: use the `frontend-design` skill (plan, review against the brief, build, critique with screenshots) before designing or reshaping any section.
 
-## Motion rules (from M4)
+## Motion rules
 
 Motion is spent in three places only: the hero (Three.js scene and the name's width animation), the projects section (GSAP scroll on the screenshot frame) and the contact confirmation (3D scene after a successful send). No fade-in per section, no hover animation on every card, no decorative loops.
 
