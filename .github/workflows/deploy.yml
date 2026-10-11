@@ -1,33 +1,63 @@
-name: Deploy to Easypanel
+name: CI and deploy
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  ci:
+    name: Lint, type-check and build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Trigger Easypanel deployment
-        run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" http://77.37.126.52:3000/api/deploy/46a3a2b750218ee40c530fee611ab4223ebac43e0590f68f)
-          echo "Deployment trigger response: $response"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
 
-          if [ $response -eq 200 ] || [ $response -eq 201 ] || [ $response -eq 204 ]; then
-            echo "✅ Deployment triggered successfully"
-            exit 0
-          else
-            echo "❌ Deployment trigger failed with status code: $response"
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type-check
+        run: npm run type-check
+
+      - name: Build
+        run: npm run build
+
+  deploy:
+    name: Trigger Easypanel deployment
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Easypanel deployment
+        env:
+          # Full webhook URL, stored as a repository secret. Prefer an https URL.
+          DEPLOY_WEBHOOK_URL: ${{ secrets.EASYPANEL_DEPLOY_WEBHOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_WEBHOOK_URL" ]; then
+            echo "::error::Secret EASYPANEL_DEPLOY_WEBHOOK_URL is not set"
             exit 1
           fi
 
-      - name: Deployment notification
-        if: success()
-        run: |
-          echo "🚀 Deployment triggered successfully!"
-          echo "Site will be updated in a few moments at https://cleyton-mendes.com"
+          status=$(curl -sS -o /dev/null -w "%{http_code}" "$DEPLOY_WEBHOOK_URL")
+          echo "Deployment trigger response: $status"
+
+          if [ "$status" -eq 200 ] || [ "$status" -eq 201 ] || [ "$status" -eq 204 ]; then
+            echo "Deployment triggered successfully"
+          else
+            echo "::error::Deployment trigger failed with status code $status"
+            exit 1
+          fi
