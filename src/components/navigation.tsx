@@ -2,12 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Menu, X, Code2 } from 'lucide-react';
-import Link from 'next/link';
+import { Link, usePathname } from '@/i18n/routing';
 
 export function Navigation() {
   const t = useTranslations('nav');
@@ -16,13 +15,14 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // Every section lives on the home page; the links are anchors.
   const navItems = [
-    { id: 'home', label: t('home'), href: '/', page: '/', homeSection: 'home' },
-    { id: 'experience', label: t('experience'), href: '/experience', page: '/experience', homeSection: 'experience' },
-    { id: 'projects', label: t('projects'), href: '/projects', page: '/projects', homeSection: 'projects' },
-    { id: 'skills', label: t('skills'), href: '/#skills', page: null, homeSection: 'skills' },
-    { id: 'certifications', label: t('certifications'), href: '/education', page: '/education', homeSection: 'certifications' },
-    { id: 'contact', label: t('contact'), href: '/#contact', page: null, homeSection: 'contact' },
+    { id: 'home', label: t('home'), href: '/#home' },
+    { id: 'experience', label: t('experience'), href: '/#experience' },
+    { id: 'projects', label: t('projects'), href: '/#projects' },
+    { id: 'skills', label: t('skills'), href: '/#skills' },
+    { id: 'certifications', label: t('certifications'), href: '/#certifications' },
+    { id: 'contact', label: t('contact'), href: '/#contact' },
   ];
 
   useEffect(() => {
@@ -49,19 +49,9 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
 
-  const isActive = (item: typeof navItems[0]) => {
-    // If we're on a dedicated page, highlight that page's nav item
-    if (item.page && pathname.startsWith(item.page) && item.page !== '/') {
-      return true;
-    }
-
-    // If we're on the home page, highlight based on scroll position
-    if (pathname === '/') {
-      return activeSection === item.homeSection;
-    }
-
-    return false;
-  };
+  // On the home page the active item follows the scroll position.
+  const isActive = (item: (typeof navItems)[number]) =>
+    pathname === '/' && activeSection === item.id;
 
   return (
     <nav

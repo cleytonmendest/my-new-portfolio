@@ -1,24 +1,38 @@
-export function StructuredData() {
+import { getTranslations } from 'next-intl/server';
+import { personalInfo, socialLinks } from '@/data/personal';
+import { siteUrl } from '@/lib/site';
+import type { Locale } from '@/i18n/routing';
+
+const languageTag: Record<Locale, string> = { en: 'en', pt: 'pt-BR' };
+
+const sections = ['experience', 'projects', 'skills', 'contact'] as const;
+
+interface StructuredDataProps {
+  locale: Locale;
+}
+
+export async function StructuredData({ locale }: StructuredDataProps) {
+  const tMeta = await getTranslations({ locale, namespace: 'metadata' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
+
+  const pageUrl = `${siteUrl}/${locale}`;
+  const personId = `${siteUrl}/#person`;
+
   const personData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': 'https://cleyton-mendes.com/#person',
-    name: 'Cleyton Mendes',
-    alternateName: 'Cleyton Mendes',
-    url: 'https://cleyton-mendes.com',
-    image: 'https://cleyton-mendes.com/cleyton-mendes.png',
-    sameAs: [
-      'https://github.com/cleytonmendest',
-      'https://www.linkedin.com/in/cleyton-mendes',
-    ],
-    jobTitle: 'Software Engineer',
+    '@id': personId,
+    name: personalInfo.name,
+    url: pageUrl,
+    image: `${siteUrl}/cleyton-mendes.png`,
+    sameAs: socialLinks.map((link) => link.url),
+    jobTitle: personalInfo.title,
     worksFor: {
       '@type': 'Organization',
       name: 'GrupoQ',
       url: 'https://grupoq.com.br',
     },
-    description:
-      'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, Ruby on Rails, VTEX, Shopify, and modern web technologies.',
+    description: tMeta('description'),
     knowsAbout: [
       'JavaScript',
       'TypeScript',
@@ -36,20 +50,19 @@ export function StructuredData() {
     ],
     hasOccupation: {
       '@type': 'Occupation',
-      name: 'Software Engineer',
+      name: personalInfo.title,
       occupationLocation: {
         '@type': 'City',
-        name: 'Rio de Janeiro',
+        name: personalInfo.location.city,
       },
       skills: 'React, TypeScript, Node.js, Next.js, E-commerce, VTEX',
-      experienceRequirements: '4+ years',
     },
-    email: 'cleyton.mendest@gmail.com',
-    telephone: '+5521974219271',
+    email: personalInfo.email,
+    telephone: personalInfo.phone,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Rio de Janeiro',
-      addressRegion: 'RJ',
+      addressLocality: personalInfo.location.city,
+      addressRegion: personalInfo.location.state,
       addressCountry: 'BR',
     },
   };
@@ -57,85 +70,48 @@ export function StructuredData() {
   const websiteData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://cleyton-mendes.com/#website',
-    url: 'https://cleyton-mendes.com',
-    name: 'Cleyton Mendes - Software Engineer Portfolio',
-    description:
-      'Professional portfolio of Cleyton Mendes, a Software Engineer specializing in e-commerce solutions with 4+ years of experience.',
-    inLanguage: ['en', 'pt-BR'],
-    author: {
-      '@id': 'https://cleyton-mendes.com/#person',
-    },
+    '@id': `${siteUrl}/#website`,
+    url: pageUrl,
+    name: `${personalInfo.name} - ${personalInfo.title} Portfolio`,
+    description: tMeta('description'),
+    inLanguage: languageTag[locale],
+    author: { '@id': personId },
   };
 
   const profilePageData = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
-    '@id': 'https://cleyton-mendes.com/#profilepage',
-    url: 'https://cleyton-mendes.com',
-    name: 'Cleyton Mendes - Software Engineer',
-    description:
-      'Professional portfolio showcasing projects, skills, and experience in software engineering and e-commerce development.',
-    mainEntity: {
-      '@id': 'https://cleyton-mendes.com/#person',
-    },
+    '@id': `${pageUrl}#profilepage`,
+    url: pageUrl,
+    name: tMeta('title'),
+    description: tMeta('description'),
+    inLanguage: languageTag[locale],
+    mainEntity: { '@id': personId },
   };
 
   const breadcrumbData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      {
+      { '@type': 'ListItem', position: 1, name: tNav('home'), item: pageUrl },
+      ...sections.map((section, index) => ({
         '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://cleyton-mendes.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Experience',
-        item: 'https://cleyton-mendes.com#experience',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'Projects',
-        item: 'https://cleyton-mendes.com#projects',
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: 'Skills',
-        item: 'https://cleyton-mendes.com#skills',
-      },
-      {
-        '@type': 'ListItem',
-        position: 5,
-        name: 'Contact',
-        item: 'https://cleyton-mendes.com#contact',
-      },
+        position: index + 2,
+        name: tNav(section),
+        item: `${pageUrl}#${section}`,
+      })),
     ],
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
-      />
+      {[personData, websiteData, profilePageData, breadcrumbData].map((data) => (
+        <script
+          key={data['@type']}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+        />
+      ))}
     </>
   );
 }

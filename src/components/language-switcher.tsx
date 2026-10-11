@@ -2,8 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useTransition } from 'react';
-import { setLocale } from '@/actions/locale';
-import { localeNames, type Locale } from '@/i18n/config';
+import { localeNames, usePathname, useRouter, type Locale } from '@/i18n/routing';
 import {
   Select,
   SelectContent,
@@ -16,13 +15,14 @@ import { Languages } from 'lucide-react';
 export function LanguageSwitcher() {
   const locale = useLocale();
   const t = useTranslations('common');
+  const router = useRouter();
+  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
   const handleLocaleChange = (newLocale: Locale) => {
-    startTransition(async () => {
-      await setLocale(newLocale);
-      // Force refresh to apply new locale
-      window.location.reload();
+    // Same page in the other language, keeping the section the visitor was reading.
+    startTransition(() => {
+      router.replace(`${pathname}${window.location.hash}`, { locale: newLocale });
     });
   };
 

@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
+import { Link } from '@/i18n/routing';
 import { ArrowLeft, Calendar, FileText } from 'lucide-react';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
@@ -57,13 +58,13 @@ export function LegalLayout({
                 className="hidden sm:block h-4"
               />
 
-              <Link
+              <NextLink
                 href={otherPageHref}
                 className="flex items-center gap-2 hover:text-foreground transition-colors"
               >
                 <FileText className="h-4 w-4" />
                 {otherPageTitle}
-              </Link>
+              </NextLink>
             </div>
           </header>
 
@@ -96,13 +97,13 @@ export function LegalLayout({
               Voltar para o início
             </Link>
 
-            <Link
+            <NextLink
               href={otherPageHref}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <FileText className="h-4 w-4" />
               Ver {otherPageTitle}
-            </Link>
+            </NextLink>
           </nav>
 
           {/* Contact */}

@@ -152,5 +152,14 @@
     "madeWith": "Feito com",
     "and": "e",
     "backToTop": "Voltar ao topo"
+  },
+  "metadata": {
+    "title": "Cleyton Mendes - Engenheiro de Software | Especialista em E-commerce",
+    "description": "Engenheiro de Software especializado em e-commerce desde 2021. React, TypeScript, Node.js, VTEX, Shopify e Deco. Disponível para oportunidades remotas."
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você procura não existe ou foi movida.",
+    "back": "Voltar para o início"
   }
 }

@@ -1,17 +1,25 @@
+import { setRequestLocale } from 'next-intl/server';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { Hero } from '@/components/sections/hero';
-import { ExperiencePreview } from '@/components/sections/experience-preview';
+import { Experience } from '@/components/sections/experience';
 import { Projects } from '@/components/sections/projects';
 import { Skills } from '@/components/sections/skills';
-import { CertificationsPreview } from '@/components/sections/certifications-preview';
+import { Certifications } from '@/components/sections/certifications';
 import { Contact } from '@/components/sections/contact';
 import { Separator } from '@/components/ui/separator';
 import { BackToTop } from '@/components/back-to-top';
 import { ReadingProgress } from '@/components/motion/reading-progress';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 
-export default function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <div className="flex min-h-screen flex-col">
       <ReadingProgress />
@@ -20,10 +28,10 @@ export default function HomePage() {
       <main>
         <Hero />
         <Separator className="max-w-6xl mx-auto" />
-        <ExperiencePreview />
+        <Experience />
         <Projects />
         <Skills />
-        <CertificationsPreview />
+        <Certifications />
         <Contact />
       </main>
 

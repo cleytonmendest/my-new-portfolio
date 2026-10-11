@@ -24,7 +24,7 @@ Work follows milestones M0 to M5. Update this table when a milestone closes.
 |---|---|---|
 | M0 | Governance and security (this file, CI, build env, hygiene) | done |
 | M1 | Design system and lint enforcement | done |
-| M2 | i18n by route (`/en`, `/pt`) and technical SEO | pending |
+| M2 | i18n by route (`/en`, `/pt`) and technical SEO | done |
 | M3 | Data and content cleanup | pending |
 | M4 | Section redesign and motion | pending |
 | M5 | Quality: icons/OG, Playwright + axe, docs | pending |
@@ -78,8 +78,11 @@ Motion is spent in three places only: the hero (Three.js scene and the name's wi
 ## Internationalization
 
 - Languages: English (default) and Portuguese. All user-facing strings live in `src/messages/en.json` and `src/messages/pt.json` with identical keys. Data files carry `{ en, pt }` objects.
-- Today the language is chosen by cookie on a single URL. **M2 moves to `/en` and `/pt` routes** (`localePrefix: 'always'`, `src/proxy.ts`), so each language is indexable.
-- `/tools/*` and `/whatsapp-bot/*` are personal utility pages in Portuguese only, outside i18n.
+- Each language has its own URL: `/en` and `/pt` (`localePrefix: 'always'`). `src/proxy.ts` (next-intl) redirects `/` and unprefixed paths by the visitor's language and remembers the choice in a cookie. The home page and `[locale]/layout.tsx` are statically generated (`generateStaticParams` + `setRequestLocale`); keep it that way, do not read cookies or headers there.
+- Routing config and helpers live in `src/i18n/routing.ts`. Use `Link`, `usePathname`, `useRouter` from `@/i18n/routing` for internal links to localized pages, not `next/link` or `next/navigation`. In server components use `getTranslations` and pass the locale from `params`.
+- Every section is on the home page (`/<locale>#experience`, `#projects`, `#skills`, `#certifications`, `#contact`). The old `/experience`, `/projects`, `/education` URLs redirect to those anchors (`next.config.ts`).
+- Two root layouts: `src/app/[locale]/layout.tsx` (the localized site, metadata and JSON-LD per locale, hreflang) and `src/app/(utility)/layout.tsx` for `/tools/*`, `/whatsapp-bot/*` and `/design-system`. Those are Portuguese-only, keep their historical URLs (the legal pages are registered with Meta) and are excluded in the `src/proxy.ts` matcher. Links between utility pages use `next/link`; links back to the site use the localized `Link`.
+- `NEXT_PUBLIC_SITE_URL` (through `src/lib/site.ts`) is the origin for canonical URLs, the sitemap and JSON-LD.
 
 ## Content rules
 

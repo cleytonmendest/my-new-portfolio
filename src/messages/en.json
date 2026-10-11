@@ -152,5 +152,14 @@
     "madeWith": "Made with",
     "and": "and",
     "backToTop": "Back to top"
+  },
+  "metadata": {
+    "title": "Cleyton Mendes - Software Engineer | E-commerce Specialist",
+    "description": "Software Engineer specializing in e-commerce since 2021. React, TypeScript, Node.js, VTEX, Shopify and Deco. Available for remote opportunities."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or was moved.",
+    "back": "Back to the home page"
   }
 }
