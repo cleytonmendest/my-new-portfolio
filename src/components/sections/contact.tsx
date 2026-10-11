@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
 import { Mail, MapPin, CheckCircle2, AlertCircle, Send, Copy, Check } from 'lucide-react';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@/components/motion/fade-in';
 import { toast } from 'sonner';
 
 export function Contact() {
@@ -107,7 +107,7 @@ export function Contact() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-accent mt-0.5 shrink-0" />
+                  <Mail className="h-5 w-5 text-accent-ink mt-0.5 shrink-0" />
                   <div className="flex-1">
                     <p className="font-medium text-sm">{t('info.email')}</p>
                     <div className="flex items-center gap-2 mt-1">
@@ -121,7 +121,7 @@ export function Contact() {
                         onClick={copyEmail}
                       >
                         {emailCopied ? (
-                          <Check className="h-3 w-3 text-green-500" />
+                          <Check className="h-3 w-3 text-success" />
                         ) : (
                           <Copy className="h-3 w-3" />
                         )}
@@ -131,7 +131,7 @@ export function Contact() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-accent mt-0.5" />
+                  <MapPin className="h-5 w-5 text-accent-ink mt-0.5" />
                   <div>
                     <p className="font-medium text-sm">{t('info.location')}</p>
                     <p className="text-sm text-muted-foreground">
@@ -141,7 +141,7 @@ export function Contact() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-accent mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-accent-ink mt-0.5" />
                   <div>
                     <p className="font-medium text-sm">{t('info.availability')}</p>
                     <p className="text-sm text-muted-foreground">
@@ -237,14 +237,14 @@ export function Contact() {
 
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
-                  <div className="flex items-center gap-2 p-4 rounded-md bg-green-500/10 border border-green-500/20">
-                    <CheckCircle2 className="h-5 w-5 text-green-500" />
-                    <p className="text-sm text-green-500">{t('success')}</p>
+                  <div className="flex items-center gap-2 p-4 rounded-control bg-success/10 border border-success/20">
+                    <CheckCircle2 className="h-5 w-5 text-success" />
+                    <p className="text-sm text-success">{t('success')}</p>
                   </div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="flex items-center gap-2 p-4 rounded-md bg-destructive/10 border border-destructive/20">
+                  <div className="flex items-center gap-2 p-4 rounded-control bg-destructive/10 border border-destructive/20">
                     <AlertCircle className="h-5 w-5 text-destructive" />
                     <p className="text-sm text-destructive">{t('error')}</p>
                   </div>

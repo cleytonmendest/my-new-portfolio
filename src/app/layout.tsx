@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Archivo, Source_Serif_4 } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -8,14 +8,20 @@ import { Toaster } from 'sonner';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+// Archivo carries headings and interface; its width axis (wdth) is part of the
+// identity. Source Serif 4 is for long text. Both cover Portuguese diacritics.
+const archivo = Archivo({
+  variable: '--font-archivo',
+  subsets: ['latin', 'latin-ext'],
+  axes: ['wdth'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const sourceSerif = Source_Serif_4({
+  variable: '--font-source-serif',
+  subsets: ['latin', 'latin-ext'],
+  axes: ['opsz'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -110,7 +116,7 @@ export default async function RootLayout({
         <StructuredData />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${archivo.variable} ${sourceSerif.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

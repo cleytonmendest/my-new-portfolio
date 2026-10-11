@@ -35,7 +35,6 @@ export interface Project {
   description: LocalizedString;
   technologies: string[];
   image: string;
-  bgColor: string;
   url: string;
   featured?: boolean;
 }
@@ -43,7 +42,6 @@ export interface Project {
 export interface Skill {
   name: string;
   icon: IconType;
-  color: string;
 }
 
 export interface SkillCategory {

@@ -65,7 +65,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Code2 className="h-6 w-6 text-accent" />
+              <Code2 className="h-6 w-6 text-accent-ink" />
               <span className="font-bold text-xl">Cleyton Mendes</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -79,12 +79,13 @@ export function Footer() {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <button
+                  <Button
+                    variant="link"
                     onClick={() => scrollToSection(link.href)}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="h-auto p-0 text-sm font-normal text-muted-foreground hover:text-accent-ink"
                   >
                     {link.label}
-                  </button>
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -130,16 +131,16 @@ export function Footer() {
 
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{t('madeWith')}</span>
-            <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+            <Heart className="h-4 w-4 text-accent-ink fill-accent-ink" />
             <span>{t('and')}</span>
-            <Code2 className="h-4 w-4 text-accent" />
+            <Code2 className="h-4 w-4 text-accent-ink" />
           </div>
 
           <Button
             variant="ghost"
             size="sm"
             onClick={scrollToTop}
-            className="gap-2 hover:text-accent"
+            className="gap-2 hover:text-accent-ink"
           >
             {t('backToTop')}
             <ArrowUp className="h-4 w-4" />

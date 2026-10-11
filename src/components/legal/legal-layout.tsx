@@ -70,16 +70,16 @@ export function LegalLayout({
           <Separator className="mb-8" />
 
           {/* Content with TOC sidebar */}
-          <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Table of Contents - Sidebar on desktop */}
             {tableOfContents && (
-              <aside className="lg:order-1">
+              <aside className="lg:order-1 lg:col-span-1">
                 {tableOfContents}
               </aside>
             )}
 
             {/* Main Content */}
-            <article className="prose prose-neutral dark:prose-invert prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-p:text-base prose-li:text-base max-w-none lg:order-2">
+            <article className="prose prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-p:text-base prose-li:text-base max-w-none lg:order-2 lg:col-span-3">
               {children}
             </article>
           </div>
@@ -106,7 +106,7 @@ export function LegalLayout({
           </nav>
 
           {/* Contact */}
-          <div className="mt-8 p-4 bg-muted rounded-lg">
+          <div className="mt-8 p-4 bg-muted rounded-control">
             <p className="text-sm text-muted-foreground">
               <strong>Dúvidas sobre privacidade ou termos de uso?</strong>
               <br />

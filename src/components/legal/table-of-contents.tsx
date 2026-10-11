@@ -51,7 +51,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   };
 
   return (
-    <nav className="sticky top-20 bg-background border rounded-lg p-4 lg:mb-0 mb-8">
+    <nav className="sticky top-20 bg-background border rounded-control p-4 lg:mb-0 mb-8">
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-semibold text-base">Índice</h2>
         <Button
@@ -77,16 +77,17 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             key={item.id}
             className={`${item.level === 3 ? 'pl-4' : ''}`}
           >
-            <button
+            <Button
+              variant="link"
               onClick={() => handleClick(item.id)}
-              className={`text-left hover:text-primary transition-colors w-full ${
+              className={`h-auto w-full justify-start p-0 text-left text-sm hover:text-foreground ${
                 activeId === item.id
-                  ? 'text-primary font-medium'
-                  : 'text-muted-foreground'
+                  ? 'font-medium text-foreground'
+                  : 'font-normal text-muted-foreground'
               }`}
             >
               {item.title}
-            </button>
+            </Button>
           </li>
         ))}
       </ul>

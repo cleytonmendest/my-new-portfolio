@@ -8,7 +8,7 @@ import { CertificationsPreview } from '@/components/sections/certifications-prev
 import { Contact } from '@/components/sections/contact';
 import { Separator } from '@/components/ui/separator';
 import { BackToTop } from '@/components/back-to-top';
-import { ReadingProgress } from '@/components/reading-progress';
+import { ReadingProgress } from '@/components/motion/reading-progress';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 
 export default function HomePage() {

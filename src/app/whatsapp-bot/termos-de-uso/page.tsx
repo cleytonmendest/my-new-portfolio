@@ -316,7 +316,7 @@ export default function TermosUsoPage() {
           Para dúvidas sobre estes Termos de Uso ou questões técnicas, entre em
           contato:
         </p>
-        <div className="not-prose bg-muted p-4 rounded-lg my-4">
+        <div className="not-prose bg-muted p-4 rounded-control my-4">
           <p className="mb-2">
             <strong>MendoHub - Cleyton Mendes</strong>
           </p>

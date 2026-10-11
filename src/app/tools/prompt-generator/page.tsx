@@ -421,7 +421,7 @@ export default function PromptGeneratorPage() {
               )}
 
               {enhancedPrompt && (
-                <div className="rounded-lg bg-muted p-4 space-y-2">
+                <div className="rounded-control bg-muted p-4 space-y-2">
                   <p className="text-sm font-medium">💡 Dicas:</p>
                   <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
                     <li>Teste o prompt e ajuste conforme necessário</li>

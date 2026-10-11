@@ -3,7 +3,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle2, Building2 } from 'lucide-react';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@/components/motion/fade-in';
 import { experiences } from '@/data/experience';
 import { getLocalizedText, getLocalizedArray } from '@/data/utils';
 import Image from 'next/image';
@@ -33,7 +33,7 @@ export function Experience() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent" />
               <CardHeader>
                 <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-accent/10 flex items-center justify-center w-14 h-14 shrink-0">
+                  <div className="p-2 rounded-control bg-accent/10 flex items-center justify-center w-14 h-14 shrink-0">
                     {item.companyLogo ? (
                       <div className="relative w-10 h-10">
                         <Image
@@ -44,7 +44,7 @@ export function Experience() {
                         />
                       </div>
                     ) : (
-                      <Building2 className="h-6 w-6 text-accent" />
+                      <Building2 className="h-6 w-6 text-accent-ink" />
                     )}
                   </div>
                   <div className="flex-1">
@@ -55,7 +55,7 @@ export function Experience() {
                           href={item.companyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:text-accent transition-colors"
+                          className="hover:text-accent-ink transition-colors"
                         >
                           {item.company}
                         </a>
@@ -75,7 +75,7 @@ export function Experience() {
                   <ul className="space-y-2">
                     {getLocalizedArray(item.achievements, locale).map((achievement, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-5 w-5 text-accent-ink shrink-0 mt-0.5" />
                         <span className="text-sm text-muted-foreground">
                           {achievement}
                         </span>

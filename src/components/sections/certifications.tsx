@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Award, ExternalLink, GraduationCap } from 'lucide-react';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@/components/motion/fade-in';
 import { certifications } from '@/data/certifications';
 import { education } from '@/data/education';
 
@@ -32,21 +32,21 @@ export function Certifications() {
           <div className="mb-12">
             <FadeIn>
               <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <GraduationCap className="h-6 w-6 text-accent" />
+                <GraduationCap className="h-6 w-6 text-accent-ink" />
                 {t('education')}
               </h3>
             </FadeIn>
             <div className="grid md:grid-cols-2 gap-6">
               {education.map((edu, index) => (
                 <FadeIn key={index} delay={index * 0.1}>
-                  <Card className="flex flex-col h-full hover:shadow-lg transition-shadow group">
+                  <Card className="flex flex-col h-full transition-shadow group">
                     <CardHeader>
                       <div className="flex items-start gap-3 mb-2">
-                        <div className="p-2 rounded-lg bg-accent/10">
-                          <GraduationCap className="h-5 w-5 text-accent" />
+                        <div className="p-2 rounded-control bg-accent/10">
+                          <GraduationCap className="h-5 w-5 text-accent-ink" />
                         </div>
                         <div className="flex-1">
-                          <CardTitle className="text-lg group-hover:text-accent transition-colors">
+                          <CardTitle className="text-lg group-hover:text-accent-ink transition-colors">
                             {edu.degree[locale]}
                           </CardTitle>
                           <CardDescription className="mt-1">
@@ -55,7 +55,7 @@ export function Certifications() {
                                 href={edu.institutionUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-accent transition-colors"
+                                className="hover:text-accent-ink transition-colors"
                               >
                                 {edu.institution}
                               </a>
@@ -103,21 +103,21 @@ export function Certifications() {
         <div>
           <FadeIn>
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Award className="h-6 w-6 text-accent" />
+              <Award className="h-6 w-6 text-accent-ink" />
               {t('certifications')}
             </h3>
           </FadeIn>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certifications.map((cert, index) => (
             <FadeIn key={index} delay={index * 0.1}>
-              <Card className="flex flex-col h-full hover:shadow-lg transition-shadow group">
+              <Card className="flex flex-col h-full transition-shadow group">
                 <CardHeader>
                   <div className="flex items-start gap-3 mb-2">
-                    <div className="p-2 rounded-lg bg-accent/10">
-                      <Award className="h-5 w-5 text-accent" />
+                    <div className="p-2 rounded-control bg-accent/10">
+                      <Award className="h-5 w-5 text-accent-ink" />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-lg group-hover:text-accent transition-colors">
+                      <CardTitle className="text-lg group-hover:text-accent-ink transition-colors">
                         {cert.name}
                       </CardTitle>
                       <CardDescription className="mt-1">
@@ -141,7 +141,7 @@ export function Certifications() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full gap-2 group-hover:border-accent group-hover:text-accent"
+                      className="w-full gap-2 group-hover:border-accent group-hover:text-accent-ink"
                       asChild
                     >
                       <a

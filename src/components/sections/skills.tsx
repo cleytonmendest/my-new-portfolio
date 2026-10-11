@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@/components/motion/fade-in';
 import { skillsData } from '@/data/skills';
 
 export function Skills() {
@@ -35,12 +35,9 @@ export function Skills() {
                       return (
                         <div
                           key={skill.name}
-                          className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
+                          className="flex flex-col items-center gap-2 p-3 rounded-control hover:bg-muted/50 transition-colors"
                         >
-                          <Icon
-                            className="h-8 w-8 transition-transform group-hover:scale-110"
-                            style={{ color: skill.color }}
-                          />
+                          <Icon className="h-8 w-8 text-foreground" />
                           <span className="text-xs text-center font-medium text-muted-foreground">
                             {skill.name}
                           </span>

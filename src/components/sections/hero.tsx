@@ -5,9 +5,8 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, Mail, ArrowRight } from 'lucide-react';
-import { FadeIn } from '@/components/fade-in';
-import { AnimatedCounter } from '@/components/animated-counter';
-import { motion } from 'framer-motion';
+import { FadeIn } from '@/components/motion/fade-in';
+import { AnimatedCounter } from '@/components/motion/animated-counter';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -41,7 +40,7 @@ export function Hero() {
                     alt="Cleyton Mendes - Software Engineer"
                     width={224}
                     height={224}
-                    className="absolute top-[-27px]"
+                    className="absolute -top-7"
                     priority
                   />
                 </div>
@@ -62,7 +61,7 @@ export function Hero() {
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                   {t('name')}
                 </h1>
-                <h2 className="text-3xl md:text-4xl font-semibold text-accent">
+                <h2 className="text-3xl md:text-4xl font-semibold text-accent-ink">
                   {t('title')}
                 </h2>
               </div>
@@ -102,7 +101,7 @@ export function Hero() {
                     end={4}
                     suffix="+"
                     duration={2.5}
-                    className="text-3xl font-bold text-accent"
+                    className="text-3xl font-bold text-accent-ink"
                   />
                   <p className="text-sm text-muted-foreground mt-1">
                     {t('experienceLabel')}
@@ -116,7 +115,7 @@ export function Hero() {
                     end={50}
                     suffix="+"
                     duration={2.5}
-                    className="text-3xl font-bold text-accent"
+                    className="text-3xl font-bold text-accent-ink"
                   />
                   <p className="text-sm text-muted-foreground mt-1">
                     {t('projectsLabel')}
@@ -137,7 +136,7 @@ export function Hero() {
                     alt="Cleyton Mendes - Software Engineer"
                     width={320}
                     height={320}
-                    className="absolute top-[-31px] lg:top-[-39px]"
+                    className="absolute -top-8 lg:-top-10"
                     priority
                   />
                 </div>
@@ -150,40 +149,16 @@ export function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          className="flex justify-center mt-16 lg:mt-24"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
-          <motion.button
+        <div className="flex justify-center mt-16 lg:mt-24">
+          <Button
+            variant="ghost"
             onClick={handleScrollClick}
-            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-accent transition-colors cursor-pointer group"
-            animate={{
-              y: [0, 10, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            className="h-auto animate-bounce flex-col gap-2 text-muted-foreground hover:bg-transparent hover:text-accent-ink"
           >
-            <span className="text-sm font-medium">Scroll down</span>
-            <motion.div
-              animate={{
-                y: [0, 5, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 0.2,
-              }}
-            >
-              <ArrowRight className="h-5 w-5 rotate-90 group-hover:text-accent" />
-            </motion.div>
-          </motion.button>
-        </motion.div>
+            <span className="text-sm font-medium">{t('scroll')}</span>
+            <ArrowRight className="h-5 w-5 rotate-90" aria-hidden="true" />
+          </Button>
+        </div>
       </div>
     </section>
   );

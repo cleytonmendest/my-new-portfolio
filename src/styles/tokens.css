@@ -1,0 +1,164 @@
+/*
+ * Design tokens: the single source of truth for colour, type, radius, shadow and motion.
+ *
+ * Colour literals and custom properties are only allowed in this file (enforced by
+ * Stylelint). Components use the semantic names below (bg-background,
+ * text-muted-foreground, border-input, ...) and never raw values.
+ *
+ * Palette (contrast ratios measured against WCAG 2.x):
+ *   Névoa       #EEF1EC  light surface / text on dark
+ *   Breu        #111713  dark surface / text on light       (15.9:1 against Névoa)
+ *   Folha       #56625A  secondary text on light            (5.6:1)   #9DAAA1 on dark (7.5:1)
+ *   Musgo       #2A362E  decorative lines on dark
+ *   Âmbar       #E6972E  the accent, used as a signal       (7.6:1 on Breu; only 2.1:1 on Névoa)
+ *   Âmbar-tinta #8A4F00  the accent when it is text on light (5.8:1 on Névoa)
+ */
+
+/* Reset: remove Tailwind's default palette, radii, shadows and font families so that
+   only the tokens defined here exist. Using bg-green-500, rounded-xl or shadow-lg
+   is then an error (eslint better-tailwindcss/no-unknown-classes). */
+@theme {
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --font-*: initial;
+}
+
+@theme inline {
+  /* Colour roles. shadcn's semantic names are kept so `npx shadcn add` stays compatible. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-ink: var(--accent-ink);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* Theme-independent surfaces: media designed on a light background (client logos,
+     screenshots) and artefacts such as the QR code. They do not flip with the theme. */
+  --color-paper: var(--print-paper);
+  --color-ink: var(--print-ink);
+
+  /* Radius follows the role of the element, not one value for everything.
+     Pills use the built-in rounded-full. */
+  --radius-control: 0.25rem;
+  --radius-media: 0.125rem;
+
+  /* Elevation is expressed with lines; only floating layers get a shadow. */
+  --shadow-popover: 0 12px 32px -16px color-mix(in oklab, var(--foreground) 40%, transparent);
+
+  /* Typography. The font variables are set by next/font in the root layout. */
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Display size for the hero name; the default Tailwind text scale stays for the rest. */
+  --text-display: clamp(3.5rem, 9vw + 1rem, 9rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.03em;
+
+  /* Easing used by motion code and CSS transitions. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1.15);
+}
+
+/* .light lets a section force the light theme inside a dark page (see /design-system). */
+:root,
+.light {
+  color-scheme: light;
+
+  --background: #eef1ec;
+  --foreground: #111713;
+  --card: #f7f9f5;
+  --card-foreground: #111713;
+  --popover: #f7f9f5;
+  --popover-foreground: #111713;
+  --primary: #111713;
+  --primary-foreground: #eef1ec;
+  --secondary: #e3e8e1;
+  --secondary-foreground: #111713;
+  --muted: #e3e8e1;
+  --muted-foreground: #56625a;
+  --accent: #e6972e;
+  --accent-foreground: #111713;
+  --accent-ink: #8a4f00;
+  --destructive: #b3261e;
+  --destructive-foreground: #eef1ec;
+  --success: #1f6b3a;
+  --success-foreground: #eef1ec;
+  --border: #d3dad1;
+  --input: #7a867e;
+  --ring: #8a4f00;
+
+  /* Output colours for artefacts that must look the same in both themes, such as a QR
+     code (dark ink on light paper). They are not overridden in .dark. */
+  --print-ink: #111713;
+  --print-paper: #eef1ec;
+
+  /* Motion durations, read by the motion layer through getComputedStyle. */
+  --motion-fast: 150ms;
+  --motion-base: 300ms;
+  --motion-slow: 700ms;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #111713;
+  --foreground: #eef1ec;
+  --card: #18201b;
+  --card-foreground: #eef1ec;
+  --popover: #18201b;
+  --popover-foreground: #eef1ec;
+  --primary: #eef1ec;
+  --primary-foreground: #111713;
+  --secondary: #1d2620;
+  --secondary-foreground: #eef1ec;
+  --muted: #1d2620;
+  --muted-foreground: #9daaa1;
+  --accent: #e6972e;
+  --accent-foreground: #111713;
+  --accent-ink: #e6972e;
+  --destructive: #f2877e;
+  --destructive-foreground: #111713;
+  --success: #6fcf97;
+  --success-foreground: #111713;
+  --border: #2a362e;
+  --input: #66756b;
+  --ring: #e6972e;
+}
+
+/* @tailwindcss/typography reads Tailwind's default palette, which was removed above.
+   Map it to the tokens; the tokens already flip with the theme, so no prose-invert. */
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--accent-ink);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: var(--foreground);
+  --tw-prose-pre-bg: var(--muted);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}

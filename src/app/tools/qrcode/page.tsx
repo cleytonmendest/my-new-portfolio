@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Download, Copy, Check, Link, MessageSquare, User, Wallet, Eraser } from 'lucide-react';
 import { toast } from 'sonner';
+import { getToken } from '@/lib/design-tokens';
 
 type ErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
 type TabType = 'url' | 'text' | 'contact' | 'pix';
@@ -45,9 +46,14 @@ export default function QRCodeGeneratorPage() {
   const [downloadSize, setDownloadSize] = useState(300);
   const [errorLevel, setErrorLevel] = useState<ErrorCorrectionLevel>('M');
 
-  // Color settings - RGB only (HEX strings)
-  const [foregroundColor, setForegroundColor] = useState<string>('#000000');
-  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+  // Color settings - RGB only (HEX strings). Defaults come from the design tokens on mount.
+  const [foregroundColor, setForegroundColor] = useState<string>('');
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+
+  useEffect(() => {
+    setForegroundColor(getToken('--print-ink'));
+    setBackgroundColor(getToken('--print-paper'));
+  }, []);
 
   // Form states
   const [urlInput, setUrlInput] = useState('');
@@ -169,6 +175,8 @@ END:VCARD`;
   }, [qrData, downloadSize, errorLevel, foregroundColor, backgroundColor]);
 
   const generateQRCode = async () => {
+    if (!foregroundColor || !backgroundColor) return;
+
     if (!qrData.trim()) {
       if (canvasPreviewRef.current) {
         const ctx = canvasPreviewRef.current.getContext('2d');
@@ -552,7 +560,7 @@ END:VCARD`;
                         }
                       }}
                       className="flex-1"
-                      placeholder="#000000"
+                      placeholder="#RRGGBB"
                     />
                   </div>
                 </div>
@@ -576,7 +584,7 @@ END:VCARD`;
                         }
                       }}
                       className="flex-1"
-                      placeholder="#ffffff"
+                      placeholder="#RRGGBB"
                     />
                   </div>
                 </div>
@@ -595,13 +603,12 @@ END:VCARD`;
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex justify-center items-center max-h-[300px] max-w-[300px] bg-muted/30 rounded-lg p-4">
+              <div className="flex justify-center items-center max-h-72 max-w-72 bg-muted/30 rounded-control p-4">
                 {qrData ? (
                   <>
                     <canvas
                       ref={canvasPreviewRef}
-                      className="rounded-lg shadow-lg"
-                      style={{ imageRendering: 'pixelated' }}
+                      className="rounded-control pixelated"
                     />
                     <canvas
                       ref={canvasDownloadRef}
@@ -654,7 +661,7 @@ END:VCARD`;
                         )}
                       </Button>
                     </div>
-                    <div className="bg-muted rounded-lg p-3 max-h-32 overflow-y-auto">
+                    <div className="bg-muted rounded-control p-3 max-h-32 overflow-y-auto">
                       <pre className="text-xs whitespace-pre-wrap wrap-break-word">
                         {qrData}
                       </pre>

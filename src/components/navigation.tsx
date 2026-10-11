@@ -67,7 +67,7 @@ export function Navigation() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-background/80 backdrop-blur-lg border-b border-border shadow-sm'
+          ? 'bg-background/80 backdrop-blur-lg border-b border-border'
           : 'bg-transparent'
       }`}
     >
@@ -76,9 +76,9 @@ export function Navigation() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-xl hover:text-accent transition-colors"
+            className="flex items-center gap-2 font-bold text-xl hover:text-accent-ink transition-colors"
           >
-            <Code2 className="h-6 w-6 text-accent" />
+            <Code2 className="h-6 w-6 text-accent-ink" />
             <span>CM</span>
           </Link>
 
@@ -88,9 +88,9 @@ export function Navigation() {
               <Link
                 key={item.id}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-accent ${
+                className={`text-sm font-medium transition-colors hover:text-accent-ink ${
                   isActive(item)
-                    ? 'text-accent'
+                    ? 'text-accent-ink'
                     : 'text-muted-foreground'
                 }`}
               >
@@ -131,7 +131,7 @@ export function Navigation() {
                 key={item.id}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block w-full text-left px-4 py-2 rounded-md transition-colors ${
+                className={`block w-full text-left px-4 py-2 rounded-control transition-colors ${
                   isActive(item)
                     ? 'bg-accent text-accent-foreground'
                     : 'hover:bg-muted'

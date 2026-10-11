@@ -289,7 +289,7 @@ export default function PoliticaPrivacidadePage() {
           Para dúvidas, solicitações ou exercício de seus direitos relacionados
           a dados pessoais:
         </p>
-        <div className="not-prose bg-muted p-4 rounded-lg my-4">
+        <div className="not-prose bg-muted p-4 rounded-control my-4">
           <p className="mb-2">
             <strong>Responsável:</strong> Cleyton Mendes
           </p>

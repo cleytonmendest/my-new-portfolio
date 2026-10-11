@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, Award, ArrowRight } from 'lucide-react';
-import { FadeIn } from '@/components/fade-in';
+import { FadeIn } from '@/components/motion/fade-in';
 import { certifications } from '@/data/certifications';
 import { education } from '@/data/education';
 import Link from 'next/link';
@@ -34,14 +34,14 @@ export function CertificationsPreview() {
             <div className="grid md:grid-cols-2 gap-6">
               {education.map((edu, index) => (
                 <FadeIn key={index} delay={index * 0.1}>
-                  <Card className="flex flex-col h-full hover:shadow-lg transition-shadow group">
+                  <Card className="flex flex-col h-full transition-shadow group">
                     <CardHeader>
                       <div className="flex items-start gap-3 mb-2">
-                        <div className="p-2 rounded-lg bg-accent/10">
-                          <GraduationCap className="h-5 w-5 text-accent" />
+                        <div className="p-2 rounded-control bg-accent/10">
+                          <GraduationCap className="h-5 w-5 text-accent-ink" />
                         </div>
                         <div className="flex-1">
-                          <CardTitle className="text-lg group-hover:text-accent transition-colors">
+                          <CardTitle className="text-lg group-hover:text-accent-ink transition-colors">
                             {edu.degree[locale]}
                           </CardTitle>
                           <CardDescription className="mt-1">
@@ -50,7 +50,7 @@ export function CertificationsPreview() {
                                 href={edu.institutionUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-accent transition-colors"
+                                className="hover:text-accent-ink transition-colors"
                               >
                                 {edu.institution}
                               </a>
@@ -97,12 +97,12 @@ export function CertificationsPreview() {
         {/* Certifications Summary */}
         {certifications.length > 0 && (
           <FadeIn delay={0.2}>
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-accent/10">
-                      <Award className="h-6 w-6 text-accent" />
+                    <div className="p-2 rounded-control bg-accent/10">
+                      <Award className="h-6 w-6 text-accent-ink" />
                     </div>
                     <div>
                       <CardTitle className="text-xl">
