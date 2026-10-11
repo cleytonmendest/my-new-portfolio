@@ -1,5 +1,6 @@
 import NextLink from 'next/link';
 import { Link } from '@/i18n/routing';
+import { personalInfo } from '@/data/personal';
 import { ArrowLeft, Calendar, FileText } from 'lucide-react';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
@@ -113,10 +114,10 @@ export function LegalLayout({
               <br />
               Entre em contato conosco:{' '}
               <a
-                href="mailto:contato@cleyton-mendes.com"
+                href={`mailto:${personalInfo.email}`}
                 className="text-primary hover:underline"
               >
-                contato@cleyton-mendes.com
+                {personalInfo.email}
               </a>
             </p>
           </div>

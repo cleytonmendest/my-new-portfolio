@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { personalInfo } from '@/data/personal';
 import { LegalLayout } from '@/components/legal/legal-layout';
 import { TableOfContents } from '@/components/legal/table-of-contents';
 
@@ -323,10 +324,10 @@ export default function TermosUsoPage() {
           <p className="mb-2">
             <strong>Email:</strong>{' '}
             <a
-              href="mailto:contato@cleyton-mendes.com"
+              href={`mailto:${personalInfo.email}`}
               className="text-primary hover:underline"
             >
-              contato@cleyton-mendes.com
+              {personalInfo.email}
             </a>
           </p>
           <p>

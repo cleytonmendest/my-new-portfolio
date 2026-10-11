@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/motion/fade-in';
 import { skillsData } from '@/data/skills';
 
@@ -22,29 +23,20 @@ export function Skills() {
         <div className="grid md:grid-cols-2 gap-6">
           {skillsData.map((categoryData, index) => (
             <FadeIn key={categoryData.category} delay={index * 0.1}>
-              <Card>
+              <Card className="h-full">
                 <CardHeader>
                   <CardTitle className="text-xl">
                     {t(`categories.${categoryData.category}`)}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {categoryData.skills.map((skill) => {
-                      const Icon = skill.icon;
-                      return (
-                        <div
-                          key={skill.name}
-                          className="flex flex-col items-center gap-2 p-3 rounded-control hover:bg-muted/50 transition-colors"
-                        >
-                          <Icon className="h-8 w-8 text-foreground" />
-                          <span className="text-xs text-center font-medium text-muted-foreground">
-                            {skill.name}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <ul className="flex flex-wrap gap-2">
+                    {categoryData.skills.map((skill) => (
+                      <li key={skill}>
+                        <Badge variant="secondary">{skill}</Badge>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             </FadeIn>

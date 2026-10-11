@@ -55,20 +55,24 @@ export function Projects() {
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col justify-between gap-4">
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, idx) => (
+                    {project.stack.map((tech, idx) => (
                       <Badge key={idx} variant="secondary">
                         {tech}
                       </Badge>
                     ))}
                   </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1 gap-2" asChild>
-                      <a href={project.url} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4" />
-                        {t('viewProject')}
-                      </a>
-                    </Button>
-                  </div>
+                  {project.status === 'live' ? (
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1 gap-2" asChild>
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                          {t('viewProject')}
+                        </a>
+                      </Button>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">{t('maintenance')}</p>
+                  )}
                 </CardContent>
               </Card>
             </FadeIn>

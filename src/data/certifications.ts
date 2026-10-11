@@ -22,6 +22,4 @@ export const certifications: Certification[] = [
     credentialId: 'UC-63b74502-3b3b-4d8a-94df-eeb6264222ba',
     credentialUrl: 'https://www.udemy.com/certificate/UC-63b74502-3b3b-4d8a-94df-eeb6264222ba/',
   },
-  // Add your real certifications here
-  // Replace with your actual certification data
 ];

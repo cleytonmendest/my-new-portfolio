@@ -6,7 +6,6 @@ import { CheckCircle2, Building2 } from 'lucide-react';
 import { FadeIn } from '@/components/motion/fade-in';
 import { experiences } from '@/data/experience';
 import { getLocalizedText, getLocalizedArray } from '@/data/utils';
-import Image from 'next/image';
 
 export function Experience() {
   const t = useTranslations('experience');
@@ -34,18 +33,7 @@ export function Experience() {
               <CardHeader>
                 <div className="flex items-start gap-4">
                   <div className="p-2 rounded-control bg-accent/10 flex items-center justify-center w-14 h-14 shrink-0">
-                    {item.companyLogo ? (
-                      <div className="relative w-10 h-10">
-                        <Image
-                          src={item.companyLogo}
-                          alt={`${item.company} logo`}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <Building2 className="h-6 w-6 text-accent-ink" />
-                    )}
+                    <Building2 className="h-6 w-6 text-accent-ink" />
                   </div>
                   <div className="flex-1">
                     <CardTitle className="text-2xl">{item.position}</CardTitle>

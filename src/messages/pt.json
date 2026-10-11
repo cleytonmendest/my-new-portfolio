@@ -12,7 +12,6 @@
     "projects": "Projetos",
     "skills": "Habilidades",
     "certifications": "Educação",
-    "blog": "Blog",
     "contact": "Contato",
     "menu": "Menu",
     "close": "Fechar"
@@ -21,84 +20,30 @@
     "greeting": "Olá, eu sou",
     "name": "Cleyton Mendes",
     "title": "Engenheiro de Software",
-    "description": "Engenheiro de Software com mais de 4 anos de experiência especializado em soluções de e-commerce. Especialista em React, TypeScript, Node.js e tecnologias web modernas. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
+    "description": "Engenheiro de Software especializado em soluções de e-commerce desde 2021. Especialista em React, TypeScript, Node.js e tecnologias web modernas. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
     "cta": {
       "downloadCV": "Baixar CV",
       "contact": "Entre em Contato"
     },
-    "yearsOfExperience": "4+ Anos",
-    "experienceLabel": "de Experiência",
-    "projectsCompleted": "50+",
-    "projectsLabel": "Projetos Concluídos",
     "scroll": "Role para baixo"
   },
   "experience": {
     "title": "Experiência Profissional",
     "subtitle": "Minha jornada no desenvolvimento de software",
-    "viewAll": "Ver Todas as Experiências",
-    "timeline": [
-      {
-        "position": "Front-end Engineer",
-        "company": "QuestEdu",
-        "period": "Jul 2025 - Presente",
-        "description": "Atuo na manutenção e evolução de código legado em Ruby on Rails, garantindo a estabilidade da plataforma e implementando novas funcionalidades.",
-        "achievements": [
-          "Mantive e evoluí codebase legado em Ruby on Rails",
-          "Desenvolvi soluções para aprimorar filtros e segmentação de usuários no CRM",
-          "Participei ativamente de projetos de expansão como Qconcursos México e Pro Universitários"
-        ]
-      },
-      {
-        "position": "Front-end Developer",
-        "company": "We.digi",
-        "period": "Set 2023 - Jun 2025",
-        "description": "Desenvolvi componentes React personalizados para plataformas de e-commerce e integrei sistema Deco com VTEX e Shopify.",
-        "achievements": [
-          "Construí componentes React personalizados para atender necessidades específicas dos clientes",
-          "Utilizei Node.js como middleware para conectar ao backend da VTEX",
-          "Integrei sistema Deco com plataformas VTEX e Shopify"
-        ]
-      },
-      {
-        "position": "Front-end Developer",
-        "company": "ED3 Digital",
-        "period": "Out 2021 - Out 2023",
-        "description": "Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes de alto perfil incluindo Tiffany & Co., Hugo Boss, Creamy e Candide.",
-        "achievements": [
-          "Entreguei soluções de e-commerce para marcas premium como Tiffany & Co., Hugo Boss, Creamy e Candide",
-          "Construí e mantive sites de e-commerce com JavaScript e React na plataforma VTEX",
-          "Apliquei SASS e TailwindCSS para estilos eficientes e responsivos em múltiplas marcas"
-        ]
-      }
-    ]
+    "viewAll": "Ver Todas as Experiências"
   },
   "projects": {
     "title": "Projetos em Destaque",
     "subtitle": "Alguns dos meus melhores trabalhos",
     "viewProject": "Ver Projeto",
     "viewCode": "Ver Código",
-    "items": [
-      {
-        "name": "Tiffany & Co.",
-        "description": "Implementação completa de e-commerce na plataforma VTEX. Desenvolvi funcionalidades da página de conta e refinei a estrutura e design da homepage.",
-        "technologies": ["React", "VTEX", "JavaScript", "SASS"]
-      },
-      {
-        "name": "Vitaminese",
-        "description": "Desenvolvimento de e-commerce com aplicação de quiz personalizado. Construí um quiz dinâmico em React para recomendar produtos baseado nas respostas dos usuários com fluxos lógicos condicionais.",
-        "technologies": ["React", "VTEX", "JavaScript", "Node.js"]
-      },
-      {
-        "name": "Ultrafeu",
-        "description": "Desenvolvido do zero usando Deco.cx e VTEX com foco em SEO e otimização de performance, resultando em aumento significativo nas vendas.",
-        "technologies": ["Deco.cx", "VTEX", "React", "SEO"]
-      }
-    ]
+    "maintenance": "Site em manutenção"
   },
   "skills": {
     "title": "Habilidades & Tecnologias",
     "categories": {
       "frontend": "Frontend",
+      "platforms": "Plataformas",
       "backend": "Backend",
       "database": "Banco de Dados",
       "tools": "Ferramentas & Outros"
@@ -123,7 +68,8 @@
       "message": "Mensagem",
       "messagePlaceholder": "Conte-me sobre seu projeto ou ideia...",
       "submit": "Enviar Mensagem",
-      "sending": "Enviando..."
+      "sending": "Enviando...",
+      "description": "Preencha o formulário abaixo e eu retorno o mais breve possível."
     },
     "validation": {
       "nameRequired": "Nome é obrigatório",
@@ -142,10 +88,12 @@
       "locationValue": "Disponível para Trabalho Remoto",
       "availability": "Disponibilidade",
       "availabilityValue": "Aberto a Oportunidades"
-    }
+    },
+    "copied": "E-mail copiado para a área de transferência",
+    "copyError": "Não foi possível copiar o e-mail"
   },
   "footer": {
-    "description": "Desenvolvedor Full Stack especializado em construir experiências digitais excepcionais.",
+    "description": "Engenheiro de Software especializado em experiências de e-commerce excepcionais.",
     "quickLinks": "Links Rápidos",
     "social": "Conecte-se",
     "copyright": "Todos os direitos reservados.",

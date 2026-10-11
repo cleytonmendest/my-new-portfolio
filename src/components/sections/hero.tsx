@@ -3,10 +3,8 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Download, Mail, ArrowRight } from 'lucide-react';
 import { FadeIn } from '@/components/motion/fade-in';
-import { AnimatedCounter } from '@/components/motion/animated-counter';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -92,38 +90,6 @@ export function Hero() {
               </div>
             </FadeIn>
 
-            {/* Stats */}
-            <FadeIn delay={0.8}>
-              <div className="grid grid-cols-2 gap-4 pt-8">
-              <Card>
-                <CardContent className="pt-6">
-                  <AnimatedCounter
-                    end={4}
-                    suffix="+"
-                    duration={2.5}
-                    className="text-3xl font-bold text-accent-ink"
-                  />
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {t('experienceLabel')}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="pt-6">
-                  <AnimatedCounter
-                    end={50}
-                    suffix="+"
-                    duration={2.5}
-                    className="text-3xl font-bold text-accent-ink"
-                  />
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {t('projectsLabel')}
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-            </FadeIn>
           </div>
 
           {/* Right side - Placeholder for photo/illustration */}

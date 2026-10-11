@@ -16,15 +16,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return sectionRedirects.map((redirect) => ({ ...redirect, permanent: true }));
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'deco-sites-assets.s3.sa-east-1.amazonaws.com',
-        pathname: '/we-digi/**',
-      },
-    ],
-  },
 };
 
 export default withNextIntl(nextConfig);

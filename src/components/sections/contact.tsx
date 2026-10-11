@@ -13,6 +13,7 @@ import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
 import { Mail, MapPin, CheckCircle2, AlertCircle, Send, Copy, Check } from 'lucide-react';
 import { FadeIn } from '@/components/motion/fade-in';
 import { toast } from 'sonner';
+import { personalInfo } from '@/data/personal';
 
 export function Contact() {
   const t = useTranslations('contact');
@@ -31,14 +32,14 @@ export function Contact() {
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('contato@cleyton-mendes.com');
+      await navigator.clipboard.writeText(personalInfo.email);
       setEmailCopied(true);
-      toast.success('Email copied to clipboard!', {
+      toast.success(t('copied'), {
         duration: 2000,
       });
       setTimeout(() => setEmailCopied(false), 2000);
     } catch {
-      toast.error('Failed to copy email');
+      toast.error(t('copyError'));
     }
   };
 
@@ -112,7 +113,7 @@ export function Contact() {
                     <p className="font-medium text-sm">{t('info.email')}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
-                        contato@cleyton-mendes.com
+                        {personalInfo.email}
                       </p>
                       <Button
                         variant="ghost"
@@ -160,7 +161,7 @@ export function Contact() {
             <CardHeader>
               <CardTitle className="text-2xl">{t('form.submit')}</CardTitle>
               <CardDescription>
-                Fill out the form below and I'll get back to you as soon as possible.
+                {t('form.description')}
               </CardDescription>
             </CardHeader>
             <CardContent>

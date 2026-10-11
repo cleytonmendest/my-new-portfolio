@@ -32,7 +32,6 @@ export const experiences: Experience[] = [
     position: 'Front-end Developer',
     company: 'We.digi',
     companyUrl: 'https://wedigi.com.br',
-    companyLogo: 'https://deco-sites-assets.s3.sa-east-1.amazonaws.com/we-digi/a2f70dcc-036b-4c0d-a710-339c400ecd09/logo-wedigi.svg',
     period: {
       en: 'Sep 2023 - Jun 2025',
       pt: 'Set 2023 - Jun 2025',

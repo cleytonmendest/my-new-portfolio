@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { personalInfo } from '@/data/personal';
 import { Github, Linkedin, Mail, Heart, Code2, ArrowUp } from 'lucide-react';
 
 export function Footer() {
@@ -27,7 +28,7 @@ export function Footer() {
     {
       name: 'Email',
       icon: Mail,
-      href: 'mailto:cleyton.mendest@gmail.com',
+      href: `mailto:${personalInfo.email}`,
       ariaLabel: 'Send an email',
     },
   ];

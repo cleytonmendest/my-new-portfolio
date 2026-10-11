@@ -2,9 +2,11 @@
 
 import { Button } from '@/components/ui/button';
 import { MessageCircle } from 'lucide-react';
+import { personalInfo } from '@/data/personal';
 
 export function WhatsAppButton() {
-  const phoneNumber = '5521974219271'; // Country code + number
+  // Digits only, with the country code (wa.me format)
+  const phoneNumber = personalInfo.phone.replace(/\D/g, '');
   const message = 'Hi! I found your portfolio and would like to talk.';
 
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

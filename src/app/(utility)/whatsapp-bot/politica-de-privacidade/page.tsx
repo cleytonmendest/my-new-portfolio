@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { personalInfo } from '@/data/personal';
 import { LegalLayout } from '@/components/legal/legal-layout';
 import { TableOfContents } from '@/components/legal/table-of-contents';
 
@@ -231,9 +232,7 @@ export default function PoliticaPrivacidadePage() {
         <p>
           Para exercer qualquer destes direitos, entre em contato através do
           email:{' '}
-          <a href="mailto:contato@cleyton-mendes.com">
-            contato@cleyton-mendes.com
-          </a>
+          <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
         </p>
         <p className="text-sm text-muted-foreground">
           Responderemos em até 15 dias corridos conforme estabelecido pela LGPD.
@@ -296,10 +295,10 @@ export default function PoliticaPrivacidadePage() {
           <p className="mb-2">
             <strong>Email:</strong>{' '}
             <a
-              href="mailto:contato@cleyton-mendes.com"
+              href={`mailto:${personalInfo.email}`}
               className="text-primary hover:underline"
             >
-              contato@cleyton-mendes.com
+              {personalInfo.email}
             </a>
           </p>
           <p>

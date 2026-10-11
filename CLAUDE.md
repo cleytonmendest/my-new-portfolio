@@ -25,7 +25,7 @@ Work follows milestones M0 to M5. Update this table when a milestone closes.
 | M0 | Governance and security (this file, CI, build env, hygiene) | done |
 | M1 | Design system and lint enforcement | done |
 | M2 | i18n by route (`/en`, `/pt`) and technical SEO | done |
-| M3 | Data and content cleanup | pending |
+| M3 | Data and content cleanup | done |
 | M4 | Section redesign and motion | pending |
 | M5 | Quality: icons/OG, Playwright + axe, docs | pending |
 
@@ -87,7 +87,9 @@ Motion is spent in three places only: the hero (Three.js scene and the name's wi
 ## Content rules
 
 - No invented numbers, results or claims. Every metric must be verifiable by the owner. The professional title is "Software Engineer".
-- One source for contact data: `src/data/personal.ts`.
+- One source for contact data: `src/data/personal.ts` (email, phone, title, location). Components, JSON-LD and the legal pages read it from there; never retype an email or phone number.
+- Projects carry a `status` (`live`, `maintenance`, `offline`); only `live` ones link to the client's site. Screenshots are WebP files in `public/projects/` registered with their dimensions in `src/data/projects.ts`.
+- Experience and skills are data, not translations: do not duplicate them in `src/messages/*.json`.
 - Client material (names, logos, screenshots) only with the owner's confirmation. Screenshots are static assets in `public/projects/`, never hot-linked from third-party hosts.
 
 ## Workflow
