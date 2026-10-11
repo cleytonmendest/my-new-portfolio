@@ -1,261 +1,58 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
-import { Mail, MapPin, CheckCircle2, AlertCircle, Send, Copy, Check } from 'lucide-react';
-import { FadeIn } from '@/components/motion/fade-in';
-import { toast } from 'sonner';
+import { Section } from '@/components/layout/section';
+import { CopyEmailButton } from '@/components/sections/copy-email-button';
+import { LazyContactForm } from '@/components/sections/lazy-contact-form';
 import { personalInfo } from '@/data/personal';
 
 export function Contact() {
   const t = useTranslations('contact');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
-  const [emailCopied, setEmailCopied] = useState(false);
+  const tInfo = useTranslations('contact.info');
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-  });
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(personalInfo.email);
-      setEmailCopied(true);
-      toast.success(t('copied'), {
-        duration: 2000,
-      });
-      setTimeout(() => setEmailCopied(false), 2000);
-    } catch {
-      toast.error(t('copyError'));
-    }
-  };
-
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // Call Web3Forms API directly from client side
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          subject: `New contact form submission from ${data.name}`,
-          from_name: 'Portfolio Contact Form',
-          replyto: data.email,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || 'Failed to send message');
-      }
-
-      setSubmitStatus('success');
-      toast.success(t('success'), { duration: 5000 });
-      reset();
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-      toast.error(t('error'));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  // wa.me wants the phone number as digits only, with the country code.
+  const whatsappUrl = `https://wa.me/${personalInfo.phone.replace(/\D/g, '')}?text=${encodeURIComponent(
+    t('whatsappMessage'),
+  )}`;
 
   return (
-    <section className="py-20 px-4 bg-muted/30" id="contact">
-      <div className="max-w-6xl mx-auto">
-        <FadeIn>
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {t('title')}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t('subtitle')}
-            </p>
-          </div>
-        </FadeIn>
+    <Section id="contact" title={t('title')}>
+      <div className="grid gap-12 md:grid-cols-5">
+        <div className="space-y-8 md:col-span-2">
+          <p className="font-serif text-xl leading-relaxed">{t('subtitle')}</p>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Contact Info */}
-          <FadeIn delay={0.2}>
-            <div className="space-y-6">
-              <Card>
-              <CardHeader>
-                <CardTitle className="text-xl">{t('info.title')}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-accent-ink mt-0.5 shrink-0" />
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{t('info.email')}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <p className="text-sm text-muted-foreground">
-                        {personalInfo.email}
-                      </p>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-6 w-6 hover:bg-accent/10"
-                        onClick={copyEmail}
-                      >
-                        {emailCopied ? (
-                          <Check className="h-3 w-3 text-success" />
-                        ) : (
-                          <Copy className="h-3 w-3" />
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-accent-ink mt-0.5" />
-                  <div>
-                    <p className="font-medium text-sm">{t('info.location')}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {t('info.locationValue')}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-accent-ink mt-0.5" />
-                  <div>
-                    <p className="font-medium text-sm">{t('info.availability')}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {t('info.availabilityValue')}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <dl className="space-y-5 text-sm">
+            <div className="space-y-1">
+              <dt className="text-muted-foreground">{tInfo('email')}</dt>
+              <dd className="flex items-center gap-1">
+                {personalInfo.email}
+                <CopyEmailButton email={personalInfo.email} />
+              </dd>
             </div>
-          </FadeIn>
+            <div className="space-y-1">
+              <dt className="text-muted-foreground">{tInfo('location')}</dt>
+              <dd>
+                {personalInfo.location.city}, {personalInfo.location.state}. {tInfo('locationValue')}
+              </dd>
+            </div>
+            <div className="space-y-1">
+              <dt className="text-muted-foreground">{tInfo('availability')}</dt>
+              <dd>{tInfo('availabilityValue')}</dd>
+            </div>
+          </dl>
 
-          {/* Contact Form */}
-          <FadeIn delay={0.4} className="lg:col-span-2">
-            <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">{t('form.submit')}</CardTitle>
-              <CardDescription>
-                {t('form.description')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Name Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="name">{t('form.name')}</Label>
-                  <Input
-                    id="name"
-                    placeholder={t('form.namePlaceholder')}
-                    {...register('name')}
-                    className={errors.name ? 'border-destructive' : ''}
-                  />
-                  {errors.name && (
-                    <p className="text-sm text-destructive">
-                      {t(`validation.${errors.name.message}`)}
-                    </p>
-                  )}
-                </div>
+          <Button asChild variant="outline">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle />
+              {t('whatsapp')}
+            </a>
+          </Button>
+        </div>
 
-                {/* Email Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="email">{t('form.email')}</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={t('form.emailPlaceholder')}
-                    {...register('email')}
-                    className={errors.email ? 'border-destructive' : ''}
-                  />
-                  {errors.email && (
-                    <p className="text-sm text-destructive">
-                      {t(`validation.${errors.email.message}`)}
-                    </p>
-                  )}
-                </div>
-
-                {/* Message Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="message">{t('form.message')}</Label>
-                  <Textarea
-                    id="message"
-                    rows={6}
-                    placeholder={t('form.messagePlaceholder')}
-                    {...register('message')}
-                    className={errors.message ? 'border-destructive' : ''}
-                  />
-                  {errors.message && (
-                    <p className="text-sm text-destructive">
-                      {t(`validation.${errors.message.message}`)}
-                    </p>
-                  )}
-                </div>
-
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full gap-2"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      {t('form.sending')}
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-5 w-5" />
-                      {t('form.submit')}
-                    </>
-                  )}
-                </Button>
-
-                {/* Status Messages */}
-                {submitStatus === 'success' && (
-                  <div className="flex items-center gap-2 p-4 rounded-control bg-success/10 border border-success/20">
-                    <CheckCircle2 className="h-5 w-5 text-success" />
-                    <p className="text-sm text-success">{t('success')}</p>
-                  </div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <div className="flex items-center gap-2 p-4 rounded-control bg-destructive/10 border border-destructive/20">
-                    <AlertCircle className="h-5 w-5 text-destructive" />
-                    <p className="text-sm text-destructive">{t('error')}</p>
-                  </div>
-                )}
-              </form>
-            </CardContent>
-          </Card>
-          </FadeIn>
+        <div className="md:col-span-3">
+          <LazyContactForm />
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
