@@ -13,7 +13,7 @@ Personal portfolio of Cleyton Mendes, Software Engineer specialised in e-commerc
 - **i18n / theme**: next-intl, next-themes (light/dark)
 - **Forms / email**: react-hook-form + zod, Web3Forms (client-side)
 - **Analytics**: Google Analytics 4 via `@next/third-parties`
-- **Planned (see Motion)**: `three` + `@react-three/fiber` (3D), `gsap` (scroll)
+- **Motion (see Motion rules)**: `three` + `@react-three/fiber` (3D scenes), `gsap` + ScrollTrigger (project frame scroll)
 - **Deployment**: Docker (`output: 'standalone'`) on a personal VPS through Easypanel
 
 ## Status
@@ -26,10 +26,10 @@ Work follows milestones M0 to M5. Update this table when a milestone closes.
 | M1 | Design system and lint enforcement | done |
 | M2 | i18n by route (`/en`, `/pt`) and technical SEO | done |
 | M3 | Data and content cleanup | done |
-| M4 | Section redesign and motion | pending |
+| M4 | Section redesign and motion | done |
 | M5 | Quality: icons/OG, Playwright + axe, docs | pending |
 
-The design system and motion rules below are enforced by `npm run lint` (the motion rules apply from M4, when the libraries arrive).
+The design system and motion rules below are enforced by `npm run lint`.
 
 ## Commands
 
@@ -71,9 +71,13 @@ Source of truth: `src/styles/tokens.css`. Anything outside it is a violation and
 Motion is spent in three places only: the hero (Three.js scene and the name's width animation), the projects section (GSAP scroll on the screenshot frame) and the contact confirmation (3D scene after a successful send). No fade-in per section, no hover animation on every card, no decorative loops.
 
 - Animation libraries (`framer-motion`, `gsap`) only in `src/components/motion/`; `three` and `@react-three/*` only in `src/components/three/`.
-- 3D is lazy-loaded without SSR, has a static fallback, a simplified mobile version, and reads colours from the CSS tokens (no hex in scene code).
+- 3D scenes are `next/dynamic` imports without SSR, mounted only when the visitor can use them: `hasWebGL()` (`src/lib/webgl.ts`), no `prefers-reduced-motion`, no data saver, wide screen for the hero. Everyone else gets the static version of the same content (`storefront-frames.tsx` for the hero).
+- Scene colours come from the CSS tokens through `getToken('--name')` (`src/lib/design-tokens.ts`); no hex in scene code. Scenes pause (`frameloop: 'never'`) while off screen and use one `Canvas` at a time.
+- GSAP is imported dynamically by `scroll-frame.tsx` when the frame is half a screen away, so it stays out of the initial bundle. The contact form and the parcel scene load the same way (`lazy-contact-form.tsx`, `sent-confirmation.tsx`).
+- The name's width animation (`hero-name.tsx`) is a rAF lerp on `font-stretch`, enabled only with a hover pointer on wide screens and no reduced motion.
+- Hero images in `public/hero/` are 800x600 WebP crops of the project captures (about 20 to 50 KB each). Re-crop from `public/projects/` instead of using the full-page captures; the hero image is the LCP element.
 - `prefers-reduced-motion` turns motion off and serves the static version.
-- Performance budget: Lighthouse mobile performance of at least 90 on the production build.
+- Performance budget: Lighthouse mobile performance of at least 90 on the production build. Last measured: 93 on `/en` and `/pt` (accessibility 100, best practices 100, SEO 92, CLS 0).
 
 ## Internationalization
 
