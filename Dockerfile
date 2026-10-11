@@ -15,6 +15,16 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# NEXT_PUBLIC_* values are inlined into the bundle at build time, so they must
+# exist here (setting them only at runtime is too late). Pass them as build
+# arguments: Easypanel build args or `docker compose build`.
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_GA_ID
+ARG NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+    NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID \
+    NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=$NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+
 # Build the application
 RUN npm run build
 
