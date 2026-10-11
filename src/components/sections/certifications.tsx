@@ -1,166 +1,82 @@
-'use client';
-
-import { useTranslations, useLocale } from 'next-intl';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Award, ExternalLink, GraduationCap } from 'lucide-react';
-import { FadeIn } from '@/components/motion/fade-in';
+import { useLocale, useTranslations } from 'next-intl';
+import { ExternalLink } from 'lucide-react';
+import { Section } from '@/components/layout/section';
 import { certifications } from '@/data/certifications';
 import { education } from '@/data/education';
+import { getLocalizedText } from '@/data/utils';
+
+const rowClass = 'grid gap-2 border-t border-border py-5 sm:grid-cols-4';
 
 export function Certifications() {
   const t = useTranslations('certifications');
-  const locale = useLocale() as 'en' | 'pt';
+  const locale = useLocale();
 
   return (
-    <section className="py-20 px-4" id="certifications">
-      <div className="max-w-6xl mx-auto">
-        <FadeIn>
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {t('title')}
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              {t('subtitle')}
-            </p>
-          </div>
-        </FadeIn>
-
-        {/* Education Section */}
-        {education.length > 0 && (
-          <div className="mb-12">
-            <FadeIn>
-              <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <GraduationCap className="h-6 w-6 text-accent-ink" />
-                {t('education')}
-              </h3>
-            </FadeIn>
-            <div className="grid md:grid-cols-2 gap-6">
-              {education.map((edu, index) => (
-                <FadeIn key={index} delay={index * 0.1}>
-                  <Card className="flex flex-col h-full transition-shadow group">
-                    <CardHeader>
-                      <div className="flex items-start gap-3 mb-2">
-                        <div className="p-2 rounded-control bg-accent/10">
-                          <GraduationCap className="h-5 w-5 text-accent-ink" />
-                        </div>
-                        <div className="flex-1">
-                          <CardTitle className="text-lg group-hover:text-accent-ink transition-colors">
-                            {edu.degree[locale]}
-                          </CardTitle>
-                          <CardDescription className="mt-1">
-                            {edu.institutionUrl ? (
-                              <a
-                                href={edu.institutionUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-accent-ink transition-colors"
-                              >
-                                {edu.institution}
-                              </a>
-                            ) : (
-                              edu.institution
-                            )}
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="flex-1 flex flex-col justify-between gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {edu.period[locale]}
-                          </Badge>
-                          <Badge
-                            variant={edu.status === 'completed' ? 'default' : 'outline'}
-                            className="text-xs"
-                          >
-                            {edu.status === 'completed'
-                              ? locale === 'en'
-                                ? 'Completed'
-                                : 'Concluído'
-                              : locale === 'en'
-                                ? 'In Progress'
-                                : 'Em Andamento'}
-                          </Badge>
-                        </div>
-                        {edu.description && (
-                          <p className="text-sm text-muted-foreground">
-                            {edu.description[locale]}
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Certifications Section */}
+    <Section id="certifications" title={t('title')}>
+      <div className="space-y-14">
         <div>
-          <FadeIn>
-            <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Award className="h-6 w-6 text-accent-ink" />
-              {t('certifications')}
-            </h3>
-          </FadeIn>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certifications.map((cert, index) => (
-            <FadeIn key={index} delay={index * 0.1}>
-              <Card className="flex flex-col h-full transition-shadow group">
-                <CardHeader>
-                  <div className="flex items-start gap-3 mb-2">
-                    <div className="p-2 rounded-control bg-accent/10">
-                      <Award className="h-5 w-5 text-accent-ink" />
-                    </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-lg group-hover:text-accent-ink transition-colors">
-                        {cert.name}
-                      </CardTitle>
-                      <CardDescription className="mt-1">
-                        {cert.issuer}
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col justify-between gap-4">
-                  <div className="space-y-2">
-                    <Badge variant="secondary" className="text-xs">
-                      {cert.date}
-                    </Badge>
-                    {cert.credentialId && (
-                      <p className="text-xs text-muted-foreground">
-                        ID: {cert.credentialId}
-                      </p>
-                    )}
-                  </div>
-                  {cert.credentialUrl && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full gap-2 group-hover:border-accent group-hover:text-accent-ink"
-                      asChild
-                    >
+          <h3 className="mb-4 text-sm font-medium text-muted-foreground">{t('education')}</h3>
+          <ul>
+            {education.map((item) => (
+              <li key={item.institution} className={rowClass}>
+                <p className="text-sm text-muted-foreground sm:col-span-1">
+                  {getLocalizedText(item.period, locale)}
+                </p>
+                <div className="sm:col-span-2">
+                  <p className="text-lg font-semibold">{getLocalizedText(item.degree, locale)}</p>
+                  <p className="text-muted-foreground">
+                    {item.institutionUrl ? (
                       <a
-                        href={cert.credentialUrl}
+                        href={item.institutionUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="underline-offset-4 hover:text-foreground hover:underline"
                       >
-                        <ExternalLink className="h-3 w-3" />
-                        {t('viewCredential')}
+                        {item.institution}
                       </a>
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            </FadeIn>
-          ))}
-          </div>
+                    ) : (
+                      item.institution
+                    )}
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground sm:col-span-1 sm:text-right">
+                  {t(`status.${item.status}`)}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
+
+        {certifications.length > 0 && (
+          <div>
+            <h3 className="mb-4 text-sm font-medium text-muted-foreground">{t('certifications')}</h3>
+            <ul>
+              {certifications.map((item) => (
+                <li key={item.name} className={rowClass}>
+                  <p className="text-sm text-muted-foreground sm:col-span-1">{item.date}</p>
+                  <div className="sm:col-span-2">
+                    <p className="font-serif text-lg leading-snug">{item.name}</p>
+                    <p className="text-muted-foreground">{item.issuer}</p>
+                  </div>
+                  <div className="sm:col-span-1 sm:text-right">
+                    {item.credentialUrl && (
+                      <a
+                        href={item.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-accent-ink underline-offset-4 hover:underline"
+                      >
+                        {t('viewCredential')}
+                        <ExternalLink className="size-3" aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
-    </section>
+    </Section>
   );
 }

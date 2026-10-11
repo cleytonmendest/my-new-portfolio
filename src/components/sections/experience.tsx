@@ -1,82 +1,56 @@
-'use client';
-
-import { useTranslations, useLocale } from 'next-intl';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle2, Building2 } from 'lucide-react';
-import { FadeIn } from '@/components/motion/fade-in';
+import { useLocale, useTranslations } from 'next-intl';
+import { Section } from '@/components/layout/section';
 import { experiences } from '@/data/experience';
-import { getLocalizedText, getLocalizedArray } from '@/data/utils';
+import { getLocalizedArray, getLocalizedText } from '@/data/utils';
 
 export function Experience() {
   const t = useTranslations('experience');
   const locale = useLocale();
 
   return (
-    <section className="py-20 px-4" id="experience">
-      <div className="max-w-6xl mx-auto">
-        <FadeIn>
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {t('title')}
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              {t('subtitle')}
+    <Section id="experience" title={t('title')}>
+      <ol>
+        {experiences.map((item) => (
+          <li
+            key={`${item.company}-${item.position}`}
+            className="grid gap-4 border-t border-border py-10 first:border-t-0 first:pt-0 sm:grid-cols-4"
+          >
+            <p className="text-sm text-muted-foreground sm:col-span-1">
+              {getLocalizedText(item.period, locale)}
             </p>
-          </div>
-        </FadeIn>
 
-        <div className="space-y-8">
-          {experiences.map((item, index) => (
-            <FadeIn key={index} delay={index * 0.2}>
-              <Card className="relative overflow-hidden">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent" />
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-control bg-accent/10 flex items-center justify-center w-14 h-14 shrink-0">
-                    <Building2 className="h-6 w-6 text-accent-ink" />
-                  </div>
-                  <div className="flex-1">
-                    <CardTitle className="text-2xl">{item.position}</CardTitle>
-                    <CardDescription className="text-lg mt-1">
-                      {item.companyUrl ? (
-                        <a
-                          href={item.companyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-accent-ink transition-colors"
-                        >
-                          {item.company}
-                        </a>
-                      ) : (
-                        item.company
-                      )} • {getLocalizedText(item.period, locale)}
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {getLocalizedText(item.description, locale)}
+            <div className="space-y-4 sm:col-span-3">
+              <div>
+                <h3 className="text-xl font-semibold">{item.position}</h3>
+                <p className="text-muted-foreground">
+                  {item.companyUrl ? (
+                    <a
+                      href={item.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline-offset-4 hover:text-foreground hover:underline"
+                    >
+                      {item.company}
+                    </a>
+                  ) : (
+                    item.company
+                  )}
                 </p>
-                <div className="space-y-2">
-                  <p className="font-semibold text-sm">Key Achievements:</p>
-                  <ul className="space-y-2">
-                    {getLocalizedArray(item.achievements, locale).map((achievement, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-accent-ink shrink-0 mt-0.5" />
-                        <span className="text-sm text-muted-foreground">
-                          {achievement}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
+              </div>
+
+              <p className="max-w-prose font-serif text-lg leading-relaxed">
+                {getLocalizedText(item.description, locale)}
+              </p>
+
+              <ul className="max-w-prose list-disc space-y-1 pl-5 font-serif leading-relaxed text-muted-foreground">
+                {getLocalizedArray(item.achievements, locale).map((achievement) => (
+                  <li key={achievement}>{achievement}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </Section>
   );
 }
