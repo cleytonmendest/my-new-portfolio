@@ -2,15 +2,12 @@ import { setRequestLocale } from 'next-intl/server';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { Hero } from '@/components/sections/hero';
-import { Experience } from '@/components/sections/experience';
 import { Projects } from '@/components/sections/projects';
+import { Experience } from '@/components/sections/experience';
 import { Skills } from '@/components/sections/skills';
 import { Certifications } from '@/components/sections/certifications';
+import { About } from '@/components/sections/about';
 import { Contact } from '@/components/sections/contact';
-import { Separator } from '@/components/ui/separator';
-import { BackToTop } from '@/components/back-to-top';
-import { ReadingProgress } from '@/components/motion/reading-progress';
-import { WhatsAppButton } from '@/components/whatsapp-button';
 
 export default async function HomePage({
   params,
@@ -22,22 +19,19 @@ export default async function HomePage({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <ReadingProgress />
       <Navigation />
 
-      <main>
+      <main id="main">
         <Hero />
-        <Separator className="max-w-6xl mx-auto" />
-        <Experience />
         <Projects />
+        <Experience />
         <Skills />
         <Certifications />
+        <About />
         <Contact />
       </main>
 
       <Footer />
-      <BackToTop />
-      <WhatsAppButton />
     </div>
   );
 }
