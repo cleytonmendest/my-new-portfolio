@@ -86,7 +86,7 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['.next/**', 'node_modules/**', 'out/**', 'dist/**', 'build/**', 'next-env.d.ts'],
+    ignores: ['.next/**', 'node_modules/**', 'out/**', 'dist/**', 'build/**', 'playwright-report/**', 'test-results/**', 'next-env.d.ts'],
   },
   {
     rules: {
