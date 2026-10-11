@@ -27,7 +27,7 @@ Work follows milestones M0 to M5. Update this table when a milestone closes.
 | M2 | i18n by route (`/en`, `/pt`) and technical SEO | done |
 | M3 | Data and content cleanup | done |
 | M4 | Section redesign and motion | done |
-| M5 | Quality: icons/OG, Playwright + axe, docs | pending |
+| M5 | Quality: icons/OG, Playwright + axe, docs | done |
 
 The design system and motion rules below are enforced by `npm run lint`.
 
@@ -41,7 +41,11 @@ npm run dev          # http://localhost:3000
 npm run build        # production build
 npm run lint         # ESLint (design system rules) and Stylelint
 npm run type-check   # tsc --noEmit
+npm run test:e2e     # Playwright smoke tests + axe against the production build (npm run build first)
+npm run brand-assets # regenerates icons and public/og/*.png from the monogram, title and tagline
 ```
+
+Smoke tests live in `e2e/` and run in CI after the build, before the deploy job. They fail on any console error or failed request to the site. When you add a route, section or interaction, add or extend a spec; when you change colours, run them in both themes (axe checks contrast).
 
 Never run `npm audit fix --force`: its suggestions are major downgrades (for example `eslint-config-next@14`). Use plain `npm audit fix` and verify with lint, type-check and build.
 
