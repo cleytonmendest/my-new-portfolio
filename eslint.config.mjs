@@ -108,6 +108,15 @@ export default [
       'no-var': 'error',
     },
   },
+  // Node scripts (brand assets): Node globals, `document` runs inside the headless page, and
+  // printing progress is their output.
+  {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      globals: { Buffer: 'readonly', console: 'readonly', document: 'readonly', process: 'readonly', URL: 'readonly' },
+    },
+    rules: { 'no-console': 'off' },
+  },
   {
     files: ['src/**/*.{ts,tsx}'],
     plugins: { 'better-tailwindcss': betterTailwindcss },

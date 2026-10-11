@@ -46,21 +46,21 @@ export async function generateMetadata({
       siteName: 'Cleyton Mendes Portfolio',
       images: [
         {
-          url: '/cleyton-mendes.png',
-          width: 827,
-          height: 1016,
-          alt: 'Cleyton Mendes - Software Engineer',
+          url: `/og/${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: t('title'),
           type: 'image/png',
         },
       ],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       site: '@cleytonmendest',
       creator: '@cleytonmendest',
       title: t('title'),
       description: t('description'),
-      images: ['/cleyton-mendes.png'],
+      images: [`/og/${locale}.png`],
     },
     robots: {
       index: true,
@@ -74,8 +74,11 @@ export async function generateMetadata({
       },
     },
     icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon-16x16.png',
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      ],
       apple: '/apple-touch-icon.png',
     },
     manifest: '/manifest.json',
