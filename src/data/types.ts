@@ -28,14 +28,24 @@ export interface Experience {
   achievements: LocalizedString[];
 }
 
+export interface ProjectScreenshots {
+  desktop?: string;
+  mobile?: string;
+  /** ISO date the live site was captured, shown under the gallery. */
+  capturedAt: string;
+}
+
 export interface Project {
+  /** URL segment for /projects/[slug]; also the folder name under content/projects. */
+  slug: string;
   name: string;
   description: LocalizedString;
   technologies: string[];
+  /** Logo shown on the card. */
   image: string;
-  bgColor: string;
   url: string;
   featured?: boolean;
+  screenshots?: ProjectScreenshots;
 }
 
 export interface Skill {

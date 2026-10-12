@@ -69,7 +69,12 @@
       "title": "Projetos",
       "description": "Lojas que construí ou mantive em produção.",
       "visit": "Ver site",
-      "viewAll": "Todos os projetos"
+      "viewAll": "Todos os projetos",
+      "backToProjects": "Todos os projetos",
+      "stackLabel": "Stack",
+      "desktopAlt": "Página inicial de {name} no desktop",
+      "mobileAlt": "Página inicial de {name} no celular",
+      "capturedOn": "Capturas do site no ar, feitas em {date}."
     },
     "stack": {
       "title": "Stack",

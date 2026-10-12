@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
+import { projects } from '@/data/projects';
 import { locales } from '@/i18n/config';
 import { SITE_URL } from '@/lib/metadata';
 
-const PAGES = ['', '/experience', '/projects', '/education'];
+const PAGES = ['', '/experience', '/projects', '/education', ...projects.map((project) => `/projects/${project.slug}`)];
 
 /** Every portfolio page in every locale, each entry listing its translations as hreflang alternates. */
 export default function sitemap(): MetadataRoute.Sitemap {

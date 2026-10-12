@@ -16,6 +16,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 - **Motion**: framer-motion 12 plus CSS keyframes
 - **Forms**: react-hook-form + zod; the contact form posts to Web3Forms from the client
 - **Internationalization**: next-intl 4, locale in the URL (`/en/...`, `/pt/...`)
+- **Content**: MDX files in `content/`, compiled at build time with `next-mdx-remote`
 - **Theme**: next-themes, used only by the legacy pages (see Design)
 - **Analytics**: Google Analytics through `@next/third-parties`
 - **Deployment**: Docker on a personal VPS
@@ -44,7 +45,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 
 The site has two visual systems:
 
-1. **Portfolio pages** (`src/app/[locale]`: home, experience, projects, education) use the **terminal design**, based on a Tinybird-style DESIGN.md: a developer console look. These pages are always dark; the scope is set by `theme-terminal dark` on `<body>` in `src/app/[locale]/layout.tsx`.
+1. **Portfolio pages** (`src/app/[locale]`: home, experience, projects and case studies, education) use the **terminal design**, based on a Tinybird-style DESIGN.md: a developer console look. These pages are always dark; the scope is set by `theme-terminal dark` on `<body>` in `src/app/[locale]/layout.tsx`.
 2. **Legacy pages** (`src/app/(legacy)`: `/tools/*`, `/whatsapp-bot/*`) keep the previous shadcn theme: light/dark toggle, orange accent `#E6972E`, `Navigation` and `Footer` components.
 
 ### Terminal design tokens (`@theme` in `globals.css`)
@@ -74,13 +75,16 @@ The site has two visual systems:
 ## Project Structure
 
 ```
+content/
+└── projects/<slug>/           # Case study body per locale: en.mdx, pt.mdx
+public/projects/               # Project logos and <slug>/desktop.jpg, <slug>/mobile.jpg screenshots
 src/
 ├── app/
 │   ├── [locale]/              # Portfolio, statically generated for /en and /pt
 │   │   ├── layout.tsx         # <html lang>, fonts, header, footer, motion, metadata per locale
 │   │   ├── page.tsx           # Home
 │   │   ├── experience/
-│   │   ├── projects/
+│   │   ├── projects/          # Project list and [slug]/ case studies
 │   │   ├── education/
 │   │   ├── not-found.tsx      # Localized 404 ([...rest]/ sends unknown paths here)
 │   │   └── [...rest]/
@@ -98,7 +102,7 @@ src/
 │   │                          #   Typewriter, GhostLink, Tag, SectionHeading, Portrait
 │   ├── home/                  # Home-only sections (hero, stats, experience steps, …)
 │   ├── sections/              # Content blocks shared by home and standalone pages
-│   │                          #   (ExperienceDetails, ProjectCard, EducationList)
+│   │                          #   (ExperienceDetails, ProjectCard, EducationList, mdxComponents)
 │   ├── ui/                    # shadcn/ui
 │   ├── legal/                 # Layout for the legal pages
 │   └── navigation.tsx, footer.tsx, theme-*.tsx, …   # Legacy chrome for tools and legal pages
@@ -107,7 +111,7 @@ src/
 ├── i18n/                      # routing (locales, locale-aware Link/router), request config
 ├── messages/                  # en.json, pt.json
 ├── actions/locale.ts          # Sets the locale cookie (used by the legacy language switcher)
-└── lib/                       # cn(), fonts, metadata helpers, zod schemas
+└── lib/                       # cn(), fonts, metadata helpers, MDX loader, zod schemas
 ```
 
 Each component folder exports from an `index.ts`. Document non-obvious components with JSDoc.
@@ -136,6 +140,7 @@ docker-compose build --no-cache         # Rebuild without cache
 ### Implemented
 - [x] Terminal-design home: typed hero, stats, experience timeline, projects, stack, education, contact
 - [x] Standalone pages: `/experience`, `/projects`, `/education`
+- [x] Project case studies at `/projects/[slug]` (MDX body + screenshots of the live store)
 - [x] Bilingual site with the locale in the URL (`/en`, `/pt`), hreflang and a language switch
 - [x] Contact form (Web3Forms) with validation, plus WhatsApp and email links
 - [x] SEO metadata per locale, JSON-LD structured data, sitemap and robots.txt
@@ -144,9 +149,10 @@ docker-compose build --no-cache         # Rebuild without cache
 - [x] Personal tools (QR code, prompt generator) and WhatsApp bot legal pages
 
 ### Planned
-- [ ] Project case studies at `/projects/[slug]`, written in MDX in the repo, with screenshots of the live stores
-- [ ] Blog at `/blog` and `/blog/[slug]`, also in MDX
+- [ ] Blog at `/blog` and `/blog/[slug]`, reusing the MDX pipeline (`content/blog/<slug>/<locale>.mdx`)
+- [ ] Richer case studies (context, challenge, results) and more projects, including QuestEdu work
 - [ ] More QuestEdu experience and an updated stack list
+- [ ] Screenshots still missing: Tiffany desktop (the site blocks automated captures), Vitaminese (store was offline)
 - [ ] Optionally migrate the tools and legal pages to the terminal design
 
 ## Internationalization
@@ -158,6 +164,13 @@ docker-compose build --no-cache         # Rebuild without cache
 - **Legacy pages** (`/tools`, `/whatsapp-bot`) are excluded from the proxy and read the locale from the cookie. The bot's policy URLs are registered externally; do not move them
 - **UI strings**: `src/messages/{en,pt}.json`. Portfolio pages use the `site.*` namespace; `nav`, `footer` and `common` serve the legacy chrome
 - **Content**: data files in `src/data/` hold both languages in `LocalizedString` fields (`{ en, pt }`), read with `getLocalizedText(text, locale)`
+
+## Adding a Project
+
+1. Add an entry to `src/data/projects.ts` with a unique `slug`, the logo in `public/projects/`, and `featured: true` to show it on the home page
+2. Write the case study in `content/projects/<slug>/en.mdx` and `pt.mdx` (a missing translation falls back to English). The page header already shows the name, summary, stack and link, so the MDX holds the story: context, challenge, what you did, result
+3. Optional screenshots: `public/projects/<slug>/desktop.jpg` (1440×900) and `mobile.jpg` (390×844 at 2x), referenced in `screenshots` with the capture date
+4. The page and its sitemap entries are generated at build time; unknown slugs return 404
 
 ## Environment Variables
 

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: ProjectsPageProps): Promise<M
   };
 }
 
-/** Every project, in the same cards as the home page. */
+/** Every project, in the same cards as the home page; each card opens its case study. */
 export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -32,7 +32,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
 
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <li key={project.name}>
+            <li key={project.slug}>
               <Reveal delay={(index % 3) * 0.1} className="h-full">
                 <ProjectCard project={project} headingLevel="h2" />
               </Reveal>
