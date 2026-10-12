@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: '%s | Cleyton Mendes',
   },
   description:
-    'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, VTEX, Shopify, and modern web technologies. Available for remote opportunities.',
+    'Software Engineer with 5+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, VTEX, Shopify, and modern web technologies. Available for remote opportunities.',
   keywords: [
     'Software Engineer',
     'Front-end Engineer',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     url: 'https://cleyton-mendes.com',
     title: 'Cleyton Mendes - Software Engineer | E-commerce Specialist',
     description:
-      'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, VTEX, Shopify, and modern web technologies.',
+      'Software Engineer with 5+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, VTEX, Shopify, and modern web technologies.',
     siteName: 'Cleyton Mendes Portfolio',
     images: [
       {
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     creator: '@cleytonmendest',
     title: 'Cleyton Mendes - Software Engineer | E-commerce Specialist',
     description:
-      'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, and modern web technologies.',
+      'Software Engineer with 5+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, and modern web technologies.',
     images: ['/cleyton-mendes.png'],
   },
   robots: {

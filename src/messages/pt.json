@@ -17,130 +17,116 @@
     "menu": "Menu",
     "close": "Fechar"
   },
-  "hero": {
-    "greeting": "Olá, eu sou",
-    "name": "Cleyton Mendes",
-    "title": "Engenheiro de Software",
-    "description": "Engenheiro de Software com mais de 4 anos de experiência especializado em soluções de e-commerce. Especialista em React, TypeScript, Node.js e tecnologias web modernas. Apaixonado por construir aplicações escaláveis e entregar experiências excepcionais aos usuários.",
-    "cta": {
+  "site": {
+    "header": {
+      "navLabel": "Principal",
+      "nav": {
+        "experience": "Experiência",
+        "projects": "Projetos",
+        "stack": "Stack",
+        "education": "Formação"
+      },
+      "language": "Idioma",
       "downloadCV": "Baixar CV",
-      "contact": "Entre em Contato"
+      "cta": "Enviar mensagem",
+      "openMenu": "Abrir menu",
+      "closeMenu": "Fechar menu"
     },
-    "yearsOfExperience": "4+ Anos",
-    "experienceLabel": "de Experiência",
-    "projectsCompleted": "50+",
-    "projectsLabel": "Projetos Concluídos"
-  },
-  "experience": {
-    "title": "Experiência Profissional",
-    "subtitle": "Minha jornada no desenvolvimento de software",
-    "viewAll": "Ver Todas as Experiências",
-    "timeline": [
-      {
-        "position": "Front-end Engineer",
-        "company": "QuestEdu",
-        "period": "Jul 2025 - Presente",
-        "description": "Atuo na manutenção e evolução de código legado em Ruby on Rails, garantindo a estabilidade da plataforma e implementando novas funcionalidades.",
-        "achievements": [
-          "Mantive e evoluí codebase legado em Ruby on Rails",
-          "Desenvolvi soluções para aprimorar filtros e segmentação de usuários no CRM",
-          "Participei ativamente de projetos de expansão como Qconcursos México e Pro Universitários"
-        ]
-      },
-      {
-        "position": "Front-end Developer",
-        "company": "We.digi",
-        "period": "Set 2023 - Jun 2025",
-        "description": "Desenvolvi componentes React personalizados para plataformas de e-commerce e integrei sistema Deco com VTEX e Shopify.",
-        "achievements": [
-          "Construí componentes React personalizados para atender necessidades específicas dos clientes",
-          "Utilizei Node.js como middleware para conectar ao backend da VTEX",
-          "Integrei sistema Deco com plataformas VTEX e Shopify"
-        ]
-      },
-      {
-        "position": "Front-end Developer",
-        "company": "ED3 Digital",
-        "period": "Out 2021 - Out 2023",
-        "description": "Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes de alto perfil incluindo Tiffany & Co., Hugo Boss, Creamy e Candide.",
-        "achievements": [
-          "Entreguei soluções de e-commerce para marcas premium como Tiffany & Co., Hugo Boss, Creamy e Candide",
-          "Construí e mantive sites de e-commerce com JavaScript e React na plataforma VTEX",
-          "Apliquei SASS e TailwindCSS para estilos eficientes e responsivos em múltiplas marcas"
-        ]
+    "hero": {
+      "role": "Engenheiro de software no Rio de Janeiro",
+      "headlinePrefix": "Construo",
+      "phrases": [
+        "lojas rápidas em VTEX e Shopify.",
+        "aplicações web com React e Next.js.",
+        "APIs com Node.js e Ruby on Rails.",
+        "bots de WhatsApp e automações."
+      ],
+      "headlineSummary": "Construo lojas, aplicações web, APIs e bots de WhatsApp.",
+      "description": "Engenheiro de software com mais de 5 anos de experiência, a maior parte em e-commerce para marcas como Tiffany & Co. e Hugo Boss. Hoje na QuestEdu, trabalhando numa plataforma de educação com Ruby on Rails e React. Aberto a vagas remotas e projetos freelance.",
+      "contact": "Enviar mensagem",
+      "downloadCV": "Baixar CV",
+      "tagsLabel": "Áreas de foco"
+    },
+    "stats": {
+      "summary": "De agências a times de produto, entregando lojas para <brands></brands>.",
+      "years": "Anos de experiência",
+      "brands": "Marcas atendidas",
+      "platforms": "Plataformas: VTEX, Shopify, Deco.cx",
+      "statement": "Cuido das partes que o usuário nem percebe: páginas que carregam rápido, componentes que escalam entre marcas e código que o próximo dev consegue ler."
+    },
+    "experience": {
+      "title": "Experiência",
+      "description": "Três times desde 2021: duas agências de e-commerce e um produto de educação.",
+      "pageDescription": "Todos os cargos desde 2021, do mais recente ao mais antigo.",
+      "stepsLabel": "Linha do tempo da carreira",
+      "highlights": "Destaques"
+    },
+    "projects": {
+      "title": "Projetos",
+      "description": "Lojas que construí ou mantive em produção.",
+      "visit": "Ver site",
+      "viewAll": "Todos os projetos"
+    },
+    "stack": {
+      "title": "Stack",
+      "description": "As ferramentas com que trabalho, agrupadas por camada.",
+      "legend": "usado em projetos de clientes",
+      "categories": {
+        "ecommerce": "e-commerce",
+        "frontend": "frontend",
+        "backend": "backend",
+        "database": "bancos de dados",
+        "tools": "ferramentas"
       }
-    ]
-  },
-  "projects": {
-    "title": "Projetos em Destaque",
-    "subtitle": "Alguns dos meus melhores trabalhos",
-    "viewProject": "Ver Projeto",
-    "viewCode": "Ver Código",
-    "items": [
-      {
-        "name": "Tiffany & Co.",
-        "description": "Implementação completa de e-commerce na plataforma VTEX. Desenvolvi funcionalidades da página de conta e refinei a estrutura e design da homepage.",
-        "technologies": ["React", "VTEX", "JavaScript", "SASS"]
-      },
-      {
-        "name": "Vitaminese",
-        "description": "Desenvolvimento de e-commerce com aplicação de quiz personalizado. Construí um quiz dinâmico em React para recomendar produtos baseado nas respostas dos usuários com fluxos lógicos condicionais.",
-        "technologies": ["React", "VTEX", "JavaScript", "Node.js"]
-      },
-      {
-        "name": "Ultrafeu",
-        "description": "Desenvolvido do zero usando Deco.cx e VTEX com foco em SEO e otimização de performance, resultando em aumento significativo nas vendas.",
-        "technologies": ["Deco.cx", "VTEX", "React", "SEO"]
-      }
-    ]
-  },
-  "skills": {
-    "title": "Habilidades & Tecnologias",
-    "categories": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "database": "Banco de Dados",
-      "tools": "Ferramentas & Outros"
-    }
-  },
-  "certifications": {
-    "title": "Certificações & Educação",
-    "subtitle": "Aprendizado contínuo e desenvolvimento profissional",
-    "education": "Educação",
-    "certifications": "Certificações",
-    "viewCredential": "Ver Credencial",
-    "viewAllCertifications": "Ver Todas as Certificações"
-  },
-  "contact": {
-    "title": "Entre em Contato",
-    "subtitle": "Tem um projeto em mente ou quer colaborar? Sinta-se à vontade para entrar em contato!",
-    "form": {
-      "name": "Nome",
-      "namePlaceholder": "Seu nome",
-      "email": "Email",
-      "emailPlaceholder": "seu.email@exemplo.com",
-      "message": "Mensagem",
-      "messagePlaceholder": "Conte-me sobre seu projeto ou ideia...",
-      "submit": "Enviar Mensagem",
-      "sending": "Enviando..."
     },
-    "validation": {
-      "nameRequired": "Nome é obrigatório",
-      "nameMin": "Nome deve ter pelo menos 2 caracteres",
-      "emailRequired": "Email é obrigatório",
-      "emailInvalid": "Por favor, insira um email válido",
-      "messageRequired": "Mensagem é obrigatória",
-      "messageMin": "Mensagem deve ter pelo menos 10 caracteres"
+    "education": {
+      "title": "Formação",
+      "description": "Graduação em andamento e os cursos que concluí.",
+      "inProgress": "em andamento",
+      "completed": "concluído",
+      "verify": "Verificar",
+      "credentialId": "ID da credencial",
+      "viewAll": "Todas as certificações"
     },
-    "success": "Mensagem enviada com sucesso! Entrarei em contato em breve.",
-    "error": "Falha ao enviar mensagem. Por favor, tente novamente ou entre em contato diretamente.",
-    "info": {
-      "title": "Informações de Contato",
-      "email": "Email",
-      "location": "Localização",
-      "locationValue": "Disponível para Trabalho Remoto",
-      "availability": "Disponibilidade",
-      "availabilityValue": "Aberto a Oportunidades"
+    "contact": {
+      "title": "Contato",
+      "description": "Conte sobre um projeto ou uma vaga.",
+      "info": {
+        "email": "e-mail",
+        "location": "local",
+        "locationValue": "Rio de Janeiro, Brasil (remoto)",
+        "status": "status",
+        "statusValue": "Aberto a vagas remotas e freelance",
+        "whatsapp": "whatsapp",
+        "whatsappValue": "Iniciar conversa"
+      },
+      "copyEmail": "Copiar e-mail",
+      "emailCopied": "E-mail copiado",
+      "form": {
+        "name": "Nome",
+        "namePlaceholder": "Seu nome",
+        "email": "E-mail",
+        "emailPlaceholder": "seu.email@exemplo.com",
+        "message": "Mensagem",
+        "messagePlaceholder": "Conte-me sobre seu projeto ou ideia...",
+        "submit": "Enviar mensagem",
+        "sending": "Enviando"
+      },
+      "validation": {
+        "nameMin": "O nome precisa ter pelo menos 2 caracteres",
+        "nameMax": "O nome pode ter no máximo 100 caracteres",
+        "emailInvalid": "Digite um e-mail válido, como nome@exemplo.com",
+        "messageMin": "A mensagem precisa ter pelo menos 10 caracteres",
+        "messageMax": "A mensagem pode ter no máximo 1000 caracteres"
+      },
+      "success": "Mensagem enviada. Respondo por e-mail.",
+      "error": "Mensagem não enviada. Verifique sua conexão e tente de novo, ou mande um e-mail para {email}.",
+      "whatsappLabel": "Conversar no WhatsApp",
+      "whatsappMessage": "Oi! Vi seu portfólio e gostaria de conversar."
+    },
+    "footer": {
+      "rights": "Todos os direitos reservados.",
+      "backToTop": "Voltar ao topo"
     }
   },
   "footer": {

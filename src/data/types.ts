@@ -1,5 +1,3 @@
-import { IconType } from 'react-icons';
-
 // Helper type for bilingual content
 export type LocalizedString = {
   en: string;
@@ -21,7 +19,7 @@ export interface PersonalInfo {
 }
 
 export interface Experience {
-  position: string;
+  position: LocalizedString;
   company: string;
   companyUrl?: string;
   companyLogo?: string;
@@ -42,17 +40,17 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  icon: IconType;
-  color: string;
+  /** Used in client work (see experience and projects); marked in the stack legend. */
+  core?: boolean;
 }
 
 export interface SkillCategory {
-  category: 'frontend' | 'backend' | 'database' | 'tools';
+  category: 'ecommerce' | 'frontend' | 'backend' | 'database' | 'tools';
   skills: Skill[];
 }
 
 export interface Certification {
-  name: string;
+  name: LocalizedString;
   issuer: string;
   date: string;
   credentialId?: string;

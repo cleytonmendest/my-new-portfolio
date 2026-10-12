@@ -18,7 +18,7 @@ export function StructuredData() {
       url: 'https://grupoq.com.br',
     },
     description:
-      'Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, Ruby on Rails, VTEX, Shopify, and modern web technologies.',
+      'Software Engineer with 5+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, Ruby on Rails, VTEX, Shopify, and modern web technologies.',
     knowsAbout: [
       'JavaScript',
       'TypeScript',
@@ -42,7 +42,7 @@ export function StructuredData() {
         name: 'Rio de Janeiro',
       },
       skills: 'React, TypeScript, Node.js, Next.js, E-commerce, VTEX',
-      experienceRequirements: '4+ years',
+      experienceRequirements: '5+ years',
     },
     email: 'cleyton.mendest@gmail.com',
     telephone: '+5521974219271',
@@ -61,7 +61,7 @@ export function StructuredData() {
     url: 'https://cleyton-mendes.com',
     name: 'Cleyton Mendes - Software Engineer Portfolio',
     description:
-      'Professional portfolio of Cleyton Mendes, a Software Engineer specializing in e-commerce solutions with 4+ years of experience.',
+      'Professional portfolio of Cleyton Mendes, a Software Engineer specializing in e-commerce solutions with 5+ years of experience.',
     inLanguage: ['en', 'pt-BR'],
     author: {
       '@id': 'https://cleyton-mendes.com/#person',

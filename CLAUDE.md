@@ -4,19 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for a senior developer with 4+ years of experience in e-commerce development. The portfolio is bilingual (English/Portuguese) targeting international job opportunities and freelance projects.
+Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of experience. Most of it is e-commerce (VTEX IO, Shopify, Deco.cx for brands like Tiffany & Co. and Hugo Boss); currently at QuestEdu working with Ruby on Rails and React. The site positions him as a software engineer who builds storefronts but also web apps, APIs and bots. It is bilingual (English/Portuguese) and targets international roles and freelance projects.
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **React**: 19.2.0
+- **Framework**: Next.js 16 (App Router, Turbopack, `output: 'standalone'`)
+- **React**: 19.2
 - **TypeScript**: 5.x (strict mode)
-- **Styling**: Tailwind CSS 4
-- **UI Components**: shadcn/ui
-- **Icons**: lucide-react (from shadcn)
-- **Internationalization**: next-intl
-- **Theme**: next-themes (dark/light mode)
-- **Deployment**: Docker on personal VPS
+- **Styling**: Tailwind CSS 4, configured CSS-first in `src/app/globals.css` (there is no `tailwind.config`)
+- **UI Components**: shadcn/ui (new-york style) with lucide-react icons
+- **Motion**: framer-motion 12 plus CSS keyframes
+- **Forms**: react-hook-form + zod; the contact form posts to Web3Forms from the client
+- **Internationalization**: next-intl 4, locale stored in a cookie (no URL prefix)
+- **Theme**: next-themes, used only by the legacy pages (see Design)
+- **Analytics**: Google Analytics through `@next/third-parties`
+- **Deployment**: Docker on a personal VPS
 
 ## Core Principles
 
@@ -36,44 +38,73 @@ Personal portfolio website for a senior developer with 4+ years of experience in
 - **Easy to read**: Clear variable/function names
 - **Easy to maintain**: Well-structured, documented code
 - **Easy to implement**: Simple patterns, avoid complexity
-- **Consistent structure**: Follow documented folder structure
+- **Consistent structure**: Follow the folder structure below
 
-## Design Guidelines
+## Design
 
-### Visual Style
-- **Simple and functional**: No unnecessary animations or complexity
-- **Neutral colors**: Avoid absolute black (#000) or white (#FFF)
-- **Accent color**: #E6972E or similar warm orange for highlights
-- **Reference**: https://cleyton-mendes-dev.netlify.app/
+The site has two visual systems:
 
-### Component Requirements
-- Use shadcn/ui for all UI components
-- Visual confirmation required when completing sections/features
-- Take inspiration from modern portfolio designs online
-- Maintain consistency across all pages
+1. **Portfolio pages** (route group `src/app/(site)`: `/`, `/experience`, `/projects`, `/education`) use the **terminal design**, based on a Tinybird-style DESIGN.md: a developer console look. These pages are always dark; the scope is set by `theme-terminal dark` on the wrapper in `src/app/(site)/layout.tsx`.
+2. **Legacy pages** (`/tools/*`, `/whatsapp-bot/*`) keep the previous shadcn theme: light/dark toggle, orange accent `#E6972E`, `Navigation` and `Footer` components.
+
+### Terminal design tokens (`@theme` in `globals.css`)
+- **Colors**: canvas `console-black #0a0a0a`, panel `panel-charcoal #151515`, card `card-graphite #262626`, border `border-smoke #353535`, secondary text `muted-ash #8d8d8d`, light text `highlight-mist #d9d9d9`, primary text `console-white #fafafa`, accent `cursor-green #27f795`
+- **Fonts**: Roboto (`font-roboto`) for prose and headlines, Roboto Mono (`font-roboto-mono`) for tags, labels, dates and numbers. Loaded with `next/font` in `(site)/layout.tsx`
+- **Type scale**: `text-caption`, `text-body-sm`, `text-body`, `text-subheading`, `text-heading-sm`, `text-headline`, `text-stat`, `text-display`
+- **Radius**: `rounded-tag` (4px) for buttons and tags, `rounded-card` (8px) for cards
+- Inside `.theme-terminal`, the shadcn tokens (`--primary`, `--border`, `--ring`…) are remapped to this palette, so shadcn components pick it up
+- `cn()` uses `extendTailwindMerge` so the custom text and radius tokens merge correctly. Register new tokens there too
+
+### Terminal design rules
+- One chromatic color: green `#27f795`, only for the primary CTA, links and small highlights. The green fill is reserved for the main action
+- Never absolute black or white: use `#0a0a0a` and `#fafafa`
+- 1px hairline borders in `#353535`; no shadows or glows; no radius above 8px
+- Square brackets for log-like labels (`[2024]`, `[in progress]`, `[github]`)
+- Sentence case; uppercase only for stat labels. No middle dots (`A · B`) in copy. Arrows only where they carry meaning (`↗` external link, `↓` download)
+- Numbered markers only when the content really is a sequence
+- Hover effects only on interactive elements
+- Keyboard focus: 2px green outline (global rule for `a`, `button` and tab panels inside `.theme-terminal`)
+- Motion: the page-load cascade in the hero is CSS (`entrance()`), so it works before hydration. The headline uses `Typewriter`. Use `Reveal` for scroll entrances: content stays visible in the server HTML and is only hidden while fully off-screen. `CountUp` plays once. Motion that answers a user action (tabs, menu, form) is welcome. Always respect `prefers-reduced-motion`
+
+### Component requirements
+- Use shadcn/ui for UI primitives, styled with the tokens above
+- Visual confirmation required when completing sections/features (screenshots of desktop and mobile)
+- Maintain consistency across all portfolio pages
 
 ## Project Structure
 
 ```
-my-portfolio/
-├── src/
-│   ├── app/                  # Next.js App Router pages
-│   │   ├── [locale]/         # Internationalized routes
-│   │   ├── globals.css       # Global styles
-│   │   └── layout.tsx        # Root layout
-│   ├── components/           # React components
-│   │   ├── ui/               # shadcn/ui components
-│   │   └── ...               # Custom components
-│   ├── lib/                  # Utility functions
-│   ├── types/                # TypeScript type definitions
-│   └── messages/             # i18n translation files
-│       ├── en.json
-│       └── pt.json
-├── public/                   # Static assets
-├── docker/                   # Docker configuration
-├── Dockerfile
-└── docker-compose.yml
+src/
+├── app/
+│   ├── (site)/                # Portfolio pages; shared layout with fonts, header, footer, motion
+│   │   ├── layout.tsx
+│   │   ├── page.tsx           # Home
+│   │   ├── experience/
+│   │   ├── projects/
+│   │   └── education/
+│   ├── tools/                 # Personal tools (legacy design)
+│   ├── whatsapp-bot/          # Bot privacy policy and terms (legacy design)
+│   ├── layout.tsx             # Root: metadata, next-intl provider, theme provider, GA
+│   ├── globals.css            # Tailwind 4 theme, terminal tokens, shadcn tokens
+│   └── sitemap.ts
+├── components/
+│   ├── terminal/              # Design-system pieces: SiteHeader, SiteFooter, Reveal, CountUp,
+│   │                          #   Typewriter, GhostLink, Tag, SectionHeading, Portrait
+│   ├── home/                  # Home-only sections (hero, stats, experience steps, …)
+│   ├── sections/              # Content blocks shared by home and standalone pages
+│   │                          #   (ExperienceDetails, ProjectCard, EducationList)
+│   ├── ui/                    # shadcn/ui
+│   ├── legal/                 # Layout for the legal pages
+│   └── navigation.tsx, footer.tsx, theme-*.tsx, …   # Legacy chrome for tools and legal pages
+├── data/                      # Typed content: experience, projects, skills, certifications,
+│                              #   education, personal (bilingual fields use LocalizedString)
+├── i18n/                      # next-intl config (reads the NEXT_LOCALE cookie)
+├── messages/                  # en.json, pt.json
+├── actions/locale.ts          # Server action that sets the locale cookie
+└── lib/                       # cn() and zod schemas
 ```
+
+Each component folder exports from an `index.ts`. Document non-obvious components with JSDoc.
 
 ## Commands
 
@@ -97,43 +128,65 @@ docker-compose build --no-cache         # Rebuild without cache
 ## Features
 
 ### Implemented
-- [x] Base Next.js setup with TypeScript
-- [x] Tailwind CSS 4 configuration
-
-### In Progress
-- [ ] shadcn/ui setup and configuration
-- [ ] next-intl internationalization (EN/PT)
-- [ ] Dark/light theme with next-themes
-- [ ] Docker configuration for VPS deployment
+- [x] Terminal-design home: typed hero, stats, experience timeline, projects, stack, education, contact
+- [x] Standalone pages: `/experience`, `/projects`, `/education`
+- [x] Bilingual content (EN/PT) with a language switch
+- [x] Contact form (Web3Forms) with validation, plus WhatsApp and email links
+- [x] SEO metadata, JSON-LD structured data, sitemap and robots.txt
+- [x] Google Analytics
+- [x] Docker configuration for VPS deployment
+- [x] Personal tools (QR code, prompt generator) and WhatsApp bot legal pages
 
 ### Planned
-- [ ] Hero section with introduction
-- [ ] Experience/projects showcase
-- [ ] Blog system with headless CMS
-- [ ] Contact form with email integration
-- [ ] Analytics integration
-- [ ] SEO optimization for both languages
+- [ ] Project case studies at `/projects/[slug]` (cards will link there; content source to be decided)
+- [ ] Blog
+- [ ] More QuestEdu experience and an updated stack list
+- [ ] Fix the sitemap: it lists `/en` and `/pt` alternates that do not exist and misses the standalone pages
+- [ ] Optionally migrate the tools and legal pages to the terminal design
 
 ## Internationalization
 
-- **Languages**: English (en), Portuguese (pt)
-- **Default**: English
-- **URL structure**: `/en/...` and `/pt/...`
-- **Library**: next-intl
-- **Translation files**: `src/messages/en.json` and `src/messages/pt.json`
+- **Languages**: English (en), Portuguese (pt); default English
+- **How the locale is chosen**: the `NEXT_LOCALE` cookie, set by the `setLocale` server action. There is no `/en` or `/pt` URL prefix
+- **UI strings**: `src/messages/{en,pt}.json`. Portfolio pages use the `site.*` namespace; `nav`, `footer` and `common` serve the legacy chrome
+- **Content**: data files in `src/data/` hold both languages in `LocalizedString` fields (`{ en, pt }`), read with `getLocalizedText(text, locale)`
 
-## Component Development
+## Environment Variables
 
-### shadcn/ui
-- Install components only when needed: `npx shadcn@latest add [component]`
-- Customize theme in `tailwind.config.ts`
-- Use lucide-react for icons
+Create `.env.local` for development:
+```env
+NEXT_PUBLIC_GA_ID=                     # Google Analytics measurement ID (optional)
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form
+```
 
-### Creating New Components
-1. Create in `src/components/[category]/`
-2. Use TypeScript interfaces for props
-3. Export from index file for clean imports
-4. Document complex components with JSDoc
+## Common Patterns
+
+### Translated component (server or client)
+```typescript
+import { useTranslations } from 'next-intl';
+
+export function MyComponent() {
+  const t = useTranslations('site.hero');
+
+  return <h1>{t('headlinePrefix')}</h1>;
+}
+```
+
+### Section on a portfolio page
+```typescript
+import { Reveal, SectionHeading } from '@/components/terminal';
+
+export function MySection() {
+  return (
+    <section id="my-section" className="scroll-mt-10 px-4 md:px-6">
+      <div className="mx-auto max-w-[1200px]">
+        <SectionHeading title="Title" description="One line of context." />
+        <Reveal className="mx-auto max-w-4xl">{/* content */}</Reveal>
+      </div>
+    </section>
+  );
+}
+```
 
 ## Testing Before Commit
 
@@ -142,61 +195,16 @@ docker-compose build --no-cache         # Rebuild without cache
 3. Run `npm run build` - must build successfully
 4. Test functionality in browser
 5. Verify responsive design (mobile/tablet/desktop)
-6. Test both dark and light themes
-7. Test both English and Portuguese versions
-
-## Deployment
-
-### Docker Build
-The project uses Docker for deployment on a personal VPS:
-- Production-optimized Next.js build
-- Multi-stage Docker build for smaller image size
-- Environment variables configured via `.env`
-- Nginx reverse proxy ready
-
-### Environment Variables
-Create `.env.local` for development:
-```env
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-# Add CMS keys, email service keys, analytics keys, etc.
-```
-
-## Common Patterns
-
-### Internationalized Component
-```typescript
-import { useTranslations } from 'next-intl';
-
-export function MyComponent() {
-  const t = useTranslations('MyComponent');
-
-  return <h1>{t('title')}</h1>;
-}
-```
-
-### Theme-aware Component
-```typescript
-import { useTheme } from 'next-themes';
-
-export function MyComponent() {
-  const { theme, setTheme } = useTheme();
-
-  return (
-    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-      Toggle theme
-    </button>
-  );
-}
-```
+6. Test both English and Portuguese versions
+7. Test keyboard navigation and `prefers-reduced-motion`
+8. Legacy pages only: test both dark and light themes
 
 ## Important Notes
 
-- **Never use absolute black or white**: Use #0a0a0a for dark, #fafafa for light
-- **Accent color consistency**: Always use #E6972E or very close variants
 - **Mobile-first**: Design for mobile, enhance for desktop
-- **Accessibility**: Proper semantic HTML, ARIA labels, keyboard navigation
-- **Performance**: Optimize images, lazy load when appropriate
-- **SEO**: Proper meta tags, sitemap, robots.txt for both languages
+- **Accessibility**: Semantic HTML, ARIA labels, visible keyboard focus, reduced motion
+- **Performance**: Optimize images, keep above-the-fold content visible without JavaScript
+- **SEO**: Proper meta tags, sitemap and robots.txt for both languages
 
 ## Resources
 
@@ -204,4 +212,5 @@ export function MyComponent() {
 - [shadcn/ui Components](https://ui.shadcn.com)
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [next-intl](https://next-intl.dev)
+- [Motion (framer-motion)](https://motion.dev)
 - [Lucide Icons](https://lucide.dev)

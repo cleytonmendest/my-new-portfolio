@@ -17,130 +17,116 @@
     "menu": "Menu",
     "close": "Close"
   },
-  "hero": {
-    "greeting": "Hi, I'm",
-    "name": "Cleyton Mendes",
-    "title": "Software Engineer",
-    "description": "Software Engineer with 4+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, and modern web technologies. Passionate about building scalable applications and delivering exceptional user experiences.",
-    "cta": {
+  "site": {
+    "header": {
+      "navLabel": "Main",
+      "nav": {
+        "experience": "Experience",
+        "projects": "Projects",
+        "stack": "Stack",
+        "education": "Education"
+      },
+      "language": "Language",
       "downloadCV": "Download CV",
-      "contact": "Get in Touch"
+      "cta": "Send a message",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
     },
-    "yearsOfExperience": "4+ Years",
-    "experienceLabel": "of Experience",
-    "projectsCompleted": "50+",
-    "projectsLabel": "Projects Completed"
-  },
-  "experience": {
-    "title": "Work Experience",
-    "subtitle": "My professional journey in software development",
-    "viewAll": "View All Experiences",
-    "timeline": [
-      {
-        "position": "Front-end Engineer",
-        "company": "QuestEdu",
-        "period": "Jul 2025 - Present",
-        "description": "Working on maintenance and evolution of legacy code in Ruby on Rails, ensuring platform stability and implementing new features.",
-        "achievements": [
-          "Maintained and evolved legacy Ruby on Rails codebase",
-          "Developed solutions to enhance CRM filters and user segmentation",
-          "Actively participated in expansion projects like Qconcursos México and Pro Universitários"
-        ]
-      },
-      {
-        "position": "Front-end Developer",
-        "company": "We.digi",
-        "period": "Sep 2023 - Jun 2025",
-        "description": "Developed custom React components for e-commerce platforms and integrated Deco system with VTEX and Shopify.",
-        "achievements": [
-          "Built custom React components to meet specific client needs",
-          "Used Node.js as middleware to connect to VTEX backend",
-          "Integrated Deco system with VTEX and Shopify platforms"
-        ]
-      },
-      {
-        "position": "Front-end Developer",
-        "company": "ED3 Digital",
-        "period": "Oct 2021 - Oct 2023",
-        "description": "Developed and maintained e-commerce sites using JavaScript and React, customizing VTEX platform for high-profile clients including Tiffany & Co., Hugo Boss, Creamy, and Candide.",
-        "achievements": [
-          "Delivered e-commerce solutions for premium brands like Tiffany & Co., Hugo Boss, Creamy, and Candide",
-          "Built and maintained e-commerce sites with JavaScript and React on VTEX platform",
-          "Applied SASS and TailwindCSS for efficient and responsive styling across multiple brands"
-        ]
+    "hero": {
+      "role": "Software engineer in Rio de Janeiro",
+      "headlinePrefix": "I build",
+      "phrases": [
+        "fast storefronts on VTEX and Shopify.",
+        "web apps with React and Next.js.",
+        "APIs with Node.js and Ruby on Rails.",
+        "WhatsApp bots and automations."
+      ],
+      "headlineSummary": "I build storefronts, web apps, APIs and WhatsApp bots.",
+      "description": "Software engineer with 5+ years of experience, most of it in e-commerce for brands like Tiffany & Co. and Hugo Boss. Today at QuestEdu, working on an edtech platform with Ruby on Rails and React. Open to remote roles and freelance projects.",
+      "contact": "Send a message",
+      "downloadCV": "Download CV",
+      "tagsLabel": "Focus areas"
+    },
+    "stats": {
+      "summary": "From agencies to product teams, shipping storefronts for <brands></brands>.",
+      "years": "Years of experience",
+      "brands": "Brands shipped",
+      "platforms": "Platforms: VTEX, Shopify, Deco.cx",
+      "statement": "I care about the parts users never notice: pages that load fast, components that scale across brands and code the next developer can read."
+    },
+    "experience": {
+      "title": "Experience",
+      "description": "Three teams since 2021: two e-commerce agencies and an edtech product.",
+      "pageDescription": "Every role since 2021, newest first.",
+      "stepsLabel": "Career timeline",
+      "highlights": "Highlights"
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Storefronts I built or maintained in production.",
+      "visit": "Visit site",
+      "viewAll": "All projects"
+    },
+    "stack": {
+      "title": "Stack",
+      "description": "The tools I work with, grouped by layer.",
+      "legend": "used in client work",
+      "categories": {
+        "ecommerce": "e-commerce",
+        "frontend": "frontend",
+        "backend": "backend",
+        "database": "databases",
+        "tools": "tools"
       }
-    ]
-  },
-  "projects": {
-    "title": "Featured Projects",
-    "subtitle": "Some of my best work",
-    "viewProject": "View Project",
-    "viewCode": "View Code",
-    "items": [
-      {
-        "name": "Tiffany & Co.",
-        "description": "Complete e-commerce implementation on VTEX platform. Developed account page features and refined homepage structure and design.",
-        "technologies": ["React", "VTEX", "JavaScript", "SASS"]
-      },
-      {
-        "name": "Vitaminese",
-        "description": "E-commerce development with custom quiz application. Built a dynamic React quiz to recommend products based on user responses with conditional logic flows.",
-        "technologies": ["React", "VTEX", "JavaScript", "Node.js"]
-      },
-      {
-        "name": "Ultrafeu",
-        "description": "Built from scratch using Deco.cx and VTEX with focus on SEO and performance optimization, resulting in significant sales increase.",
-        "technologies": ["Deco.cx", "VTEX", "React", "SEO"]
-      }
-    ]
-  },
-  "skills": {
-    "title": "Skills & Technologies",
-    "categories": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "database": "Database",
-      "tools": "Tools & Others"
-    }
-  },
-  "certifications": {
-    "title": "Certifications & Education",
-    "subtitle": "Continuous learning and professional development",
-    "education": "Education",
-    "certifications": "Certifications",
-    "viewCredential": "View Credential",
-    "viewAllCertifications": "View All Certifications"
-  },
-  "contact": {
-    "title": "Get In Touch",
-    "subtitle": "Have a project in mind or want to collaborate? Feel free to reach out!",
-    "form": {
-      "name": "Name",
-      "namePlaceholder": "Your name",
-      "email": "Email",
-      "emailPlaceholder": "your.email@example.com",
-      "message": "Message",
-      "messagePlaceholder": "Tell me about your project or idea...",
-      "submit": "Send Message",
-      "sending": "Sending..."
     },
-    "validation": {
-      "nameRequired": "Name is required",
-      "nameMin": "Name must be at least 2 characters",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Please enter a valid email",
-      "messageRequired": "Message is required",
-      "messageMin": "Message must be at least 10 characters"
+    "education": {
+      "title": "Education",
+      "description": "A degree in progress and the courses I've finished.",
+      "inProgress": "in progress",
+      "completed": "completed",
+      "verify": "Verify",
+      "credentialId": "Credential ID",
+      "viewAll": "All certifications"
     },
-    "success": "Message sent successfully! I'll get back to you soon.",
-    "error": "Failed to send message. Please try again or contact me directly.",
-    "info": {
-      "title": "Contact Information",
-      "email": "Email",
-      "location": "Location",
-      "locationValue": "Available for Remote Work",
-      "availability": "Availability",
-      "availabilityValue": "Open to Opportunities"
+    "contact": {
+      "title": "Contact",
+      "description": "Tell me about a project or an open role.",
+      "info": {
+        "email": "email",
+        "location": "location",
+        "locationValue": "Rio de Janeiro, Brazil (remote)",
+        "status": "status",
+        "statusValue": "Open to remote roles and freelance",
+        "whatsapp": "whatsapp",
+        "whatsappValue": "Start a chat"
+      },
+      "copyEmail": "Copy email",
+      "emailCopied": "Email copied",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "emailPlaceholder": "your.email@example.com",
+        "message": "Message",
+        "messagePlaceholder": "Tell me about your project or idea...",
+        "submit": "Send message",
+        "sending": "Sending"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "nameMax": "Name must be at most 100 characters",
+        "emailInvalid": "Enter a valid email, like name@example.com",
+        "messageMin": "Message must be at least 10 characters",
+        "messageMax": "Message must be at most 1000 characters"
+      },
+      "success": "Message sent. I'll reply by email.",
+      "error": "Message not sent. Check your connection and try again, or email {email}.",
+      "whatsappLabel": "Chat on WhatsApp",
+      "whatsappMessage": "Hi! I found your portfolio and would like to talk."
+    },
+    "footer": {
+      "rights": "All rights reserved.",
+      "backToTop": "Back to top"
     }
   },
   "footer": {
