@@ -1,20 +1,20 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { locales } from '@/i18n/config';
+import { SITE_URL } from '@/lib/metadata';
 
+const PAGES = ['', '/experience', '/projects', '/education'];
+
+/** Every portfolio page in every locale, each entry listing its translations as hreflang alternates. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://cleyton-mendes.com';
-
-  return [
-    {
-      url: baseUrl,
+  return PAGES.flatMap((path) =>
+    locales.map((locale) => ({
+      url: `${SITE_URL}/${locale}${path}`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
+      changeFrequency: 'monthly' as const,
+      priority: path === '' ? 1 : 0.7,
       alternates: {
-        languages: {
-          en: `${baseUrl}/en`,
-          pt: `${baseUrl}/pt`,
-        },
+        languages: Object.fromEntries(locales.map((item) => [item, `${SITE_URL}/${item}${path}`])),
       },
-    },
-  ];
+    }))
+  );
 }

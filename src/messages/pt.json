@@ -18,6 +18,10 @@
     "close": "Fechar"
   },
   "site": {
+    "meta": {
+      "title": "Cleyton Mendes - Engenheiro de Software",
+      "description": "Engenheiro de Software com mais de 5 anos de experiência construindo lojas, aplicações web e APIs com React, TypeScript, Node.js e Ruby on Rails. Aberto a vagas remotas e projetos freelance."
+    },
     "header": {
       "navLabel": "Principal",
       "nav": {
@@ -127,6 +131,11 @@
     "footer": {
       "rights": "Todos os direitos reservados.",
       "backToTop": "Voltar ao topo"
+    },
+    "notFound": {
+      "title": "Página não encontrada",
+      "description": "A página que você procura não existe ou mudou de endereço.",
+      "home": "Ir para a página inicial"
     }
   },
   "footer": {

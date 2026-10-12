@@ -1,12 +1,30 @@
-import { useTranslations } from 'next-intl';
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Reveal, SectionHeading } from '@/components/terminal';
 import { ExperienceDetails } from '@/components/sections';
 import { experiences } from '@/data/experience';
 import { getStartYear } from '@/data/utils';
+import { localeAlternates } from '@/lib/metadata';
+
+interface ExperiencePageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: ExperiencePageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'site.experience' });
+  return {
+    title: t('title'),
+    description: t('pageDescription'),
+    alternates: localeAlternates(locale, '/experience'),
+  };
+}
 
 /** Every role at once, newest first, as a dated log. */
-export default function ExperiencePage() {
-  const t = useTranslations('site.experience');
+export default async function ExperiencePage({ params }: ExperiencePageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('site.experience');
 
   return (
     <main className="flex-1 px-4 pb-20 pt-12 md:px-6 md:pt-16">

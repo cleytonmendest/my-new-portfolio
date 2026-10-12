@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import Link from 'next/link';
 import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 // The arrow nudges when the link itself (group/link) or its card (group) is hovered.

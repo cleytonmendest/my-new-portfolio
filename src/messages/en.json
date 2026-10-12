@@ -18,6 +18,10 @@
     "close": "Close"
   },
   "site": {
+    "meta": {
+      "title": "Cleyton Mendes - Software Engineer",
+      "description": "Software Engineer with 5+ years of experience building e-commerce storefronts, web apps and APIs with React, TypeScript, Node.js and Ruby on Rails. Open to remote roles and freelance projects."
+    },
     "header": {
       "navLabel": "Main",
       "nav": {
@@ -127,6 +131,11 @@
     "footer": {
       "rights": "All rights reserved.",
       "backToTop": "Back to top"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist or has moved.",
+      "home": "Go to the home page"
     }
   },
   "footer": {

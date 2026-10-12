@@ -1,22 +1,22 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, SquareTerminal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 import { GhostLink } from './ghost-link';
 import { LocaleToggle } from './locale-toggle';
 import { EASE_OUT } from './motion';
 import { getCvFile } from './constants';
 
-// Absolute anchors, so the links also work from the standalone pages.
+// Home anchors with the locale added by the Link, so they also work from the standalone pages.
 const NAV_ITEMS = [
-  { key: 'experience', href: '/#experience' },
-  { key: 'projects', href: '/#projects' },
-  { key: 'stack', href: '/#skills' },
-  { key: 'education', href: '/#certifications' },
+  { key: 'experience', href: { pathname: '/', hash: 'experience' } },
+  { key: 'projects', href: { pathname: '/', hash: 'projects' } },
+  { key: 'stack', href: { pathname: '/', hash: 'skills' } },
+  { key: 'education', href: { pathname: '/', hash: 'certifications' } },
 ] as const;
 
 /** Transparent top bar: wordmark, section links, language switch and the contact CTA. */
@@ -84,7 +84,7 @@ export function SiteHeader() {
             asChild
             className="h-9 rounded-tag px-4 text-sm font-semibold hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Link href="/#contact">{t('cta')}</Link>
+            <Link href={{ pathname: '/', hash: 'contact' }}>{t('cta')}</Link>
           </Button>
 
           <button

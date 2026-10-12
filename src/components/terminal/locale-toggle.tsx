@@ -2,21 +2,20 @@
 
 import { Fragment, useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { setLocale } from '@/actions/locale';
 import { locales, type Locale } from '@/i18n/config';
+import { usePathname, useRouter } from '@/i18n/routing';
 
-/** Mono "EN / PT" switch. Saves the locale cookie and reloads the page. */
+/** Mono "EN / PT" switch. Moves to the same page under the other locale prefix. */
 export function LocaleToggle() {
   const t = useTranslations('site.header');
   const currentLocale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const changeLocale = (locale: Locale) => {
     if (locale === currentLocale) return;
-    startTransition(async () => {
-      await setLocale(locale);
-      window.location.reload();
-    });
+    startTransition(() => router.replace(pathname, { locale }));
   };
 
   return (

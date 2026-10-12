@@ -15,7 +15,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 - **UI Components**: shadcn/ui (new-york style) with lucide-react icons
 - **Motion**: framer-motion 12 plus CSS keyframes
 - **Forms**: react-hook-form + zod; the contact form posts to Web3Forms from the client
-- **Internationalization**: next-intl 4, locale stored in a cookie (no URL prefix)
+- **Internationalization**: next-intl 4, locale in the URL (`/en/...`, `/pt/...`)
 - **Theme**: next-themes, used only by the legacy pages (see Design)
 - **Analytics**: Google Analytics through `@next/third-parties`
 - **Deployment**: Docker on a personal VPS
@@ -44,12 +44,12 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 
 The site has two visual systems:
 
-1. **Portfolio pages** (route group `src/app/(site)`: `/`, `/experience`, `/projects`, `/education`) use the **terminal design**, based on a Tinybird-style DESIGN.md: a developer console look. These pages are always dark; the scope is set by `theme-terminal dark` on the wrapper in `src/app/(site)/layout.tsx`.
-2. **Legacy pages** (`/tools/*`, `/whatsapp-bot/*`) keep the previous shadcn theme: light/dark toggle, orange accent `#E6972E`, `Navigation` and `Footer` components.
+1. **Portfolio pages** (`src/app/[locale]`: home, experience, projects, education) use the **terminal design**, based on a Tinybird-style DESIGN.md: a developer console look. These pages are always dark; the scope is set by `theme-terminal dark` on `<body>` in `src/app/[locale]/layout.tsx`.
+2. **Legacy pages** (`src/app/(legacy)`: `/tools/*`, `/whatsapp-bot/*`) keep the previous shadcn theme: light/dark toggle, orange accent `#E6972E`, `Navigation` and `Footer` components.
 
 ### Terminal design tokens (`@theme` in `globals.css`)
 - **Colors**: canvas `console-black #0a0a0a`, panel `panel-charcoal #151515`, card `card-graphite #262626`, border `border-smoke #353535`, secondary text `muted-ash #8d8d8d`, light text `highlight-mist #d9d9d9`, primary text `console-white #fafafa`, accent `cursor-green #27f795`
-- **Fonts**: Roboto (`font-roboto`) for prose and headlines, Roboto Mono (`font-roboto-mono`) for tags, labels, dates and numbers. Loaded with `next/font` in `(site)/layout.tsx`
+- **Fonts**: Roboto (`font-roboto`) for prose and headlines, Roboto Mono (`font-roboto-mono`) for tags, labels, dates and numbers. Loaded with `next/font` in `src/lib/fonts.ts`
 - **Type scale**: `text-caption`, `text-body-sm`, `text-body`, `text-subheading`, `text-heading-sm`, `text-headline`, `text-stat`, `text-display`
 - **Radius**: `rounded-tag` (4px) for buttons and tags, `rounded-card` (8px) for cards
 - Inside `.theme-terminal`, the shadcn tokens (`--primary`, `--border`, `--ring`…) are remapped to this palette, so shadcn components pick it up
@@ -76,17 +76,23 @@ The site has two visual systems:
 ```
 src/
 ├── app/
-│   ├── (site)/                # Portfolio pages; shared layout with fonts, header, footer, motion
-│   │   ├── layout.tsx
+│   ├── [locale]/              # Portfolio, statically generated for /en and /pt
+│   │   ├── layout.tsx         # <html lang>, fonts, header, footer, motion, metadata per locale
 │   │   ├── page.tsx           # Home
 │   │   ├── experience/
 │   │   ├── projects/
-│   │   └── education/
-│   ├── tools/                 # Personal tools (legacy design)
-│   ├── whatsapp-bot/          # Bot privacy policy and terms (legacy design)
-│   ├── layout.tsx             # Root: metadata, next-intl provider, theme provider, GA
+│   │   ├── education/
+│   │   ├── not-found.tsx      # Localized 404 ([...rest]/ sends unknown paths here)
+│   │   └── [...rest]/
+│   ├── (legacy)/              # Tools and WhatsApp bot legal pages: no locale in the URL
+│   │   ├── layout.tsx         # <html>, Geist fonts, theme provider, locale from the cookie
+│   │   ├── tools/
+│   │   └── whatsapp-bot/
+│   ├── layout.tsx             # Pass-through (the two layouts above render <html>)
+│   ├── not-found.tsx          # Global 404 for paths outside both groups
 │   ├── globals.css            # Tailwind 4 theme, terminal tokens, shadcn tokens
-│   └── sitemap.ts
+│   └── sitemap.ts             # Every portfolio page in both locales with hreflang
+├── proxy.ts                   # next-intl: redirects / and unprefixed paths to /en or /pt
 ├── components/
 │   ├── terminal/              # Design-system pieces: SiteHeader, SiteFooter, Reveal, CountUp,
 │   │                          #   Typewriter, GhostLink, Tag, SectionHeading, Portrait
@@ -98,10 +104,10 @@ src/
 │   └── navigation.tsx, footer.tsx, theme-*.tsx, …   # Legacy chrome for tools and legal pages
 ├── data/                      # Typed content: experience, projects, skills, certifications,
 │                              #   education, personal (bilingual fields use LocalizedString)
-├── i18n/                      # next-intl config (reads the NEXT_LOCALE cookie)
+├── i18n/                      # routing (locales, locale-aware Link/router), request config
 ├── messages/                  # en.json, pt.json
-├── actions/locale.ts          # Server action that sets the locale cookie
-└── lib/                       # cn() and zod schemas
+├── actions/locale.ts          # Sets the locale cookie (used by the legacy language switcher)
+└── lib/                       # cn(), fonts, metadata helpers, zod schemas
 ```
 
 Each component folder exports from an `index.ts`. Document non-obvious components with JSDoc.
@@ -130,24 +136,26 @@ docker-compose build --no-cache         # Rebuild without cache
 ### Implemented
 - [x] Terminal-design home: typed hero, stats, experience timeline, projects, stack, education, contact
 - [x] Standalone pages: `/experience`, `/projects`, `/education`
-- [x] Bilingual content (EN/PT) with a language switch
+- [x] Bilingual site with the locale in the URL (`/en`, `/pt`), hreflang and a language switch
 - [x] Contact form (Web3Forms) with validation, plus WhatsApp and email links
-- [x] SEO metadata, JSON-LD structured data, sitemap and robots.txt
+- [x] SEO metadata per locale, JSON-LD structured data, sitemap and robots.txt
 - [x] Google Analytics
 - [x] Docker configuration for VPS deployment
 - [x] Personal tools (QR code, prompt generator) and WhatsApp bot legal pages
 
 ### Planned
-- [ ] Project case studies at `/projects/[slug]` (cards will link there; content source to be decided)
-- [ ] Blog
+- [ ] Project case studies at `/projects/[slug]`, written in MDX in the repo, with screenshots of the live stores
+- [ ] Blog at `/blog` and `/blog/[slug]`, also in MDX
 - [ ] More QuestEdu experience and an updated stack list
-- [ ] Fix the sitemap: it lists `/en` and `/pt` alternates that do not exist and misses the standalone pages
 - [ ] Optionally migrate the tools and legal pages to the terminal design
 
 ## Internationalization
 
 - **Languages**: English (en), Portuguese (pt); default English
-- **How the locale is chosen**: the `NEXT_LOCALE` cookie, set by the `setLocale` server action. There is no `/en` or `/pt` URL prefix
+- **URLs**: portfolio pages always carry the locale (`/en/...`, `/pt/...`). `src/proxy.ts` redirects `/` and unprefixed paths using the `NEXT_LOCALE` cookie, then the browser language
+- **Links**: import `Link`, `useRouter` and `usePathname` from `@/i18n/routing` (not `next/link`) and write hrefs without the locale; it is added automatically
+- **Pages**: every page and layout under `[locale]` calls `setRequestLocale(locale)` so it can be statically generated; use `getTranslations` in async pages. Set `alternates` with `localeAlternates(locale, path)` from `@/lib/metadata`
+- **Legacy pages** (`/tools`, `/whatsapp-bot`) are excluded from the proxy and read the locale from the cookie. The bot's policy URLs are registered externally; do not move them
 - **UI strings**: `src/messages/{en,pt}.json`. Portfolio pages use the `site.*` namespace; `nav`, `footer` and `common` serve the legacy chrome
 - **Content**: data files in `src/data/` hold both languages in `LocalizedString` fields (`{ en, pt }`), read with `getLocalizedText(text, locale)`
 
@@ -169,6 +177,31 @@ export function MyComponent() {
   const t = useTranslations('site.hero');
 
   return <h1>{t('headlinePrefix')}</h1>;
+}
+```
+
+### Page under `[locale]`
+```typescript
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates } from '@/lib/metadata';
+
+interface MyPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: MyPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'site.myPage' });
+  return { title: t('title'), alternates: localeAlternates(locale, '/my-page') };
+}
+
+export default async function MyPage({ params }: MyPageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('site.myPage');
+
+  return <main className="flex-1 px-4 pb-20 pt-12 md:px-6 md:pt-16">{t('title')}</main>;
 }
 ```
 
