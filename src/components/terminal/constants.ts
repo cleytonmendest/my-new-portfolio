@@ -1,6 +1,7 @@
 import { personalInfo } from '@/data/personal';
 
-export const CONTACT_EMAIL = 'contato@cleyton-mendes.com';
+/** Shown in the contact section, the footer and the form's error message. */
+export const CONTACT_EMAIL = personalInfo.email;
 
 /** Localized CV file served from /public. */
 export function getCvFile(locale: string) {
