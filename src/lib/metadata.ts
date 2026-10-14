@@ -1,7 +1,18 @@
 import type { Metadata } from 'next';
 import { locales } from '@/i18n/config';
 
-export const SITE_URL = 'https://cleyton-mendes.com';
+/**
+ * Public URL of the site, used by canonical links, hreflang, the sitemap, robots.txt and JSON-LD.
+ * Set NEXT_PUBLIC_SITE_URL for a custom domain. Without it, Vercel builds use the production URL
+ * the platform exposes (VERCEL_PROJECT_PRODUCTION_URL), and local builds use localhost.
+ */
+function resolveSiteUrl() {
+  const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  const url = process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl ? `https://${vercelUrl}` : 'http://localhost:3000');
+  return url.replace(/\/$/, '');
+}
+
+export const SITE_URL = resolveSiteUrl();
 
 /** Metadata shared by every page, portfolio and legacy alike. */
 export const baseMetadata: Metadata = {

@@ -19,7 +19,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 - **Content**: MDX files in `content/`, compiled at build time with `next-mdx-remote`
 - **Theme**: next-themes, used only by the legacy pages (see Design)
 - **Analytics**: Google Analytics through `@next/third-parties`
-- **Deployment**: Docker on a personal VPS
+- **Deployment**: Vercel (Hobby plan, https://cleyton-mendes.vercel.app), deployed by the Vercel GitHub integration on every push to `main`; pull requests get preview deployments. The Dockerfile is kept for self-hosting
 
 ## Core Principles
 
@@ -95,7 +95,8 @@ src/
 │   ├── layout.tsx             # Pass-through (the two layouts above render <html>)
 │   ├── not-found.tsx          # Global 404 for paths outside both groups
 │   ├── globals.css            # Tailwind 4 theme, terminal tokens, shadcn tokens
-│   └── sitemap.ts             # Every portfolio page in both locales with hreflang
+│   ├── sitemap.ts             # Every portfolio page in both locales with hreflang
+│   └── robots.ts              # Allows crawling and points to the sitemap
 ├── proxy.ts                   # next-intl: redirects / and unprefixed paths to /en or /pt
 ├── components/
 │   ├── terminal/              # Design-system pieces: SiteHeader, SiteFooter, Reveal, CountUp,
@@ -127,7 +128,7 @@ npm run lint         # Run ESLint
 npm run type-check   # Run TypeScript compiler check
 ```
 
-### Docker
+### Docker (optional self-hosting)
 ```bash
 docker-compose up -d                    # Start container in detached mode
 docker-compose down                     # Stop container
@@ -145,7 +146,7 @@ docker-compose build --no-cache         # Rebuild without cache
 - [x] Contact form (Web3Forms) with validation, plus WhatsApp and email links
 - [x] SEO metadata per locale, JSON-LD structured data, sitemap and robots.txt
 - [x] Google Analytics
-- [x] Docker configuration for VPS deployment
+- [x] Deployed on Vercel; Dockerfile kept for self-hosting
 - [x] Personal tools (QR code, prompt generator) and WhatsApp bot legal pages
 
 ### Planned
@@ -176,6 +177,9 @@ docker-compose build --no-cache         # Rebuild without cache
 
 Create `.env.local` for development:
 ```env
+NEXT_PUBLIC_SITE_URL=                  # Public URL for canonical, hreflang, sitemap, robots and JSON-LD.
+                                       #   Optional: on Vercel it defaults to the production URL,
+                                       #   locally to http://localhost:3000. Set it for a custom domain
 NEXT_PUBLIC_GA_ID=                     # Google Analytics measurement ID (optional)
 NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form
 ```
