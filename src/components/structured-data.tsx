@@ -1,12 +1,17 @@
-export function StructuredData() {
+import { SITE_URL } from '@/lib/metadata';
+
+/** JSON-LD for search engines: the person, the website, the profile page and the home sections. */
+export function StructuredData({ locale }: { locale: string }) {
+  const home = `${SITE_URL}/${locale}`;
+
   const personData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': 'https://cleyton-mendes.com/#person',
+    '@id': `${SITE_URL}/#person`,
     name: 'Cleyton Mendes',
     alternateName: 'Cleyton Mendes',
-    url: 'https://cleyton-mendes.com',
-    image: 'https://cleyton-mendes.com/cleyton-mendes.png',
+    url: home,
+    image: `${SITE_URL}/cleyton-mendes.png`,
     sameAs: [
       'https://github.com/cleytonmendest',
       'https://www.linkedin.com/in/cleyton-mendes',
@@ -57,27 +62,27 @@ export function StructuredData() {
   const websiteData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://cleyton-mendes.com/#website',
-    url: 'https://cleyton-mendes.com',
+    '@id': `${SITE_URL}/#website`,
+    url: home,
     name: 'Cleyton Mendes - Software Engineer Portfolio',
     description:
       'Professional portfolio of Cleyton Mendes, a Software Engineer specializing in e-commerce solutions with 5+ years of experience.',
     inLanguage: ['en', 'pt-BR'],
     author: {
-      '@id': 'https://cleyton-mendes.com/#person',
+      '@id': `${SITE_URL}/#person`,
     },
   };
 
   const profilePageData = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
-    '@id': 'https://cleyton-mendes.com/#profilepage',
-    url: 'https://cleyton-mendes.com',
+    '@id': `${SITE_URL}/#profilepage`,
+    url: home,
     name: 'Cleyton Mendes - Software Engineer',
     description:
       'Professional portfolio showcasing projects, skills, and experience in software engineering and e-commerce development.',
     mainEntity: {
-      '@id': 'https://cleyton-mendes.com/#person',
+      '@id': `${SITE_URL}/#person`,
     },
   };
 
@@ -89,31 +94,31 @@ export function StructuredData() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://cleyton-mendes.com',
+        item: home,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Experience',
-        item: 'https://cleyton-mendes.com#experience',
+        item: `${home}#experience`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Projects',
-        item: 'https://cleyton-mendes.com#projects',
+        item: `${home}#projects`,
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: 'Skills',
-        item: 'https://cleyton-mendes.com#skills',
+        item: `${home}#skills`,
       },
       {
         '@type': 'ListItem',
         position: 5,
         name: 'Contact',
-        item: 'https://cleyton-mendes.com#contact',
+        item: `${home}#contact`,
       },
     ],
   };

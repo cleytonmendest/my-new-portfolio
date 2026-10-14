@@ -65,7 +65,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <html lang={locale}>
       <head>
-        <StructuredData />
+        <StructuredData locale={locale} />
       </head>
       <body
         className={`${terminalFontVariables} theme-terminal dark bg-console-black font-roboto text-console-white antialiased`}

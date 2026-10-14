@@ -1,4 +1,5 @@
 import { terminalFontVariables } from '@/lib/fonts';
+import { SITE_URL } from '@/lib/metadata';
 import './globals.css';
 
 /**
@@ -16,7 +17,7 @@ export default function GlobalNotFound() {
         <h1 className="mt-4 text-3xl font-bold tracking-[-0.02em] md:text-headline">Page not found</h1>
         <p className="mt-2 text-subheading text-muted-ash">Página não encontrada</p>
         <a href="/" className="mt-8 text-base text-cursor-green">
-          <span className="link-underline">cleyton-mendes.com</span>
+          <span className="link-underline">{new URL(SITE_URL).host}</span>
         </a>
       </body>
     </html>

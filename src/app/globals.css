@@ -285,4 +285,9 @@ body:has(.theme-terminal) {
   body {
     @apply bg-background text-foreground;
   }
+  /* Tailwind 4's preflight gives buttons the default cursor; bring back the pointer (v3 behavior). */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
 }
