@@ -2,7 +2,7 @@ import { Experience } from './types';
 
 export const experiences: Experience[] = [
   {
-    position: 'Front-end Engineer',
+    position: { en: 'Front-end Engineer', pt: 'Engenheiro Front-end' },
     company: 'QuestEdu',
     companyUrl: 'https://questedu.com.br',
     period: {
@@ -29,7 +29,7 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    position: 'Front-end Developer',
+    position: { en: 'Front-end Developer', pt: 'Desenvolvedor Front-end' },
     company: 'We.digi',
     companyUrl: 'https://wedigi.com.br',
     companyLogo: 'https://deco-sites-assets.s3.sa-east-1.amazonaws.com/we-digi/a2f70dcc-036b-4c0d-a710-339c400ecd09/logo-wedigi.svg',
@@ -57,7 +57,7 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    position: 'Front-end Developer',
+    position: { en: 'Front-end Developer', pt: 'Desenvolvedor Front-end' },
     company: 'ED3 Digital',
     companyUrl: 'https://ed3.com.br',
     period: {

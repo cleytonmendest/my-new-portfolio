@@ -13,3 +13,8 @@ export function getLocalizedArray(
 ): string[] {
   return array.map((item) => getLocalizedText(item, locale));
 }
+
+/** First four-digit year in a period like "Oct 2021 - Oct 2023". */
+export function getStartYear(period: LocalizedString): string {
+  return period.en.match(/\d{4}/)?.[0] ?? '';
+}

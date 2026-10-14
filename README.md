@@ -1,6 +1,6 @@
 # My Portfolio
 
-Personal portfolio website for a Full Stack Developer with 4+ years of experience specializing in e-commerce development. Built with modern technologies and designed to be bilingual (English/Portuguese) to reach international opportunities and freelance projects.
+Personal portfolio website for a Full Stack Developer with 5+ years of experience specializing in e-commerce development. Built with modern technologies and designed to be bilingual (English/Portuguese) to reach international opportunities and freelance projects.
 
 ## Tech Stack
 
