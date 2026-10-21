@@ -47,20 +47,24 @@ interface RevealProps {
  * Fades and slides its content in when it scrolls into view.
  * The server HTML is fully visible (no JS needed to read it). After hydration, a block is hidden
  * only while it is completely off-screen, so it replays when it comes back but never vanishes
- * while someone is reading it.
+ * while someone is reading it. With "reduce motion" it stays visible: MotionConfig only drops the
+ * slide, the fade would still run.
  */
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref);
   const controls = useAnimationControls();
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isInView) {
+    if (shouldReduceMotion) {
+      controls.set('visible');
+    } else if (isInView) {
       controls.start('visible');
     } else if (isOffScreen(ref)) {
       controls.set('hidden');
     }
-  }, [isInView, controls]);
+  }, [isInView, controls, shouldReduceMotion]);
 
   return (
     <motion.div ref={ref} className={className} variants={revealVariants} custom={delay} initial={false} animate={controls}>
