@@ -63,7 +63,8 @@
       "description": "Três times desde 2021: duas agências de e-commerce e um produto de educação.",
       "pageDescription": "Todos os cargos desde 2021, do mais recente ao mais antigo.",
       "stepsLabel": "Linha do tempo da carreira",
-      "highlights": "Destaques"
+      "highlights": "Destaques",
+      "viewAll": "Linha do tempo completa"
     },
     "projects": {
       "title": "Projetos",
