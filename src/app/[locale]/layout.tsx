@@ -44,10 +44,11 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
       title,
       description,
       siteName: 'Cleyton Mendes',
-      images: [{ url: '/cleyton-mendes.png', width: 800, height: 800, alt: 'Cleyton Mendes', type: 'image/png' }],
+      images: [{ url: '/cleyton-mendes.png', width: 827, height: 1016, alt: 'Cleyton Mendes', type: 'image/png' }],
     },
     twitter: {
-      card: 'summary_large_image',
+      // A portrait photo: the square summary card keeps the face, the 2:1 large card would crop it.
+      card: 'summary',
       site: '@cleytonmendest',
       creator: '@cleytonmendest',
       title,
