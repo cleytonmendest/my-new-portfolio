@@ -22,7 +22,7 @@ export function HomeHero() {
           </p>
         </div>
 
-        <h1 {...entrance(100, 'mt-8 text-headline font-bold md:text-display')}>
+        <h1 {...entrance(100, 'mt-8 text-balance text-headline font-bold md:text-display')}>
           {/* Screen readers get one stable sentence; the typed lines are decorative. */}
           <span className="sr-only">{t('headlineSummary')}</span>
           <span aria-hidden className="block">
