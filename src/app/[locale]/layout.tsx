@@ -20,6 +20,10 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Only /en and /pt exist. Without this, a missing file like /favicon-16x16.png is rendered as a
+// locale page and fails with a 500 (the request config reads the cookie on a static route).
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
