@@ -65,13 +65,13 @@ export const experiences: Experience[] = [
       pt: 'Out 2021 - Out 2023',
     },
     description: {
-      en: 'Developed and maintained e-commerce sites using JavaScript and React, customizing VTEX platform for high-profile clients including Tiffany & Co., Hugo Boss, Creamy, and Candide.',
-      pt: 'Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes de alto perfil incluindo Tiffany & Co., Hugo Boss, Creamy e Candide.',
+      en: 'Developed and maintained e-commerce sites using JavaScript and React, customizing VTEX platform for high-profile clients including Tiffany\u00a0&\u00a0Co., Hugo Boss, Creamy, and Candide.',
+      pt: 'Desenvolvi e mantive sites de e-commerce usando JavaScript e React, personalizando a plataforma VTEX para clientes de alto perfil incluindo Tiffany\u00a0&\u00a0Co., Hugo Boss, Creamy e Candide.',
     },
     achievements: [
       {
-        en: 'Delivered e-commerce solutions for premium brands like Tiffany & Co., Hugo Boss, Creamy, and Candide',
-        pt: 'Entreguei soluções de e-commerce para marcas premium como Tiffany & Co., Hugo Boss, Creamy e Candide',
+        en: 'Delivered e-commerce solutions for premium brands like Tiffany\u00a0&\u00a0Co., Hugo Boss, Creamy, and Candide',
+        pt: 'Entreguei soluções de e-commerce para marcas premium como Tiffany\u00a0&\u00a0Co., Hugo Boss, Creamy e Candide',
       },
       {
         en: 'Built and maintained e-commerce sites with JavaScript and React on VTEX platform',

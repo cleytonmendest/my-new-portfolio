@@ -1,3 +1,5 @@
+import { keepHyphenatedWords } from '@/lib/text';
+
 interface SectionHeadingProps {
   title: string;
   description?: string;
@@ -10,7 +12,7 @@ export function SectionHeading({ title, description, as: Heading = 'h2' }: Secti
   return (
     <div className="mx-auto mb-12 max-w-2xl text-center">
       <Heading className="text-3xl font-bold tracking-[-0.02em] md:text-headline">{title}</Heading>
-      {description && <p className="mt-4 text-subheading text-muted-ash">{description}</p>}
+      {description && <p className="mt-4 text-subheading text-muted-ash">{keepHyphenatedWords(description)}</p>}
     </div>
   );
 }

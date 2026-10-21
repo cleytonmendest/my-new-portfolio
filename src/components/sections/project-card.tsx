@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { GhostLink, Tag } from '@/components/terminal';
 import type { Project } from '@/data/types';
 import { getLocalizedText } from '@/data/utils';
+import { keepHyphenatedWords } from '@/lib/text';
 import { Link } from '@/i18n/routing';
 
 interface ProjectCardProps {
@@ -37,7 +38,9 @@ export function ProjectCard({ project, headingLevel: Heading = 'h3' }: ProjectCa
             {project.name}
           </Link>
         </Heading>
-        <p className="mt-2 text-body-sm text-muted-ash">{getLocalizedText(project.description, locale)}</p>
+        <p className="mt-2 text-body-sm text-muted-ash">
+          {keepHyphenatedWords(getLocalizedText(project.description, locale))}
+        </p>
         <ul className="mt-6 flex flex-wrap gap-2">
           {project.technologies.map((technology) => (
             <li key={technology}>
