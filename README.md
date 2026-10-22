@@ -14,7 +14,7 @@ Live at https://cleyton-mendes.vercel.app
 - [Motion](https://motion.dev/) (framer-motion) plus CSS keyframes
 - [next-intl](https://next-intl.dev/), with the locale in the URL (`/en`, `/pt`)
 - MDX case studies compiled at build time with `next-mdx-remote`
-- React Hook Form and Zod; the contact form posts to [Web3Forms](https://web3forms.com)
+- React Hook Form; the contact form posts to [Web3Forms](https://web3forms.com)
 
 ## Getting started
 

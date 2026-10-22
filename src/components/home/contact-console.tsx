@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
+import { contactFormRules, type ContactFormData } from '@/lib/schemas/contact';
 import { CONTACT_EMAIL, GhostLink, Reveal, SectionHeading, getWhatsAppUrl } from '@/components/terminal';
 
 type SubmitStatus = 'success' | 'error' | null;
@@ -53,9 +52,7 @@ export function ContactConsole() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-  });
+  } = useForm<ContactFormData>();
 
   const errorMessage = (field: keyof ContactFormData) => {
     const key = errors[field]?.message;
@@ -189,7 +186,7 @@ export function ContactConsole() {
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'name-error' : undefined}
                     className={fieldClassName}
-                    {...register('name')}
+                    {...register('name', contactFormRules.name)}
                   />
                   <FieldError id="name-error" message={errorMessage('name')} />
                 </div>
@@ -206,7 +203,7 @@ export function ContactConsole() {
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     className={fieldClassName}
-                    {...register('email')}
+                    {...register('email', contactFormRules.email)}
                   />
                   <FieldError id="email-error" message={errorMessage('email')} />
                 </div>
@@ -222,7 +219,7 @@ export function ContactConsole() {
                     aria-invalid={!!errors.message}
                     aria-describedby={errors.message ? 'message-error' : undefined}
                     className={`${fieldClassName} h-auto min-h-36 py-3`}
-                    {...register('message')}
+                    {...register('message', contactFormRules.message)}
                   />
                   <FieldError id="message-error" message={errorMessage('message')} />
                 </div>
