@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Menu, SquareTerminal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
@@ -114,7 +114,7 @@ export function SiteHeader() {
             className="flex size-9 items-center justify-center rounded-tag border border-border-smoke text-console-white transition-colors hover:border-muted-ash lg:hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
-              <motion.span
+              <m.span
                 key={isMenuOpen ? 'close' : 'open'}
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
@@ -122,7 +122,7 @@ export function SiteHeader() {
                 transition={{ duration: 0.15 }}
               >
                 {isMenuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
           </button>
         </div>
@@ -130,7 +130,7 @@ export function SiteHeader() {
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <m.div
             ref={menuRef}
             id="site-menu"
             initial={{ height: 0, opacity: 0 }}
@@ -141,7 +141,7 @@ export function SiteHeader() {
           >
             <nav aria-label={t('navLabel')} className="mx-auto flex max-w-[1200px] flex-col px-4 md:px-6">
               {NAV_ITEMS.map((item, index) => (
-                <motion.div
+                <m.div
                   key={item.key}
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -161,7 +161,7 @@ export function SiteHeader() {
                     </span>
                     {t(`nav.${item.key}`)}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
               <div className="flex items-center justify-between py-4">
                 <LocaleToggle />
@@ -170,7 +170,7 @@ export function SiteHeader() {
                 </GhostLink>
               </div>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

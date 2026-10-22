@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Check, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -32,9 +32,9 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   return (
     <AnimatePresence initial={false}>
       {message && (
-        <motion.p id={id} {...fade} className="font-roboto-mono text-caption text-destructive">
+        <m.p id={id} {...fade} className="font-roboto-mono text-caption text-destructive">
           {message}
-        </motion.p>
+        </m.p>
       )}
     </AnimatePresence>
   );
@@ -131,7 +131,7 @@ export function ContactConsole() {
                     className="flex size-7 items-center justify-center rounded-tag text-muted-ash transition-colors hover:bg-card-graphite hover:text-console-white"
                   >
                     <AnimatePresence mode="wait" initial={false}>
-                      <motion.span
+                      <m.span
                         key={emailCopied ? 'copied' : 'copy'}
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -139,7 +139,7 @@ export function ContactConsole() {
                         transition={{ duration: 0.15 }}
                       >
                         {emailCopied ? <Check className="size-3.5 text-cursor-green" /> : <Copy className="size-3.5" />}
-                      </motion.span>
+                      </m.span>
                     </AnimatePresence>
                   </button>
                   <span role="status" className="sr-only">
@@ -243,7 +243,7 @@ export function ContactConsole() {
                   <p role="status" className="mt-4 font-roboto-mono text-caption empty:mt-0">
                     <AnimatePresence mode="wait">
                       {submitStatus && (
-                        <motion.span
+                        <m.span
                           key={submitStatus}
                           {...fade}
                           className={submitStatus === 'success' ? 'text-cursor-green' : 'text-destructive'}
@@ -251,7 +251,7 @@ export function ContactConsole() {
                           {submitStatus === 'success'
                             ? `[ok] ${t('success')}`
                             : `[error] ${t('error', { email: CONTACT_EMAIL })}`}
-                        </motion.span>
+                        </m.span>
                       )}
                     </AnimatePresence>
                   </p>
