@@ -65,7 +65,7 @@ The site has two visual systems:
 - Numbered markers only when the content really is a sequence
 - Hover effects only on interactive elements
 - Keyboard focus: 2px green outline (global rule for `a`, `button` and tab panels inside `.theme-terminal`)
-- Motion: the page-load cascade in the hero is CSS (`entrance()`), so it works before hydration. The headline uses `Typewriter`. Use `Reveal` for scroll entrances: content stays visible in the server HTML and is only hidden while fully off-screen. `CountUp` plays once. Motion that answers a user action (tabs, menu, form) is welcome. Always respect `prefers-reduced-motion`
+- Motion: the page-load cascade in the hero is CSS (`entrance()`), so it works before hydration. The headline and summary use `rise()` (slide without fade): text painted at opacity 0 does not count as the Largest Contentful Paint, so never fade in the largest text above the fold. The headline uses `Typewriter`. Use `Reveal` for scroll entrances: content stays visible in the server HTML and is only hidden while fully off-screen. `CountUp` plays once. Motion that answers a user action (tabs, menu, form) is welcome. Always respect `prefers-reduced-motion`
 
 ### Component requirements
 - Use shadcn/ui for UI primitives, styled with the tokens above
