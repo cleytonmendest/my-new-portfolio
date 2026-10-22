@@ -75,7 +75,11 @@
       "stackLabel": "Stack",
       "desktopAlt": "{name} home page on desktop",
       "mobileAlt": "{name} home page on mobile",
-      "capturedOn": "Screenshots of the live site, captured on {date}."
+      "capturedOn": "Screenshots of the live site, captured on {date}.",
+      "ctaTitle": "Need something similar?",
+      "ctaDescription": "Tell me about your project or an open role.",
+      "cta": "Send a message",
+      "nextProject": "Next project"
     },
     "stack": {
       "title": "Stack",

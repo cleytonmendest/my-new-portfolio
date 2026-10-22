@@ -278,6 +278,11 @@ body:has(.theme-terminal) {
   }
 }
 
+/* Anchors land below the sticky header (h-16 plus its 1px border); sections add their own scroll-mt. */
+html:has(.theme-terminal) {
+  scroll-padding-top: calc(4rem + 1px);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

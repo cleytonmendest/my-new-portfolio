@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Button } from '@/components/ui/button';
 import { GhostLink, Reveal, Tag } from '@/components/terminal';
 import { projects } from '@/data/projects';
 import { getLocalizedText } from '@/data/utils';
+import { Link } from '@/i18n/routing';
 import { getProjectBody } from '@/lib/content';
 import { localeAlternates } from '@/lib/metadata';
 import { keepHyphenatedWords } from '@/lib/text';
@@ -38,7 +40,10 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   };
 }
 
-/** Case study: summary, stack and link, screenshots of the live store, then the MDX body. */
+/**
+ * Case study: summary, stack and link, screenshots of the live store, the MDX body, then a contact
+ * CTA and a link to the next case study.
+ */
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -49,6 +54,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const format = await getFormatter();
   const body = await getProjectBody(slug, locale);
   const { screenshots } = project;
+  // The case studies form a loop: the last one points back to the first.
+  const nextProject = projects.length > 1 ? projects[(projects.indexOf(project) + 1) % projects.length] : null;
 
   return (
     <main className="flex-1 px-4 pb-20 pt-12 md:px-6 md:pt-16">
@@ -115,6 +122,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
 
         {body && <div className="mt-12 max-w-3xl">{body}</div>}
+
+        <Reveal className="mt-16 grid gap-10 border-t border-border-smoke pt-10 md:grid-cols-[1fr_auto] md:items-end">
+          <section aria-labelledby="case-cta-title">
+            <h2 id="case-cta-title" className="text-heading-sm font-semibold">
+              {t('ctaTitle')}
+            </h2>
+            <p className="mt-2 text-body text-muted-ash">{t('ctaDescription')}</p>
+            <Button
+              asChild
+              className="mt-6 h-12 rounded-tag px-6 text-base font-semibold hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <Link href={{ pathname: '/', hash: 'contact' }}>{t('cta')}</Link>
+            </Button>
+          </section>
+          {nextProject && (
+            <div>
+              <p className="font-roboto-mono text-caption text-muted-ash">{t('nextProject')}</p>
+              <GhostLink href={`/projects/${nextProject.slug}`} arrow="right" className="mt-1 text-subheading">
+                {nextProject.name}
+              </GhostLink>
+            </div>
+          )}
+        </Reveal>
       </article>
     </main>
   );

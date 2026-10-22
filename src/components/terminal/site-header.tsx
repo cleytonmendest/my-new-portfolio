@@ -19,15 +19,27 @@ const NAV_ITEMS = [
   { key: 'education', href: { pathname: '/', hash: 'certifications' } },
 ] as const;
 
-/** Transparent top bar: wordmark, section links, language switch and the contact CTA. */
+/**
+ * Sticky top bar: wordmark, section links, language switch and the contact CTA. A hairline appears
+ * under it once the page scrolls. The mobile menu overlays the page below the bar, so opening it
+ * never changes the bar's height or moves the content.
+ */
 export function SiteHeader() {
   const t = useTranslations('site.header');
   const cv = getCvFile(useLocale());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // While the mobile menu is open: focus its first link, close on Escape or on a click outside.
   useEffect(() => {
@@ -53,7 +65,11 @@ export function SiteHeader() {
   }, [isMenuOpen]);
 
   return (
-    <header className="relative z-40 animate-fade-in motion-reduce:animate-none">
+    <header
+      className={`sticky top-0 z-40 animate-fade-in border-b bg-console-black transition-colors motion-reduce:animate-none motion-reduce:transition-none ${
+        isScrolled || isMenuOpen ? 'border-border-smoke' : 'border-transparent'
+      }`}
+    >
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-3 px-4 md:gap-6 md:px-6">
         <Link href="/" className="flex items-center gap-2 whitespace-nowrap text-body-sm font-bold">
           <SquareTerminal className="size-5 text-cursor-green" aria-hidden />
@@ -121,7 +137,7 @@ export function SiteHeader() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: EASE_OUT }}
-            className="overflow-hidden border-y border-border-smoke bg-panel-charcoal lg:hidden"
+            className="absolute inset-x-0 top-full overflow-hidden border-y border-border-smoke bg-panel-charcoal lg:hidden"
           >
             <nav aria-label={t('navLabel')} className="mx-auto flex max-w-[1200px] flex-col px-4 md:px-6">
               {NAV_ITEMS.map((item, index) => (

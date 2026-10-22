@@ -75,7 +75,11 @@
       "stackLabel": "Stack",
       "desktopAlt": "Página inicial de {name} no desktop",
       "mobileAlt": "Página inicial de {name} no celular",
-      "capturedOn": "Capturas do site no ar, feitas em {date}."
+      "capturedOn": "Capturas do site no ar, feitas em {date}.",
+      "ctaTitle": "Precisa de algo parecido?",
+      "ctaDescription": "Conte sobre seu projeto ou uma vaga.",
+      "cta": "Enviar mensagem",
+      "nextProject": "Próximo projeto"
     },
     "stack": {
       "title": "Stack",
