@@ -7,7 +7,6 @@ export type LocalizedString = {
 export interface PersonalInfo {
   name: string;
   title: string;
-  bio: string;
   email: string;
   phone: string;
   location: {
@@ -15,7 +14,6 @@ export interface PersonalInfo {
     state: string;
     country: string;
   };
-  availability: string;
 }
 
 export interface Experience {

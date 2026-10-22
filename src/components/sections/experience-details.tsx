@@ -2,6 +2,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { GhostLink } from '@/components/terminal';
 import type { Experience } from '@/data/types';
 import { getLocalizedArray, getLocalizedText } from '@/data/utils';
+import { keepHyphenatedWords } from '@/lib/text';
 
 interface ExperienceDetailsProps {
   item: Experience;
@@ -20,7 +21,9 @@ export function ExperienceDetails({ item, headingLevel: Heading = 'h3' }: Experi
   return (
     <>
       <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-6">
-        <Heading className="text-heading-sm font-semibold">{getLocalizedText(item.position, locale)}</Heading>
+        <Heading className="text-heading-sm font-semibold">
+          {keepHyphenatedWords(getLocalizedText(item.position, locale))}
+        </Heading>
         <p className="font-roboto-mono text-caption text-muted-ash">{getLocalizedText(item.period, locale)}</p>
       </div>
       {item.companyUrl ? (
@@ -31,7 +34,9 @@ export function ExperienceDetails({ item, headingLevel: Heading = 'h3' }: Experi
         <p className="mt-1 text-body-sm text-muted-ash">{item.company}</p>
       )}
 
-      <p className="mt-6 text-body text-highlight-mist">{getLocalizedText(item.description, locale)}</p>
+      <p className="mt-6 text-body text-highlight-mist">
+        {keepHyphenatedWords(getLocalizedText(item.description, locale))}
+      </p>
 
       <p className="mt-6 font-roboto-mono text-caption text-muted-ash">{t('highlights')}</p>
       <ul className="mt-3 space-y-2">
@@ -44,7 +49,7 @@ export function ExperienceDetails({ item, headingLevel: Heading = 'h3' }: Experi
             <span aria-hidden className="font-roboto-mono text-muted-ash">
               &gt;
             </span>
-            {achievement}
+            <span>{keepHyphenatedWords(achievement)}</span>
           </li>
         ))}
       </ul>

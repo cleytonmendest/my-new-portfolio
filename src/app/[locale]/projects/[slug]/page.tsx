@@ -7,6 +7,7 @@ import { projects } from '@/data/projects';
 import { getLocalizedText } from '@/data/utils';
 import { getProjectBody } from '@/lib/content';
 import { localeAlternates } from '@/lib/metadata';
+import { keepHyphenatedWords } from '@/lib/text';
 
 interface ProjectPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -58,7 +59,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <header className="mt-8 max-w-3xl">
           <h1 className="text-3xl font-bold tracking-[-0.02em] md:text-headline">{project.name}</h1>
-          <p className="mt-4 text-subheading text-muted-ash">{getLocalizedText(project.description, locale)}</p>
+          <p className="mt-4 text-subheading text-muted-ash">
+            {keepHyphenatedWords(getLocalizedText(project.description, locale))}
+          </p>
           <ul aria-label={t('stackLabel')} className="mt-6 flex flex-wrap gap-2">
             {project.technologies.map((technology) => (
               <li key={technology}>

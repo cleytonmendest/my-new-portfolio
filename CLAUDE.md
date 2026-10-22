@@ -95,6 +95,7 @@ src/
 │   ├── layout.tsx             # Pass-through (the two layouts above render <html>)
 │   ├── not-found.tsx          # Global 404 for paths outside both groups
 │   ├── globals.css            # Tailwind 4 theme, terminal tokens, shadcn tokens
+│   ├── favicon.ico, icon.svg, apple-icon.png   # Site icons (green square-terminal mark)
 │   ├── sitemap.ts             # Every portfolio page in both locales with hreflang
 │   └── robots.ts              # Allows crawling and points to the sitemap
 ├── proxy.ts                   # next-intl: redirects / and unprefixed paths to /en or /pt
@@ -112,7 +113,8 @@ src/
 ├── i18n/                      # routing (locales, locale-aware Link/router), request config
 ├── messages/                  # en.json, pt.json
 ├── actions/locale.ts          # Sets the locale cookie (used by the legacy language switcher)
-└── lib/                       # cn(), fonts, metadata helpers, MDX loader, zod schemas
+└── lib/                       # cn(), fonts, metadata helpers, MDX loader, zod schemas,
+                               #   keepHyphenatedWords (no line break inside "e-commerce")
 ```
 
 Each component folder exports from an `index.ts`. Document non-obvious components with JSDoc.
@@ -181,8 +183,10 @@ NEXT_PUBLIC_SITE_URL=                  # Public URL for canonical, hreflang, sit
                                        #   Optional: on Vercel it defaults to the production URL,
                                        #   locally to http://localhost:3000. Set it for a custom domain
 NEXT_PUBLIC_GA_ID=                     # Google Analytics measurement ID (optional)
-NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form (required: without it the form cannot send)
 ```
+
+`NEXT_PUBLIC_*` values are inlined at build time. On Vercel, set them for Production and Preview and redeploy after a change.
 
 ## Common Patterns
 

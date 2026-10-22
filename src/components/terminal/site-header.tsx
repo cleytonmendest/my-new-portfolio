@@ -57,7 +57,8 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-3 px-4 md:gap-6 md:px-6">
         <Link href="/" className="flex items-center gap-2 whitespace-nowrap text-body-sm font-bold">
           <SquareTerminal className="size-5 text-cursor-green" aria-hidden />
-          cleyton mendes
+          {/* Below 360px the name does not fit next to the CTA and the menu; the hero shows it. */}
+          <span className="max-[360px]:sr-only">cleyton mendes</span>
         </Link>
 
         <nav aria-label={t('navLabel')} className="hidden items-center gap-10 lg:flex">

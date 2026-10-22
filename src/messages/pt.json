@@ -46,7 +46,7 @@
         "bots de WhatsApp e automações."
       ],
       "headlineSummary": "Construo lojas, aplicações web, APIs e bots de WhatsApp.",
-      "description": "Engenheiro de software com mais de 5 anos de experiência, a maior parte em e-commerce para marcas como Tiffany & Co. e Hugo Boss. Hoje na QuestEdu, trabalhando numa plataforma de educação com Ruby on Rails e React. Aberto a vagas remotas e projetos freelance.",
+      "description": "Engenheiro de software com mais de 5 anos de experiência, a maior parte em e-commerce para marcas como Tiffany\u00a0&\u00a0Co. e Hugo Boss. Hoje na QuestEdu, trabalhando numa plataforma de educação com Ruby on Rails e React. Aberto a vagas remotas e projetos freelance.",
       "contact": "Enviar mensagem",
       "downloadCV": "Baixar CV",
       "tagsLabel": "Áreas de foco"
@@ -63,7 +63,8 @@
       "description": "Três times desde 2021: duas agências de e-commerce e um produto de educação.",
       "pageDescription": "Todos os cargos desde 2021, do mais recente ao mais antigo.",
       "stepsLabel": "Linha do tempo da carreira",
-      "highlights": "Destaques"
+      "highlights": "Destaques",
+      "viewAll": "Linha do tempo completa"
     },
     "projects": {
       "title": "Projetos",
@@ -144,7 +145,7 @@
     }
   },
   "footer": {
-    "description": "Desenvolvedor Full Stack especializado em construir experiências digitais excepcionais.",
+    "description": "Engenheiro de software. Construo lojas, aplicações web, APIs e bots de WhatsApp.",
     "quickLinks": "Links Rápidos",
     "social": "Conecte-se",
     "copyright": "Todos os direitos reservados.",

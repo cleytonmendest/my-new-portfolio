@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Reveal, SectionHeading } from '@/components/terminal';
+import { GhostLink, Reveal, SectionHeading } from '@/components/terminal';
 import { ExperienceDetails } from '@/components/sections';
 import { experiences } from '@/data/experience';
 import { getStartYear } from '@/data/utils';
@@ -13,7 +13,8 @@ import { getStartYear } from '@/data/utils';
 const timeline = [...experiences].reverse();
 
 /**
- * Career timeline as bracketed workflow steps; the active step opens its log below.
+ * Career timeline as bracketed workflow steps; the active step opens its log below, and a link leads
+ * to the experience page with every role at once.
  * All panels share one grid cell, so the block keeps the height of the tallest one and the
  * page below never jumps when switching steps. Panels crossfade with CSS.
  */
@@ -71,6 +72,12 @@ export function ExperienceSteps() {
             </div>
           </Tabs>
         </Reveal>
+
+        <div className="mt-8 text-center">
+          <GhostLink href="/experience" className="text-base">
+            {t('viewAll')}
+          </GhostLink>
+        </div>
       </div>
     </section>
   );

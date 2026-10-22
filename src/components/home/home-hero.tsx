@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { GhostLink, Portrait, Tag, Typewriter, getCvFile } from '@/components/terminal';
+import { keepHyphenatedWords } from '@/lib/text';
 import { entrance } from './entrance';
 
 const FOCUS_AREAS = ['React', 'TypeScript', 'Node.js', 'Ruby on Rails', 'E-commerce', 'SEO & performance'];
@@ -21,7 +22,7 @@ export function HomeHero() {
           </p>
         </div>
 
-        <h1 {...entrance(100, 'mt-8 text-headline font-bold md:text-display')}>
+        <h1 {...entrance(100, 'mt-8 text-balance text-headline font-bold md:text-display')}>
           {/* Screen readers get one stable sentence; the typed lines are decorative. */}
           <span className="sr-only">{t('headlineSummary')}</span>
           <span aria-hidden className="block">
@@ -30,7 +31,9 @@ export function HomeHero() {
           <Typewriter phrases={t.raw('phrases') as string[]} />
         </h1>
 
-        <p {...entrance(200, 'mt-6 max-w-2xl text-subheading text-muted-ash')}>{t('description')}</p>
+        <p {...entrance(200, 'mt-6 max-w-2xl text-subheading text-muted-ash')}>
+          {keepHyphenatedWords(t('description'))}
+        </p>
 
         <div {...entrance(300, 'mt-10 flex flex-wrap items-center justify-center gap-4')}>
           <Button
