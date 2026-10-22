@@ -34,7 +34,8 @@
       "downloadCV": "Download CV",
       "cta": "Send a message",
       "openMenu": "Open menu",
-      "closeMenu": "Close menu"
+      "closeMenu": "Close menu",
+      "skipToContent": "Skip to content"
     },
     "hero": {
       "role": "Software engineer in Rio de Janeiro",

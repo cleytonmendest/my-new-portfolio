@@ -3,15 +3,14 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Check, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact';
+import { contactFormRules, type ContactFormData } from '@/lib/schemas/contact';
 import { CONTACT_EMAIL, GhostLink, Reveal, SectionHeading, getWhatsAppUrl } from '@/components/terminal';
 
 type SubmitStatus = 'success' | 'error' | null;
@@ -33,9 +32,9 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   return (
     <AnimatePresence initial={false}>
       {message && (
-        <motion.p id={id} {...fade} className="font-roboto-mono text-caption text-destructive">
+        <m.p id={id} {...fade} className="font-roboto-mono text-caption text-destructive">
           {message}
-        </motion.p>
+        </m.p>
       )}
     </AnimatePresence>
   );
@@ -53,9 +52,7 @@ export function ContactConsole() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-  });
+  } = useForm<ContactFormData>();
 
   const errorMessage = (field: keyof ContactFormData) => {
     const key = errors[field]?.message;
@@ -134,7 +131,7 @@ export function ContactConsole() {
                     className="flex size-7 items-center justify-center rounded-tag text-muted-ash transition-colors hover:bg-card-graphite hover:text-console-white"
                   >
                     <AnimatePresence mode="wait" initial={false}>
-                      <motion.span
+                      <m.span
                         key={emailCopied ? 'copied' : 'copy'}
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -142,7 +139,7 @@ export function ContactConsole() {
                         transition={{ duration: 0.15 }}
                       >
                         {emailCopied ? <Check className="size-3.5 text-cursor-green" /> : <Copy className="size-3.5" />}
-                      </motion.span>
+                      </m.span>
                     </AnimatePresence>
                   </button>
                   <span role="status" className="sr-only">
@@ -189,7 +186,7 @@ export function ContactConsole() {
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'name-error' : undefined}
                     className={fieldClassName}
-                    {...register('name')}
+                    {...register('name', contactFormRules.name)}
                   />
                   <FieldError id="name-error" message={errorMessage('name')} />
                 </div>
@@ -206,7 +203,7 @@ export function ContactConsole() {
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     className={fieldClassName}
-                    {...register('email')}
+                    {...register('email', contactFormRules.email)}
                   />
                   <FieldError id="email-error" message={errorMessage('email')} />
                 </div>
@@ -222,7 +219,7 @@ export function ContactConsole() {
                     aria-invalid={!!errors.message}
                     aria-describedby={errors.message ? 'message-error' : undefined}
                     className={`${fieldClassName} h-auto min-h-36 py-3`}
-                    {...register('message')}
+                    {...register('message', contactFormRules.message)}
                   />
                   <FieldError id="message-error" message={errorMessage('message')} />
                 </div>
@@ -246,7 +243,7 @@ export function ContactConsole() {
                   <p role="status" className="mt-4 font-roboto-mono text-caption empty:mt-0">
                     <AnimatePresence mode="wait">
                       {submitStatus && (
-                        <motion.span
+                        <m.span
                           key={submitStatus}
                           {...fade}
                           className={submitStatus === 'success' ? 'text-cursor-green' : 'text-destructive'}
@@ -254,7 +251,7 @@ export function ContactConsole() {
                           {submitStatus === 'success'
                             ? `[ok] ${t('success')}`
                             : `[error] ${t('error', { email: CONTACT_EMAIL })}`}
-                        </motion.span>
+                        </m.span>
                       )}
                     </AnimatePresence>
                   </p>

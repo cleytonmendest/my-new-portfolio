@@ -1,8 +1,7 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { GhostLink, Reveal, SectionHeading } from '@/components/terminal';
 import { ExperienceDetails } from '@/components/sections';
@@ -16,11 +15,11 @@ const timeline = [...experiences].reverse();
  * Career timeline as bracketed workflow steps; the active step opens its log below, and a link leads
  * to the experience page with every role at once.
  * All panels share one grid cell, so the block keeps the height of the tallest one and the
- * page below never jumps when switching steps. Panels crossfade with CSS.
+ * page below never jumps when switching steps. Panels crossfade and the green underline of the
+ * active step grows in with CSS.
  */
 export function ExperienceSteps() {
   const t = useTranslations('site.experience');
-  const [activeCompany, setActiveCompany] = useState(experiences[0].company);
 
   return (
     <section id="experience" className="scroll-mt-10 px-4 md:px-6">
@@ -28,7 +27,7 @@ export function ExperienceSteps() {
         <SectionHeading title={t('title')} description={t('description')} />
 
         <Reveal>
-          <Tabs value={activeCompany} onValueChange={setActiveCompany}>
+          <Tabs defaultValue={experiences[0].company}>
             <TabsList
               aria-label={t('stepsLabel')}
               className="flex h-auto w-full flex-wrap justify-center gap-x-3 gap-y-2 bg-transparent p-0 font-roboto-mono text-caption sm:gap-x-2"
@@ -42,17 +41,13 @@ export function ExperienceSteps() {
                   )}
                   <TabsTrigger
                     value={item.company}
-                    className="relative rounded-tag px-1 py-1 text-caption font-normal text-muted-ash transition-colors hover:text-console-white data-[state=active]:bg-transparent data-[state=active]:text-cursor-green data-[state=active]:shadow-none"
+                    className="group/step relative rounded-tag px-1 py-1 text-caption font-normal text-muted-ash transition-colors hover:text-console-white data-[state=active]:bg-transparent data-[state=active]:text-cursor-green data-[state=active]:shadow-none"
                   >
                     [{getStartYear(item.period)} {item.company}]
-                    {item.company === activeCompany && (
-                      <motion.span
-                        layoutId="active-step"
-                        aria-hidden
-                        className="absolute inset-x-1 -bottom-0.5 h-px bg-cursor-green"
-                        transition={{ type: 'spring', stiffness: 500, damping: 40 }}
-                      />
-                    )}
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-1 -bottom-0.5 h-px origin-left scale-x-0 bg-cursor-green transition-transform duration-300 ease-out group-data-[state=active]/step:scale-x-100 motion-reduce:transition-none"
+                    />
                   </TabsTrigger>
                 </Fragment>
               ))}

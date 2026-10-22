@@ -14,7 +14,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 - **Styling**: Tailwind CSS 4, configured CSS-first in `src/app/globals.css` (there is no `tailwind.config`)
 - **UI Components**: shadcn/ui (new-york style) with lucide-react icons
 - **Motion**: framer-motion 12 plus CSS keyframes
-- **Forms**: react-hook-form + zod; the contact form posts to Web3Forms from the client
+- **Forms**: react-hook-form with its built-in validation rules (no schema library, to keep the bundle small); the contact form posts to Web3Forms from the client
 - **Internationalization**: next-intl 4, locale in the URL (`/en/...`, `/pt/...`)
 - **Content**: MDX files in `content/`, compiled at build time with `next-mdx-remote`
 - **Theme**: next-themes, used only by the legacy pages (see Design)
@@ -113,7 +113,7 @@ src/
 ├── i18n/                      # routing (locales, locale-aware Link/router), request config
 ├── messages/                  # en.json, pt.json
 ├── actions/locale.ts          # Sets the locale cookie (used by the legacy language switcher)
-└── lib/                       # cn(), fonts, metadata helpers, MDX loader, zod schemas,
+└── lib/                       # cn(), fonts, metadata helpers, MDX loader, form rules,
                                #   keepHyphenatedWords (no line break inside "e-commerce")
 ```
 

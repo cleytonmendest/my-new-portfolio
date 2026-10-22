@@ -3,7 +3,9 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
 import {
   animate,
-  motion,
+  domAnimation,
+  LazyMotion,
+  m,
   MotionConfig,
   useAnimationControls,
   useInView,
@@ -31,9 +33,19 @@ function isOffScreen(ref: RefObject<HTMLElement | null>) {
   return bottom < 0 || top > window.innerHeight;
 }
 
-/** Honors the OS "reduce motion" setting for every framer animation on the page. */
+/**
+ * Framer setup for the portfolio. Components use the light `m` element with only the domAnimation
+ * features (animate, variants, exit, hover), instead of `motion`, which bundles every feature;
+ * `strict` rejects `motion`. Layout animations (layout, layoutId) are not included. The features
+ * load with the page, not lazily: Reveal hides off-screen blocks on mount, which needs them.
+ * Also honors the OS "reduce motion" setting.
+ */
 export function MotionProvider({ children }: { children: ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LazyMotion>
+  );
 }
 
 interface RevealProps {
@@ -67,9 +79,9 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
   }, [isInView, controls, shouldReduceMotion]);
 
   return (
-    <motion.div ref={ref} className={className} variants={revealVariants} custom={delay} initial={false} animate={controls}>
+    <m.div ref={ref} className={className} variants={revealVariants} custom={delay} initial={false} animate={controls}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -98,7 +110,7 @@ export function CountUp({ value, suffix = '' }: { value: number; suffix?: string
         {value}
         {suffix}
       </span>
-      <motion.span aria-hidden>{display}</motion.span>
+      <m.span aria-hidden>{display}</m.span>
     </span>
   );
 }
