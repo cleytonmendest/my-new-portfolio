@@ -35,9 +35,11 @@ npm run start        # Serve the production build
 npm run lint         # ESLint
 npm run lint:fix     # ESLint with auto-fix
 npm run type-check   # TypeScript
+npm run test:e2e     # Playwright end-to-end tests (needs `npm run build` first)
 ```
 
-Run `lint`, `type-check` and `build` before every commit.
+Run `lint`, `type-check`, `build` and `test:e2e` before every commit. The first time, install the
+test browser with `npx playwright install chromium`.
 
 ## Environment variables
 

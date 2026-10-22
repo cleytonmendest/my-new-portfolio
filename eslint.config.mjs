@@ -11,6 +11,8 @@ export default [
       'out/**',
       'dist/**',
       'build/**',
+      'playwright-report/**',
+      'test-results/**',
     ],
   },
   {

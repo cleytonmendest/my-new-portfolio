@@ -128,7 +128,10 @@ npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run type-check   # Run TypeScript compiler check
+npm run test:e2e     # Playwright end-to-end tests against the production build (run `npm run build` first)
 ```
+
+The e2e suite lives in `e2e/` (routes and 404s, layout on small phones, skip link, sticky header, contact form, hero typewriter). It reads expected strings from `src/messages`. With `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` set, the contact test requires the Web3Forms path; without it, it checks the email fallback. CI runs it on every pull request.
 
 ### Docker (optional self-hosting)
 ```bash
@@ -247,11 +250,12 @@ export function MySection() {
 1. Run `npm run lint` - must pass with no errors
 2. Run `npm run type-check` - must pass with no errors
 3. Run `npm run build` - must build successfully
-4. Test functionality in browser
-5. Verify responsive design (mobile/tablet/desktop)
-6. Test both English and Portuguese versions
-7. Test keyboard navigation and `prefers-reduced-motion`
-8. Legacy pages only: test both dark and light themes
+4. Run `npm run test:e2e` - must pass (add a test when you fix a bug or add a feature)
+5. Test functionality in browser
+6. Verify responsive design (mobile/tablet/desktop)
+7. Test both English and Portuguese versions
+8. Test keyboard navigation and `prefers-reduced-motion`
+9. Legacy pages only: test both dark and light themes
 
 ## Important Notes
 
