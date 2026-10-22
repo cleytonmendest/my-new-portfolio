@@ -66,6 +66,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const t = await getTranslations('site.header');
 
   return (
     <html lang={locale}>
@@ -77,9 +78,18 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       >
         <NextIntlClientProvider>
           <MotionProvider>
+            {/* First stop for keyboard users: hidden above the viewport until it gets focus. */}
+            <a
+              href="#content"
+              className="fixed left-4 top-3 z-50 -translate-y-[calc(100%+1rem)] rounded-tag border border-border-smoke bg-panel-charcoal px-4 py-2 text-body-sm text-console-white transition-transform focus:translate-y-0 motion-reduce:transition-none"
+            >
+              {t('skipToContent')}
+            </a>
             <div id="top" className="flex min-h-screen flex-col">
               <SiteHeader />
-              {children}
+              <div id="content" className="flex flex-1 flex-col">
+                {children}
+              </div>
               <SiteFooter />
             </div>
             <WhatsAppButton />

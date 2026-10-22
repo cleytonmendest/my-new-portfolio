@@ -34,7 +34,8 @@
       "downloadCV": "Baixar CV",
       "cta": "Enviar mensagem",
       "openMenu": "Abrir menu",
-      "closeMenu": "Fechar menu"
+      "closeMenu": "Fechar menu",
+      "skipToContent": "Pular para o conteúdo"
     },
     "hero": {
       "role": "Engenheiro de software no Rio de Janeiro",
