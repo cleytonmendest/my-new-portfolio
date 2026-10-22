@@ -183,7 +183,7 @@ NEXT_PUBLIC_SITE_URL=                  # Public URL for canonical, hreflang, sit
                                        #   Optional: on Vercel it defaults to the production URL,
                                        #   locally to http://localhost:3000. Set it for a custom domain
 NEXT_PUBLIC_GA_ID=                     # Google Analytics measurement ID (optional)
-NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form (required: without it the form cannot send)
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form. Without it, submitting opens the visitor's email app instead
 ```
 
 `NEXT_PUBLIC_*` values are inlined at build time. On Vercel, set them for Production and Preview and redeploy after a change.

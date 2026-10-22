@@ -13,7 +13,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { contactFormRules, type ContactFormData } from '@/lib/schemas/contact';
 import { CONTACT_EMAIL, GhostLink, Reveal, SectionHeading, getWhatsAppUrl } from '@/components/terminal';
 
-type SubmitStatus = 'success' | 'error' | null;
+type SubmitStatus = 'success' | 'error' | 'mailto' | null;
+
+const statusClassName = { success: 'text-cursor-green', error: 'text-destructive', mailto: 'text-highlight-mist' };
+
+/** Inlined at build time. Without it, the form opens the visitor's email app instead (see onSubmit). */
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
 const fieldClassName =
   'h-11 rounded-tag bg-console-black shadow-none transition-colors dark:bg-console-black hover:border-muted-ash focus-visible:border-cursor-green focus-visible:ring-1 focus-visible:ring-cursor-green';
@@ -40,11 +45,15 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-/** Contact details as key/value pairs next to the message form (sent through Web3Forms). */
+/**
+ * Contact details as key/value pairs next to the message form. The form posts to Web3Forms; a build
+ * without the access key falls back to a prefilled email instead of failing on every message.
+ */
 export function ContactConsole() {
   const t = useTranslations('site.contact');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
+  const [mailtoUrl, setMailtoUrl] = useState<string | null>(null);
   const [emailCopied, setEmailCopied] = useState(false);
 
   const {
@@ -70,6 +79,16 @@ export function ContactConsole() {
   };
 
   const onSubmit = async (data: ContactFormData) => {
+    if (!WEB3FORMS_ACCESS_KEY) {
+      const url = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('mailtoSubject'))}&body=${encodeURIComponent(
+        `${data.message}\n\n${data.name}\n${data.email}`
+      )}`;
+      setMailtoUrl(url);
+      setSubmitStatus('mailto');
+      window.location.href = url;
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -81,7 +100,7 @@ export function ContactConsole() {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          access_key: WEB3FORMS_ACCESS_KEY,
           name: data.name,
           email: data.email,
           message: data.message,
@@ -246,11 +265,22 @@ export function ContactConsole() {
                         <m.span
                           key={submitStatus}
                           {...fade}
-                          className={submitStatus === 'success' ? 'text-cursor-green' : 'text-destructive'}
+                          className={statusClassName[submitStatus]}
                         >
-                          {submitStatus === 'success'
-                            ? `[ok] ${t('success')}`
-                            : `[error] ${t('error', { email: CONTACT_EMAIL })}`}
+                          {submitStatus === 'success' && `[ok] ${t('success')}`}
+                          {submitStatus === 'error' && `[error] ${t('error', { email: CONTACT_EMAIL })}`}
+                          {submitStatus === 'mailto' && (
+                            <>
+                              [info]{' '}
+                              {t.rich('mailto', {
+                                link: (chunks) => (
+                                  <a href={mailtoUrl ?? undefined} className="text-cursor-green underline-offset-4 hover:underline">
+                                    {chunks}
+                                  </a>
+                                ),
+                              })}
+                            </>
+                          )}
                         </m.span>
                       )}
                     </AnimatePresence>
