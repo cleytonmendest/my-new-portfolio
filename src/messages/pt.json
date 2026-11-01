@@ -135,6 +135,8 @@
         "messageMax": "A mensagem pode ter no máximo 1000 caracteres"
       },
       "success": "Mensagem enviada. Respondo por e-mail.",
+      "mailto": "Seu app de e-mail deve abrir com a mensagem pronta para enviar. Se nada abrir, <link>use este link</link>.",
+      "mailtoSubject": "Contato pelo seu portfólio",
       "error": "Mensagem não enviada. Verifique sua conexão e tente de novo, ou mande um e-mail para {email}.",
       "whatsappLabel": "Conversar no WhatsApp",
       "whatsappMessage": "Oi! Vi seu portfólio e gostaria de conversar."

@@ -35,15 +35,17 @@ npm run start        # Serve the production build
 npm run lint         # ESLint
 npm run lint:fix     # ESLint with auto-fix
 npm run type-check   # TypeScript
+npm run test:e2e     # Playwright end-to-end tests (needs `npm run build` first)
 ```
 
-Run `lint`, `type-check` and `build` before every commit.
+Run `lint`, `type-check`, `build` and `test:e2e` before every commit. The first time, install the
+test browser with `npx playwright install chromium`.
 
 ## Environment variables
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Yes | Contact form. Get a free key at https://web3forms.com |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Yes | Contact form. Get a free key at https://web3forms.com. Without it, submitting opens the visitor's email app instead |
 | `NEXT_PUBLIC_GA_ID` | No | Google Analytics 4 measurement ID |
 | `NEXT_PUBLIC_SITE_URL` | No | Public URL for canonical links, hreflang, sitemap and JSON-LD. Defaults to the Vercel production URL, or `http://localhost:3000` locally |
 

@@ -81,6 +81,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </GhostLink>
         </header>
 
+        {/* The first screenshot is the page's largest paint: preload it (the mobile one when there is no desktop capture). */}
         {screenshots && (
           <Reveal className="mt-12">
             <figure>
@@ -96,6 +97,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       width={1440}
                       height={900}
                       sizes="(min-width: 1248px) 880px, 100vw"
+                      preload
+                      fetchPriority="high"
                       className="h-auto w-full"
                     />
                   </div>
@@ -108,6 +111,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       width={780}
                       height={1688}
                       sizes="280px"
+                      preload={!screenshots.desktop}
+                      fetchPriority={screenshots.desktop ? undefined : 'high'}
                       className="h-auto w-full"
                     />
                   </div>

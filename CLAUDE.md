@@ -65,7 +65,7 @@ The site has two visual systems:
 - Numbered markers only when the content really is a sequence
 - Hover effects only on interactive elements
 - Keyboard focus: 2px green outline (global rule for `a`, `button` and tab panels inside `.theme-terminal`)
-- Motion: the page-load cascade in the hero is CSS (`entrance()`), so it works before hydration. The headline uses `Typewriter`. Use `Reveal` for scroll entrances: content stays visible in the server HTML and is only hidden while fully off-screen. `CountUp` plays once. Motion that answers a user action (tabs, menu, form) is welcome. Always respect `prefers-reduced-motion`
+- Motion: the page-load cascade in the hero is CSS (`entrance()`), so it works before hydration. The headline and summary use `rise()` (slide without fade): text painted at opacity 0 does not count as the Largest Contentful Paint, so never fade in the largest text above the fold. The headline uses `Typewriter`. Use `Reveal` for scroll entrances: content stays visible in the server HTML and is only hidden while fully off-screen. `CountUp` plays once. Motion that answers a user action (tabs, menu, form) is welcome. Always respect `prefers-reduced-motion`
 
 ### Component requirements
 - Use shadcn/ui for UI primitives, styled with the tokens above
@@ -128,7 +128,10 @@ npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run type-check   # Run TypeScript compiler check
+npm run test:e2e     # Playwright end-to-end tests against the production build (run `npm run build` first)
 ```
+
+The e2e suite lives in `e2e/` (routes and 404s, layout on small phones, skip link, sticky header, contact form, hero typewriter). It reads expected strings from `src/messages`. With `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` set, the contact test requires the Web3Forms path; without it, it checks the email fallback. CI runs it on every pull request.
 
 ### Docker (optional self-hosting)
 ```bash
@@ -183,7 +186,7 @@ NEXT_PUBLIC_SITE_URL=                  # Public URL for canonical, hreflang, sit
                                        #   Optional: on Vercel it defaults to the production URL,
                                        #   locally to http://localhost:3000. Set it for a custom domain
 NEXT_PUBLIC_GA_ID=                     # Google Analytics measurement ID (optional)
-NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form (required: without it the form cannot send)
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=      # Contact form. Without it, submitting opens the visitor's email app instead
 ```
 
 `NEXT_PUBLIC_*` values are inlined at build time. On Vercel, set them for Production and Preview and redeploy after a change.
@@ -247,11 +250,12 @@ export function MySection() {
 1. Run `npm run lint` - must pass with no errors
 2. Run `npm run type-check` - must pass with no errors
 3. Run `npm run build` - must build successfully
-4. Test functionality in browser
-5. Verify responsive design (mobile/tablet/desktop)
-6. Test both English and Portuguese versions
-7. Test keyboard navigation and `prefers-reduced-motion`
-8. Legacy pages only: test both dark and light themes
+4. Run `npm run test:e2e` - must pass (add a test when you fix a bug or add a feature)
+5. Test functionality in browser
+6. Verify responsive design (mobile/tablet/desktop)
+7. Test both English and Portuguese versions
+8. Test keyboard navigation and `prefers-reduced-motion`
+9. Legacy pages only: test both dark and light themes
 
 ## Important Notes
 

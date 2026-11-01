@@ -135,6 +135,8 @@
         "messageMax": "Message must be at most 1000 characters"
       },
       "success": "Message sent. I'll reply by email.",
+      "mailto": "Your email app should open with the message ready to send. If nothing opens, <link>use this link</link>.",
+      "mailtoSubject": "Contact from your portfolio",
       "error": "Message not sent. Check your connection and try again, or email {email}.",
       "whatsappLabel": "Chat on WhatsApp",
       "whatsappMessage": "Hi! I found your portfolio and would like to talk."
