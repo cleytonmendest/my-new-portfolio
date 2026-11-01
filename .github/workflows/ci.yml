@@ -16,7 +16,9 @@ concurrency:
 jobs:
   checks:
     name: Lint, types, build and e2e
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moved to 26.04, which Playwright 1.56 cannot install browsers on.
+    # Move to a newer image together with a Playwright upgrade.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       # Placeholder key: the build takes the Web3Forms path and the e2e test mocks the request,
