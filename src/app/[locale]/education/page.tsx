@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Reveal, SectionHeading } from '@/components/terminal';
 import { EducationList } from '@/components/sections';
+import { BreadcrumbData } from '@/components/structured-data';
 import { localeAlternates } from '@/lib/metadata';
 
 interface EducationPageProps {
@@ -26,6 +27,7 @@ export default async function EducationPage({ params }: EducationPageProps) {
 
   return (
     <main className="flex-1 px-4 pb-20 pt-12 md:px-6 md:pt-16">
+      <BreadcrumbData locale={locale} trail={[{ name: t('title'), path: '/education' }]} />
       <div className="mx-auto max-w-[1200px]">
         <SectionHeading as="h1" title={t('title')} description={t('description')} />
 

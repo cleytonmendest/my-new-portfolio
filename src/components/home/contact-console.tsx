@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { trackEvent } from '@/lib/analytics';
 import { contactFormRules, type ContactFormData } from '@/lib/schemas/contact';
 import { CONTACT_EMAIL, GhostLink, Reveal, SectionHeading, getWhatsAppUrl } from '@/components/terminal';
 
@@ -72,6 +73,7 @@ export function ContactConsole() {
     try {
       await navigator.clipboard.writeText(CONTACT_EMAIL);
       setEmailCopied(true);
+      trackEvent('copy_email');
       setTimeout(() => setEmailCopied(false), 2000);
     } catch {
       setEmailCopied(false);
@@ -85,6 +87,7 @@ export function ContactConsole() {
       )}`;
       setMailtoUrl(url);
       setSubmitStatus('mailto');
+      trackEvent('contact_email_app');
       window.location.href = url;
       return;
     }
@@ -117,10 +120,12 @@ export function ContactConsole() {
       }
 
       setSubmitStatus('success');
+      trackEvent('generate_lead', { method: 'contact_form' });
       reset();
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
+      trackEvent('contact_form_error');
     } finally {
       setIsSubmitting(false);
     }

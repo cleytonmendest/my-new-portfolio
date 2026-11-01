@@ -1,89 +1,48 @@
-# Portfolio Roadmap
+# Roadmap do portfólio
 
-Este documento contém os próximos passos planejados para evolução do portfolio.
+Estado do projeto e próximos passos. A lista de funcionalidades fica no `CLAUDE.md` (Features);
+aqui fica o que falta fazer e de quem depende.
 
-## 📊 Imediatos (Alta Prioridade)
+*Última atualização: 2026-11-01*
 
-### 1. Atualizar Dados Reais
-- [ ] Substituir certificações placeholder em `src/data/certifications.ts`
-- [ ] Adicionar mais projetos reais em `src/data/projects.ts`
-- [ ] Verificar se todos os dados em `src/data/` estão corretos e atualizados
+## Feito
 
-### 2. Otimização de Performance
-- [ ] Rodar Lighthouse audit
-- [ ] Otimizar imagens dos projetos (converter para WebP/AVIF)
-- [ ] Implementar lazy loading para seções abaixo do fold
-- [ ] Melhorar Core Web Vitals (LCP, FID, CLS)
+- Design terminal na home, nas páginas de experiência, projetos e formação, e nos cases
+- Site bilíngue com o idioma na URL (`/en`, `/pt`), hreflang e troca de idioma
+- Cases em MDX com screenshots, CTA de contato e link para o próximo case
+- SEO: metadata por idioma, JSON-LD com breadcrumbs reais, sitemap, robots, imagens de
+  compartilhamento geradas no build
+- Acessibilidade: link "pular para o conteúdo", foco visível, movimento reduzido respeitado
+- Performance: LCP sem esperar a digitação do hero, screenshot principal dos cases com
+  prioridade, JS da home de 995 para 710 KB (zod removido, framer-motion com LazyMotion)
+- Formulário de contato com validação; sem a chave do Web3Forms, abre o app de e-mail
+- Eventos no Analytics (formulário, troca de idioma, cópia do e-mail)
+- Testes e2e (Playwright) e CI no GitHub Actions em todo PR
+- Node 24 e Next.js 16.4 (com as correções de segurança)
 
-## 🚀 Curto Prazo (Melhorias Incrementais)
+## Depende do Cleyton
 
-### 3. Sistema de Blog
-*Link já existe no nav mas não implementado*
-- [ ] Usar MDX para posts em Markdown
-- [ ] Sistema de tags/categorias
-- [ ] Listagem de posts bilíngue
-- [ ] Páginas individuais de artigos
+### Configuração
+- [ ] Cadastrar `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` no Vercel (Production e Preview) e fazer redeploy
+- [ ] Cadastrar `NEXT_PUBLIC_GA_ID`, se quiser Analytics
+- [ ] Domínio próprio (depois, `NEXT_PUBLIC_SITE_URL` no Vercel)
+- [ ] Enviar o sitemap no Google Search Console
 
-### 4. Melhorias na Navegação
-- [ ] Adicionar indicador visual de seção ativa no scroll
-- [ ] Smooth scroll entre seções
-- [ ] Breadcrumbs para SEO
+### Conteúdo
+- [ ] CV em inglês (`public/cleyton-mendes-en.pdf` hoje é o mesmo arquivo do português) e
+      revisão do CV (GrupoQ vs QuestEdu, "PostgreeSQL", idiomas misturados, certificações)
+- [ ] Decidir QuestEdu ou GrupoQ (site, CV e `worksFor` no JSON-LD) e o cargo na QuestEdu
+- [ ] Destaques de experiência com resultados; stats mais fortes que "6 marcas / 3 plataformas"
+- [ ] Fuso horário e nível de inglês no hero; prazo de resposta no contato; ano previsto da formatura
+- [ ] Cases que provem "web apps, APIs e bots": bot de WhatsApp, um projeto Shopify, QuestEdu
+- [ ] Ultrafeu: número para "aumento significativo nas vendas" ou tirar a frase; conferir as tags
+- [ ] Tiffany: descrever a parte que foi sua; screenshot desktop (captura manual)
+- [ ] Vitaminese: a loja está em manutenção; marcar como `[offline]`?
+- [ ] Confirmar o perfil `@cleytonmendest` no X (usado no metadata)
+- [ ] Seções "About" e serviços; recomendações do LinkedIn; repositórios públicos no GitHub
 
-### 5. Projetos em Destaque
-- [ ] Página individual para cada projeto com mais detalhes
-- [ ] Gallery de screenshots
-- [ ] Filtros por tecnologia
-- [ ] Case studies completos dos principais projetos
+## Próximos passos de código
 
-## 🎨 Médio Prazo (Features Adicionais)
-
-### 6. Acessibilidade
-- [ ] Audit de acessibilidade (WCAG 2.1)
-- [ ] Melhorar navegação por teclado
-- [ ] Adicionar ARIA labels onde necessário
-- [ ] Testar com screen readers
-
-### 7. Analytics Avançado
-- [ ] Event tracking (cliques em projetos, downloads de CV, etc)
-- [ ] Heatmaps (Hotjar ou similar)
-- [ ] Conversion tracking
-
-### 8. Otimizações Técnicas
-- [ ] Implementar PWA (Service Worker, manifest)
-- [ ] Adicionar página offline
-- [ ] Melhorar caching strategy
-- [ ] Implementar ISR (Incremental Static Regeneration) se necessário
-
-## 🔧 Longo Prazo (Opcional)
-
-### 9. Sistema CMS Simples
-*Apenas se crescer muito*
-- [ ] Sanity.io ou Contentful (leve e fácil)
-- [ ] Apenas para blog posts inicialmente
-- [ ] Manter dados principais nos arquivos TypeScript
-
-### 10. Testes Automatizados
-- [ ] Unit tests (Vitest/Jest)
-- [ ] E2E tests (Playwright)
-- [ ] Visual regression tests
-
-### 11. Features Interativas
-- [ ] Dark/light mode preview nos cards de projeto
-- [ ] Filtro interativo de skills
-- [ ] Timeline interativa de experiência
-- [ ] Calculadora de disponibilidade/timezone
-
-## 🎯 Recomendação de Sequência
-
-Ordem sugerida de implementação:
-
-1. ✅ **Atualizar todos os dados reais** (certifications, projects)
-2. ✅ **Rodar Lighthouse e corrigir issues críticos**
-3. ✅ **Implementar sistema de blog básico** (já tem o link no nav)
-4. ✅ **Adicionar páginas individuais dos principais projetos**
-5. ✅ **Melhorias de acessibilidade**
-6. ✅ **Analytics avançado com event tracking**
-
----
-
-*Última atualização: 2025-01-24*
+- [ ] Blog em `/blog` reaproveitando o pipeline de MDX
+- [ ] Migrar `/tools` e as páginas do bot para o design terminal
+- [ ] Atualizar o Playwright e, junto, voltar o CI para `ubuntu-latest` (fixado em 24.04)

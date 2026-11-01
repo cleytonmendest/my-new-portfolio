@@ -18,7 +18,7 @@ Live at https://cleyton-mendes.vercel.app
 
 ## Getting started
 
-Requires Node.js 20 or newer.
+Requires Node.js 24 (`engines` in package.json; Vercel and CI read it from there).
 
 ```bash
 npm install

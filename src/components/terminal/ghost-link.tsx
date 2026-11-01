@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 // The arrow nudges when the link itself (group/link) or its card (group) is hovered.
 const ARROWS = {
+  left: { Icon: ArrowLeft, nudge: 'group-hover:-translate-x-0.5 group-hover/link:-translate-x-0.5' },
   right: { Icon: ArrowRight, nudge: 'group-hover:translate-x-0.5 group-hover/link:translate-x-0.5' },
   'up-right': {
     Icon: ArrowUpRight,
@@ -25,14 +26,21 @@ interface GhostLinkProps {
   className?: string;
 }
 
-/** Green text link with an underline that grows on hover and an arrow that nudges. */
+/**
+ * Green text link with an underline that grows on hover and an arrow that nudges. The arrow follows
+ * the label, except `left` (back links), which leads it.
+ */
 export function GhostLink({ href, children, arrow, external = false, download, className }: GhostLinkProps) {
   const classes = cn('group/link inline-flex items-center gap-1 text-cursor-green', className);
   const icon = arrow && ARROWS[arrow];
+  const iconElement = icon && (
+    <icon.Icon aria-hidden className={cn('size-[1em] shrink-0 transition-transform duration-200', icon.nudge)} />
+  );
   const content = (
     <>
+      {arrow === 'left' && iconElement}
       <span className="link-underline">{children}</span>
-      {icon && <icon.Icon aria-hidden className={cn('size-[1em] shrink-0 transition-transform duration-200', icon.nudge)} />}
+      {arrow !== 'left' && iconElement}
     </>
   );
 

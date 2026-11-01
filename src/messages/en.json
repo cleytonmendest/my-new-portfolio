@@ -80,7 +80,8 @@
       "ctaTitle": "Need something similar?",
       "ctaDescription": "Tell me about your project or an open role.",
       "cta": "Send a message",
-      "nextProject": "Next project"
+      "nextProject": "Next project",
+      "caseStudy": "case study"
     },
     "stack": {
       "title": "Stack",

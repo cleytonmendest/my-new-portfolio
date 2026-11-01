@@ -7,6 +7,7 @@ import { GhostLink, Reveal, Tag } from '@/components/terminal';
 import { projects } from '@/data/projects';
 import { getLocalizedText } from '@/data/utils';
 import { Link } from '@/i18n/routing';
+import { BreadcrumbData } from '@/components/structured-data';
 import { getProjectBody } from '@/lib/content';
 import { localeAlternates } from '@/lib/metadata';
 import { keepHyphenatedWords } from '@/lib/text';
@@ -30,13 +31,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const { locale, slug } = await params;
   const project = findProject(slug);
   if (!project) return {};
-  const cover = project.screenshots?.desktop ?? project.screenshots?.mobile;
 
   return {
     title: project.name,
     description: getLocalizedText(project.description, locale),
     alternates: localeAlternates(locale, `/projects/${slug}`),
-    openGraph: cover ? { images: [{ url: cover, alt: project.name }] } : undefined,
   };
 }
 
@@ -59,8 +58,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main className="flex-1 px-4 pb-20 pt-12 md:px-6 md:pt-16">
+      <BreadcrumbData
+        locale={locale}
+        trail={[
+          { name: t('title'), path: '/projects' },
+          { name: project.name, path: `/projects/${slug}` },
+        ]}
+      />
       <article className="mx-auto max-w-[1200px]">
-        <GhostLink href="/projects" className="text-body-sm">
+        <GhostLink href="/projects" arrow="left" className="text-body-sm">
           {t('backToProjects')}
         </GhostLink>
 

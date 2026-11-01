@@ -80,7 +80,8 @@
       "ctaTitle": "Precisa de algo parecido?",
       "ctaDescription": "Conte sobre seu projeto ou uma vaga.",
       "cta": "Enviar mensagem",
-      "nextProject": "Próximo projeto"
+      "nextProject": "Próximo projeto",
+      "caseStudy": "estudo de caso"
     },
     "stack": {
       "title": "Stack",

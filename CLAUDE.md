@@ -18,7 +18,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 - **Internationalization**: next-intl 4, locale in the URL (`/en/...`, `/pt/...`)
 - **Content**: MDX files in `content/`, compiled at build time with `next-mdx-remote`
 - **Theme**: next-themes, used only by the legacy pages (see Design)
-- **Analytics**: Google Analytics through `@next/third-parties`
+- **Analytics**: Google Analytics through `@next/third-parties`. Custom events go through `trackEvent()` in `src/lib/analytics.ts` (no-op without `NEXT_PUBLIC_GA_ID`): contact form outcome, language switch, copy email. CV downloads and external links are recorded by GA4's enhanced measurement
 - **Deployment**: Vercel (Hobby plan, https://cleyton-mendes.vercel.app), deployed by the Vercel GitHub integration on every push to `main`; pull requests get preview deployments. The Dockerfile is kept for self-hosting
 
 ## Core Principles
@@ -61,7 +61,7 @@ The site has two visual systems:
 - Never absolute black or white: use `#0a0a0a` and `#fafafa`
 - 1px hairline borders in `#353535`; no shadows or glows; no radius above 8px
 - Square brackets for log-like labels (`[2024]`, `[in progress]`, `[github]`)
-- Sentence case; uppercase only for stat labels. No middle dots (`A · B`) in copy. Arrows only where they carry meaning (`↗` external link, `↓` download)
+- Sentence case; uppercase only for stat labels. No middle dots (`A · B`) in copy. Arrows only where they carry meaning (`↗` external link, `↓` download, `←` back)
 - Numbered markers only when the content really is a sequence
 - Hover effects only on interactive elements
 - Keyboard focus: 2px green outline (global rule for `a`, `button` and tab panels inside `.theme-terminal`)
@@ -82,6 +82,7 @@ src/
 ├── app/
 │   ├── [locale]/              # Portfolio, statically generated for /en and /pt
 │   │   ├── layout.tsx         # <html lang>, fonts, header, footer, motion, metadata per locale
+│   │   ├── opengraph-image.tsx  # Share card (1200×630) per locale; case studies have their own
 │   │   ├── page.tsx           # Home
 │   │   ├── experience/
 │   │   ├── projects/          # Project list and [slug]/ case studies
@@ -112,9 +113,11 @@ src/
 │                              #   education, personal (bilingual fields use LocalizedString)
 ├── i18n/                      # routing (locales, locale-aware Link/router), request config
 ├── messages/                  # en.json, pt.json
+├── assets/fonts/              # Roboto WOFF files (SIL OFL) for the share cards, rendered at build
 ├── actions/locale.ts          # Sets the locale cookie (used by the legacy language switcher)
 └── lib/                       # cn(), fonts, metadata helpers, MDX loader, form rules,
-                               #   keepHyphenatedWords (no line break inside "e-commerce")
+                               #   keepHyphenatedWords (no line break inside "e-commerce"),
+                               #   renderShareImage (terminal-style Open Graph card)
 ```
 
 Each component folder exports from an `index.ts`. Document non-obvious components with JSDoc.

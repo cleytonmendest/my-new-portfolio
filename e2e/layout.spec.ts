@@ -13,6 +13,22 @@ test.describe('small phones', () => {
       expect(await hasHorizontalScroll(page)).toBe(false);
     });
   }
+
+  // Regression: on phones the three experience steps wrapped onto two lines.
+  test('the experience steps fit on one line', async ({ page }) => {
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 640 });
+      await page.goto('/pt');
+      const tops = await page.locator('#experience [role="tab"]').evaluateAll((tabs) =>
+        tabs.map((tab) => Math.round(tab.getBoundingClientRect().top))
+      );
+      expect(new Set(tops).size, `${width}px`).toBe(1);
+    }
+
+    // Wider screens keep the year, separated from the company by a space.
+    await page.setViewportSize({ width: 1024, height: 640 });
+    await expect(page.locator('#experience [role="tab"]').first()).toHaveText(/^\[\d{4} \S/, { useInnerText: true });
+  });
 });
 
 test('the skip link is the first stop and moves focus to the content', async ({ page }) => {
