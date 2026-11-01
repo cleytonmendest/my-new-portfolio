@@ -18,7 +18,7 @@ Personal portfolio of Cleyton Mendes, a software engineer with 5+ years of exper
 - **Internationalization**: next-intl 4, locale in the URL (`/en/...`, `/pt/...`)
 - **Content**: MDX files in `content/`, compiled at build time with `next-mdx-remote`
 - **Theme**: next-themes, used only by the legacy pages (see Design)
-- **Analytics**: Google Analytics through `@next/third-parties`
+- **Analytics**: Google Analytics through `@next/third-parties`. Custom events go through `trackEvent()` in `src/lib/analytics.ts` (no-op without `NEXT_PUBLIC_GA_ID`): contact form outcome, language switch, copy email. CV downloads and external links are recorded by GA4's enhanced measurement
 - **Deployment**: Vercel (Hobby plan, https://cleyton-mendes.vercel.app), deployed by the Vercel GitHub integration on every push to `main`; pull requests get preview deployments. The Dockerfile is kept for self-hosting
 
 ## Core Principles

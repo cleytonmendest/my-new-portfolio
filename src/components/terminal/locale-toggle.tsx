@@ -4,6 +4,7 @@ import { Fragment, useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { locales, type Locale } from '@/i18n/config';
 import { usePathname, useRouter } from '@/i18n/routing';
+import { trackEvent } from '@/lib/analytics';
 
 /** Mono "EN / PT" switch. Moves to the same page under the other locale prefix. */
 export function LocaleToggle() {
@@ -15,6 +16,7 @@ export function LocaleToggle() {
 
   const changeLocale = (locale: Locale) => {
     if (locale === currentLocale) return;
+    trackEvent('language_switch', { from: currentLocale, to: locale });
     startTransition(() => router.replace(pathname, { locale }));
   };
 
