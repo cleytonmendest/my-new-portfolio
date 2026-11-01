@@ -61,7 +61,7 @@ The site has two visual systems:
 - Never absolute black or white: use `#0a0a0a` and `#fafafa`
 - 1px hairline borders in `#353535`; no shadows or glows; no radius above 8px
 - Square brackets for log-like labels (`[2024]`, `[in progress]`, `[github]`)
-- Sentence case; uppercase only for stat labels. No middle dots (`A · B`) in copy. Arrows only where they carry meaning (`↗` external link, `↓` download)
+- Sentence case; uppercase only for stat labels. No middle dots (`A · B`) in copy. Arrows only where they carry meaning (`↗` external link, `↓` download, `←` back)
 - Numbered markers only when the content really is a sequence
 - Hover effects only on interactive elements
 - Keyboard focus: 2px green outline (global rule for `a`, `button` and tab panels inside `.theme-terminal`)

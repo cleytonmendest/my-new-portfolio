@@ -66,7 +66,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         ]}
       />
       <article className="mx-auto max-w-[1200px]">
-        <GhostLink href="/projects" className="text-body-sm">
+        <GhostLink href="/projects" arrow="left" className="text-body-sm">
           {t('backToProjects')}
         </GhostLink>
 
