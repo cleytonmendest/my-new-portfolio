@@ -8,14 +8,19 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { baseMetadata } from '@/lib/metadata';
 import '../globals.css';
 
+// preload: false on both Geist fonts. Next preloads every next/font in the app on every route, so
+// the portfolio pages were downloading these two (about 50 KB) before their own text. Without the
+// preload, a page downloads them only when its text uses them.
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  preload: false,
 });
 
 export const metadata: Metadata = {
