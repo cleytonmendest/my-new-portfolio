@@ -36,24 +36,18 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
     title: { default: title, template: '%s | Cleyton Mendes' },
     description,
     alternates: localeAlternates(locale, ''),
+    // Only what is the same on every page: Next fills og:title and og:description from each page's
+    // metadata, and the image comes from the opengraph-image files. X falls back to the og: tags.
     openGraph: {
-      type: 'profile',
+      type: 'website',
       locale: locale === 'pt' ? 'pt_BR' : 'en_US',
       alternateLocale: locale === 'pt' ? ['en_US'] : ['pt_BR'],
-      url: `/${locale}`,
-      title,
-      description,
       siteName: 'Cleyton Mendes',
-      images: [{ url: '/cleyton-mendes.png', width: 827, height: 1016, alt: 'Cleyton Mendes', type: 'image/png' }],
     },
     twitter: {
-      // A portrait photo: the square summary card keeps the face, the 2:1 large card would crop it.
-      card: 'summary',
+      card: 'summary_large_image',
       site: '@cleytonmendest',
       creator: '@cleytonmendest',
-      title,
-      description,
-      images: ['/cleyton-mendes.png'],
     },
   };
 }

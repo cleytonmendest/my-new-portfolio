@@ -34,3 +34,22 @@ test('a case study has a breadcrumb of real pages', async ({ page, request }) =>
   }
   expect(ofType(data, 'ProfilePage')).toHaveLength(0);
 });
+
+// Regression: inner pages inherited the home's og:title and og:url, and the share image was a cropped portrait.
+test('pages have their own share title and a generated 1200x630 image', async ({ page, request }) => {
+  for (const [path, title] of [
+    ['/pt/experience', `${pt.site.experience.title} | Cleyton Mendes`],
+    ['/pt/projects/ultrafeu', 'Ultrafeu | Cleyton Mendes'],
+  ]) {
+    await page.goto(path);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', title);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+
+    const imageUrl = new URL((await page.locator('meta[property="og:image"]').getAttribute('content')) ?? '');
+    const image = await request.get(imageUrl.pathname + imageUrl.search);
+    expect(image.headers()['content-type']).toBe('image/png');
+    const png = await image.body();
+    // PNG header: width and height are the first two fields of the IHDR chunk.
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
+  }
+});

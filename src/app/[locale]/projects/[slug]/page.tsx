@@ -31,13 +31,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const { locale, slug } = await params;
   const project = findProject(slug);
   if (!project) return {};
-  const cover = project.screenshots?.desktop ?? project.screenshots?.mobile;
 
   return {
     title: project.name,
     description: getLocalizedText(project.description, locale),
     alternates: localeAlternates(locale, `/projects/${slug}`),
-    openGraph: cover ? { images: [{ url: cover, alt: project.name }] } : undefined,
   };
 }
 

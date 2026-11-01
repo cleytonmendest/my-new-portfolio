@@ -82,6 +82,7 @@ src/
 ├── app/
 │   ├── [locale]/              # Portfolio, statically generated for /en and /pt
 │   │   ├── layout.tsx         # <html lang>, fonts, header, footer, motion, metadata per locale
+│   │   ├── opengraph-image.tsx  # Share card (1200×630) per locale; case studies have their own
 │   │   ├── page.tsx           # Home
 │   │   ├── experience/
 │   │   ├── projects/          # Project list and [slug]/ case studies
@@ -112,9 +113,11 @@ src/
 │                              #   education, personal (bilingual fields use LocalizedString)
 ├── i18n/                      # routing (locales, locale-aware Link/router), request config
 ├── messages/                  # en.json, pt.json
+├── assets/fonts/              # Roboto WOFF files (SIL OFL) for the share cards, rendered at build
 ├── actions/locale.ts          # Sets the locale cookie (used by the legacy language switcher)
 └── lib/                       # cn(), fonts, metadata helpers, MDX loader, form rules,
-                               #   keepHyphenatedWords (no line break inside "e-commerce")
+                               #   keepHyphenatedWords (no line break inside "e-commerce"),
+                               #   renderShareImage (terminal-style Open Graph card)
 ```
 
 Each component folder exports from an `index.ts`. Document non-obvious components with JSDoc.
