@@ -1,146 +1,115 @@
+import { getTranslations } from 'next-intl/server';
+import { personalInfo, socialLinks } from '@/data/personal';
 import { SITE_URL } from '@/lib/metadata';
 
-/** JSON-LD for search engines: the person, the website, the profile page and the home sections. */
-export function StructuredData({ locale }: { locale: string }) {
-  const home = `${SITE_URL}/${locale}`;
+const PERSON_ID = `${SITE_URL}/#person`;
 
-  const personData = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': `${SITE_URL}/#person`,
-    name: 'Cleyton Mendes',
-    alternateName: 'Cleyton Mendes',
-    url: home,
-    image: `${SITE_URL}/cleyton-mendes.png`,
-    sameAs: [
-      'https://github.com/cleytonmendest',
-      'https://www.linkedin.com/in/cleyton-mendes',
-    ],
-    jobTitle: 'Software Engineer',
-    worksFor: {
-      '@type': 'Organization',
-      name: 'GrupoQ',
-      url: 'https://grupoq.com.br',
-    },
-    description:
-      'Software Engineer with 5+ years of experience specializing in e-commerce solutions. Expert in React, TypeScript, Node.js, Ruby on Rails, VTEX, Shopify, and modern web technologies.',
-    knowsAbout: [
-      'JavaScript',
-      'TypeScript',
-      'React',
-      'Next.js',
-      'Node.js',
-      'Ruby on Rails',
-      'VTEX',
-      'Shopify',
-      'Deco.cx',
-      'E-commerce Development',
-      'Web Development',
-      'Frontend Development',
-      'Software Engineering',
-    ],
-    hasOccupation: {
-      '@type': 'Occupation',
-      name: 'Software Engineer',
-      occupationLocation: {
-        '@type': 'City',
-        name: 'Rio de Janeiro',
-      },
-      skills: 'React, TypeScript, Node.js, Next.js, E-commerce, VTEX',
-      experienceRequirements: '5+ years',
-    },
-    email: 'cleyton.mendest@gmail.com',
-    telephone: '+5521974219271',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Rio de Janeiro',
-      addressRegion: 'RJ',
-      addressCountry: 'BR',
-    },
-  };
+function JsonLd({ data }: { data: Record<string, unknown> }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', ...data }) }}
+    />
+  );
+}
 
-  const websiteData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${SITE_URL}/#website`,
-    url: home,
-    name: 'Cleyton Mendes - Software Engineer Portfolio',
-    description:
-      'Professional portfolio of Cleyton Mendes, a Software Engineer specializing in e-commerce solutions with 5+ years of experience.',
-    inLanguage: ['en', 'pt-BR'],
-    author: {
-      '@id': `${SITE_URL}/#person`,
-    },
-  };
-
-  const profilePageData = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    '@id': `${SITE_URL}/#profilepage`,
-    url: home,
-    name: 'Cleyton Mendes - Software Engineer',
-    description:
-      'Professional portfolio showcasing projects, skills, and experience in software engineering and e-commerce development.',
-    mainEntity: {
-      '@id': `${SITE_URL}/#person`,
-    },
-  };
-
-  const breadcrumbData = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: home,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Experience',
-        item: `${home}#experience`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'Projects',
-        item: `${home}#projects`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: 'Skills',
-        item: `${home}#skills`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 5,
-        name: 'Contact',
-        item: `${home}#contact`,
-      },
-    ],
-  };
+/** JSON-LD on every portfolio page: the person and the website, in the page's language. */
+export async function StructuredData({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'site.meta' });
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personData) }}
+      <JsonLd
+        data={{
+          '@type': 'Person',
+          '@id': PERSON_ID,
+          name: personalInfo.name,
+          url: SITE_URL,
+          image: `${SITE_URL}/cleyton-mendes.png`,
+          jobTitle: personalInfo.title,
+          description: t('description'),
+          // The site shows QuestEdu and the CV says GrupoQ: kept as it was until that is decided.
+          worksFor: { '@type': 'Organization', name: 'GrupoQ', url: 'https://grupoq.com.br' },
+          knowsAbout: [
+            'JavaScript',
+            'TypeScript',
+            'React',
+            'Next.js',
+            'Node.js',
+            'Ruby on Rails',
+            'VTEX',
+            'Shopify',
+            'Deco.cx',
+            'E-commerce Development',
+            'Web Development',
+            'Software Engineering',
+          ],
+          email: personalInfo.email,
+          telephone: personalInfo.phone,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: personalInfo.location.city,
+            addressRegion: personalInfo.location.state,
+            addressCountry: 'BR',
+          },
+          sameAs: socialLinks.map((link) => link.url),
+        }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      <JsonLd
+        data={{
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/${locale}#website`,
+          url: `${SITE_URL}/${locale}`,
+          name: t('title'),
+          description: t('description'),
+          inLanguage: locale === 'pt' ? 'pt-BR' : 'en',
+          author: { '@id': PERSON_ID },
+        }}
       />
     </>
+  );
+}
+
+/** ProfilePage for the home page, the page about the person. */
+export async function ProfilePageData({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'site.meta' });
+
+  return (
+    <JsonLd
+      data={{
+        '@type': 'ProfilePage',
+        '@id': `${SITE_URL}/${locale}#profilepage`,
+        url: `${SITE_URL}/${locale}`,
+        name: t('title'),
+        description: t('description'),
+        inLanguage: locale === 'pt' ? 'pt-BR' : 'en',
+        mainEntity: { '@id': PERSON_ID },
+      }}
+    />
+  );
+}
+
+interface Crumb {
+  name: string;
+  /** Path without the locale, e.g. '/projects'. */
+  path: string;
+}
+
+/** BreadcrumbList for a page below the home: the site name, then each level of `trail`. */
+export function BreadcrumbData({ locale, trail }: { locale: string; trail: Crumb[] }) {
+  const crumbs: Crumb[] = [{ name: personalInfo.name, path: '' }, ...trail];
+
+  return (
+    <JsonLd
+      data={{
+        '@type': 'BreadcrumbList',
+        itemListElement: crumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: crumb.name,
+          item: `${SITE_URL}/${locale}${crumb.path}`,
+        })),
+      }}
+    />
   );
 }

@@ -4,6 +4,7 @@ import { Reveal, SectionHeading } from '@/components/terminal';
 import { ExperienceDetails } from '@/components/sections';
 import { experiences } from '@/data/experience';
 import { getStartYear } from '@/data/utils';
+import { BreadcrumbData } from '@/components/structured-data';
 import { localeAlternates } from '@/lib/metadata';
 
 interface ExperiencePageProps {
@@ -28,6 +29,7 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
 
   return (
     <main className="flex-1 px-4 pb-20 pt-12 md:px-6 md:pt-16">
+      <BreadcrumbData locale={locale} trail={[{ name: t('title'), path: '/experience' }]} />
       <div className="mx-auto max-w-[1200px]">
         <SectionHeading as="h1" title={t('title')} description={t('pageDescription')} />
 
