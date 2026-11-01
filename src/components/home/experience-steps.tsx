@@ -43,7 +43,12 @@ export function ExperienceSteps() {
                     value={item.company}
                     className="group/step relative rounded-tag px-1 py-1 text-caption font-normal text-muted-ash transition-colors hover:text-console-white data-[state=active]:bg-transparent data-[state=active]:text-cursor-green data-[state=active]:shadow-none"
                   >
-                    [{getStartYear(item.period)} {item.company}]
+                    {/* On phones the three labels only fit on one line without the year (the panel shows the
+                        dates). One span: the trigger is a flex box, and a flex item drops its trailing space. */}
+                    <span>
+                      [<span className="max-sm:hidden">{getStartYear(item.period)} </span>
+                      {item.company}]
+                    </span>
                     <span
                       aria-hidden
                       className="absolute inset-x-1 -bottom-0.5 h-px origin-left scale-x-0 bg-cursor-green transition-transform duration-300 ease-out group-data-[state=active]/step:scale-x-100 motion-reduce:transition-none"
