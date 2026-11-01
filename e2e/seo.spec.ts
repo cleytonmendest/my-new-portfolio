@@ -53,3 +53,14 @@ test('pages have their own share title and a generated 1200x630 image', async ({
     expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
   }
 });
+
+test('the sitemap lists every page in both locales, without fake dates', async ({ request }) => {
+  const xml = await (await request.get('/sitemap.xml')).text();
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
+
+  expect(urls).toEqual(expect.arrayContaining(['/en', '/pt', '/pt/experience', '/en/projects/ultrafeu']));
+  expect(xml).not.toContain('<lastmod>');
+  for (const path of urls) {
+    expect((await request.get(path)).status(), path).toBe(200);
+  }
+});
